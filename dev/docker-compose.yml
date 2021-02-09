@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  pulsar-api:
+    image: pulsar-api-dev-container
+    build:
+       context: .
+       dockerfile: Dockerfile
+    container_name: pulsar-api-dev-container
+    working_dir: /app 
+    ports: 
+       - 3010:3010
+    volumes:
+       - ..:/app
+    # Make sure the dev container doesn't exit right away:
+    command: sleep infinity
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
