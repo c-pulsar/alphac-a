@@ -1,0 +1,15 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+  "name": "pulsar api dev container",
+  "dockerComposeFile": [
+    "../dev/docker-compose.yml"
+  ],
+  "service": "pulsar-api",
+  "workspaceFolder": "/app",
+  "extensions": [
+    "ms-dotnettools.csharp",
+    "josefpihrt-vscode.roslynator",
+    "eamodio.gitlens"
+  ],
+  "shutdownAction": "stopCompose"
+}
