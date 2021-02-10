@@ -10,7 +10,7 @@ namespace api
   {
     public static void Main(string[] args)
     {
-      var dbM = new RavendbMaintainance("http://172.29.0.2:8080", "SampleDataDB");
+      var dbM = new RavendbMaintainance("http://database:8080", "SampleDataDB");
       dbM.Setup();
 
       CreateHostBuilder(args).Build().Run();
