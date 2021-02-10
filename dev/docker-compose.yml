@@ -25,6 +25,7 @@ services:
     environment: 
       - RAVEN_ARGS=--Setup.Mode=None
       - RAVEN_Security_UnsecuredAccessAllowed=PrivateNetwork
+      - RAVEN_License_Eula_Accepted=true
     ports: 
       - 8080:8080
 
