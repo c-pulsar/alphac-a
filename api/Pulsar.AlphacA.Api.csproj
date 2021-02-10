@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+     <ProjectReference Include="../domain/Pulsar.AlphacA.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
