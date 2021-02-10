@@ -9,10 +9,22 @@ services:
     container_name: pulsar-api-dev-container
     working_dir: /app 
     ports: 
-       - 3010:3010
+      - 3010:3010
     volumes:
-       - ..:/app
+      - ..:/app
+    # depends_on:
+    #   - database
     # Make sure the dev container doesn't exit right away:
     command: sleep infinity
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
+  
+  database:
+    image: ravendb/ravendb
+    container_name: pulsar-db-dev-container
+    environment: 
+      - RAVEN_ARGS=--Setup.Mode=None
+      - RAVEN_Security_UnsecuredAccessAllowed=PrivateNetwork
+
+
+  
