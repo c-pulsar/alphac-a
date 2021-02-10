@@ -5,7 +5,7 @@ using Raven.Client.Documents.Operations;
 using Raven.Client.Exceptions.Database;
 using Raven.Client.ServerWide.Operations;
 
-namespace api.db
+namespace Pulsar.AlphacA.Database
 {
   public class RavendbMaintainance
   {

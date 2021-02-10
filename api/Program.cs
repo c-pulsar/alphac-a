@@ -1,10 +1,8 @@
-using System;
-using api.db;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Raven.Client.Documents;
+using Pulsar.AlphacA.Database;
 
-namespace api
+namespace Pulsar.AlphacA
 {
   public static class Program
   {
