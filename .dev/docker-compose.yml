@@ -2,28 +2,28 @@ version: '3.3'
 
 services:
   pulsar-api:
-    image: pulsar-api-dev-container
+    image: pulsar-api-dev
     build:
        context: .
        dockerfile: Dockerfile
-    container_name: pulsar-api-dev-container
+    container_name: pulsar-api-dev
     working_dir: /app 
     ports: 
       - 3010:3010
     volumes:
       - ..:/app
     depends_on:
-      - database
+      - document_store
     # Make sure the dev container doesn't exit right away:
     command: sleep infinity
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
-      - DATABASE_SERVER_URL=http://database:8080
-      - DATABASE_NAME=AlphaCentauri
+      - DOCUMENT_STORE_SERVER_URL=http://document_store:8080
+      - DOCUMENT_STORE_NAME=AlphaCentauri
   
-  database:
+  document_store:
     image: ravendb/ravendb:5.1-ubuntu-latest
-    container_name: pulsar-db-dev-container
+    container_name: pulsar-doc-store-dev
     environment: 
       - RAVEN_ARGS=--Setup.Mode=None
       - RAVEN_Security_UnsecuredAccessAllowed=PrivateNetwork

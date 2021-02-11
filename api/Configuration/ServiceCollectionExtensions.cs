@@ -12,8 +12,8 @@ namespace Pulsar.AlphacA.Configuration
 
       services.AddSingleton(_ => new DocumentStorageConfig
       {
-        DocumentStoreName = environmentVariables.FindOrThrow("DATABASE_NAME"),
-        DocumentStoreServerUrl = environmentVariables.FindOrThrow("DATABASE_SERVER_URL"),
+        DocumentStoreName = environmentVariables.FindOrThrow("DOCUMENT_STORE_NAME"),
+        DocumentStoreServerUrl = environmentVariables.FindOrThrow("DOCUMENT_STORE_SERVER_URL"),
       });
 
       return services;
