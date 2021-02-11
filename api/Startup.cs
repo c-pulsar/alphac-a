@@ -20,6 +20,7 @@ namespace Pulsar.AlphacA
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddConfiguration()
+              .AddDocumentStore()
               .AddControllers();
     }
 

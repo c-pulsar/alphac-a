@@ -5,13 +5,13 @@ using Pulsar.AlphacA.Configuration;
 
 namespace Pulsar.AlphacA.Ioc
 {
-  public static class DatabaseConfigRegistration
+  public static class ConfigRegistration
   {
     public static IServiceCollection AddConfiguration(this IServiceCollection services)
     {
       var environmentVariables = Environment.GetEnvironmentVariables();
 
-      services.AddTransient(_ => new DatabaseConfig
+      services.AddSingleton(_ => new DatabaseConfig
       {
         DatabaseName = environmentVariables.FindOrThrow("DATABASE_NAME"),
         DatabaseServerUrl = environmentVariables.FindOrThrow("DATABASE_SERVER_URL"),
