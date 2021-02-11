@@ -18,6 +18,8 @@ services:
     command: sleep infinity
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
+      - DATABASE_SERVER_URL=http://database:8080
+      - DATABASE_NAME=database
   
   database:
     image: ravendb/ravendb:5.1-ubuntu-latest
