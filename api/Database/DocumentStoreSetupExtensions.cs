@@ -15,20 +15,8 @@ namespace Pulsar.AlphacA.Database
       }
       else
       {
-
+        // TODO: log here
       }
-
-      //EnsureDabaseIsCreated(app);
-
-      // using var scope = app.ApplicationServices.CreateScope();
-      // var dbCreator = scope.ServiceProvider.GetService<IDatabaseCreatorService>();
-      // if(dbCreator!=null)
-      // {
-      //     dbCreator.Create();
-      // }
-
-      // var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-      // runner.MigrateUp();
 
       return app;
     }
