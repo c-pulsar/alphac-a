@@ -8,17 +8,17 @@ namespace Pulsar.AlphacA.DocumentStorage
   {
     public static IServiceCollection AddDocumentStore(this IServiceCollection services)
     {
-      services.AddTransient(x => MakeDocumentStore(x.GetService<DatabaseConfig>()));
+      services.AddTransient(x => MakeDocumentStore(x.GetService<DocumentStorageConfig>()));
 
       return services;
     }
 
-    private static IDocumentStore MakeDocumentStore(DatabaseConfig databaseConfig)
+    private static IDocumentStore MakeDocumentStore(DocumentStorageConfig documentStoreConfig)
     {
       var store = new DocumentStore
       {
-        Urls = new string[] { databaseConfig.DatabaseServerUrl },
-        Database = databaseConfig.DatabaseName
+        Urls = new string[] { documentStoreConfig.DocumentStoreServerUrl },
+        Database = documentStoreConfig.DocumentStoreName
       };
 
       store.Initialize();

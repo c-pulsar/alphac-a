@@ -10,10 +10,10 @@ namespace Pulsar.AlphacA.Configuration
     {
       var environmentVariables = Environment.GetEnvironmentVariables();
 
-      services.AddSingleton(_ => new DatabaseConfig
+      services.AddSingleton(_ => new DocumentStorageConfig
       {
-        DatabaseName = environmentVariables.FindOrThrow("DATABASE_NAME"),
-        DatabaseServerUrl = environmentVariables.FindOrThrow("DATABASE_SERVER_URL"),
+        DocumentStoreName = environmentVariables.FindOrThrow("DATABASE_NAME"),
+        DocumentStoreServerUrl = environmentVariables.FindOrThrow("DATABASE_SERVER_URL"),
       });
 
       return services;

@@ -10,18 +10,18 @@ namespace Pulsar.AlphacA.DocumentStorage
 {
   public static class DocumentStoreExtensions
   {
-    public static IDocumentStore CreateStoreIfDoesntExist(this IDocumentStore store, string databaseName)
+    public static IDocumentStore CreateStoreIfDoesntExist(this IDocumentStore store, string documentStoreName)
     {
-      if (store.Exists(databaseName))
+      if (store.Exists(documentStoreName))
       {
-        Console.WriteLine($"Document store [{databaseName}] already exists");
+        Console.WriteLine($"Document store [{documentStoreName}] already exists");
         // TODO: add logs
       }
       else
       {
-        Console.WriteLine($"Creating document store [{databaseName}]");
-        store.Create(databaseName);
-        Console.WriteLine($"Document store [{databaseName}] created.");
+        Console.WriteLine($"Creating document store [{documentStoreName}]");
+        store.Create(documentStoreName);
+        Console.WriteLine($"Document store [{documentStoreName}] created.");
       }
 
       return store;
