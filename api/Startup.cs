@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pulsar.AlphacA.Configuration;
-using Pulsar.AlphacA.Database;
+using Pulsar.AlphacA.DocumentStorage;
 
 namespace Pulsar.AlphacA
 {

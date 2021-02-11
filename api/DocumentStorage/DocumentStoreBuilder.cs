@@ -1,6 +1,6 @@
 using Raven.Client.Documents;
 
-namespace Pulsar.AlphacA.Database
+namespace Pulsar.AlphacA.DocumentStorage
 {
   public class DocumentStoreBuilder
   {
@@ -13,7 +13,7 @@ namespace Pulsar.AlphacA.Database
 
     public void Build()
     {
-      this.store.CreateStoreIfDoesntExist(store.Database);
+      store.CreateStoreIfDoesntExist(store.Database);
     }
   }
 }

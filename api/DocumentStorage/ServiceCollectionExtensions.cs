@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Pulsar.AlphacA.Configuration;
 using Raven.Client.Documents;
 
-namespace Pulsar.AlphacA.Database
+namespace Pulsar.AlphacA.DocumentStorage
 {
   public static class ServiceCollectionExtensions
   {
