@@ -2,7 +2,7 @@
 {
   "name": "pulsar api dev container",
   "dockerComposeFile": [
-    "../dev/docker-compose.yml"
+    "../.dev/docker-compose.yml"
   ],
   "service": "pulsar-api",
   "workspaceFolder": "/app",
