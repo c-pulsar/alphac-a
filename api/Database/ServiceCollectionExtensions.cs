@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
 using Microsoft.Extensions.DependencyInjection;
 using Pulsar.AlphacA.Configuration;
 using Raven.Client.Documents;
 
-namespace Pulsar.AlphacA.Ioc
+namespace Pulsar.AlphacA.Database
 {
-  public static class DocumenStoreServiceExtensions
+  public static class ServiceCollectionExtensions
   {
     public static IServiceCollection AddDocumentStore(this IServiceCollection services)
     {

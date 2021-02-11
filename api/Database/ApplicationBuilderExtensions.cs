@@ -1,10 +1,9 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Raven.Client.Documents;
 
 namespace Pulsar.AlphacA.Database
 {
-  public static class DocumentStoreSetupExtensions
+  public static class ApplicationBuilderExtensions
   {
     public static IApplicationBuilder UseDocumentStoreBuilder(this IApplicationBuilder app)
     {

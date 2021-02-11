@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using Microsoft.Extensions.DependencyInjection;
-using Pulsar.AlphacA.Configuration;
 
-namespace Pulsar.AlphacA.Ioc
+namespace Pulsar.AlphacA.Configuration
 {
-  public static class ConfigServiceExtensions
+  public static class ServiceCollectionExtensions
   {
     public static IServiceCollection AddConfiguration(this IServiceCollection services)
     {

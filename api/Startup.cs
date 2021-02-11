@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pulsar.AlphacA.Configuration;
 using Pulsar.AlphacA.Database;
-using Pulsar.AlphacA.Ioc;
 
 namespace Pulsar.AlphacA
 {
