@@ -8,10 +8,10 @@ namespace Pulsar.AlphacA.Database
   {
     public static IApplicationBuilder UseDocumentStoreBuilder(this IApplicationBuilder app)
     {
-      var documentStore = app.ApplicationServices.GetService(typeof(IDocumentStore));
-      if (documentStore != null)
+      if (app.ApplicationServices.GetService(typeof(IDocumentStore)) is IDocumentStore documentStore)
       {
-        Console.WriteLine("Document Store Exists!!!!!!!!");
+        var builder = new DocumentStoreBuilder(documentStore);
+        builder.Build();
       }
       else
       {
