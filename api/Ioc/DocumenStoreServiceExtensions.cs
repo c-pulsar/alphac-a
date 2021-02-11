@@ -6,7 +6,7 @@ using Raven.Client.Documents;
 
 namespace Pulsar.AlphacA.Ioc
 {
-  public static class DocumenStoreRegistration
+  public static class DocumenStoreServiceExtensions
   {
     public static IServiceCollection AddDocumentStore(this IServiceCollection services)
     {

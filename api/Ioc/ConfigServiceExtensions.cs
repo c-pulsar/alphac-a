@@ -5,7 +5,7 @@ using Pulsar.AlphacA.Configuration;
 
 namespace Pulsar.AlphacA.Ioc
 {
-  public static class ConfigRegistration
+  public static class ConfigServiceExtensions
   {
     public static IServiceCollection AddConfiguration(this IServiceCollection services)
     {
