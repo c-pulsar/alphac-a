@@ -10,18 +10,16 @@ namespace Pulsar.AlphacA.Configuration
     {
       var environmentVariables = Environment.GetEnvironmentVariables();
 
-      services.AddSingleton(_ => new DocumentStorageConfig
+      return services
+      .AddSingleton(_ => new DocumentStorageConfig
       {
         DocumentStoreName = environmentVariables.FindOrThrow("DOCUMENT_STORE_NAME"),
         DocumentStoreServerUrl = environmentVariables.FindOrThrow("DOCUMENT_STORE_SERVER_URL"),
-      });
-
-      services.AddSingleton(_ => new ApiUriConfiguration
+      })
+      .AddSingleton(_ => new ApiUriConfiguration
       {
         BaseUri = environmentVariables.FindOrThrow("API_BASE_URI")
       });
-
-      return services;
     }
 
     private static string FindOrThrow(this IDictionary environmentVariables, string variableName)
