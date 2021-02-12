@@ -21,7 +21,11 @@ namespace Pulsar.AlphacA.Controllers
       return new RootRepresentation
       {
         Uri = this.rootUriFactory.MakeRootUri(),
+        ImageUri = this.rootUriFactory.MakeRootUri(),
         Title = "This is the root representation",
+        UsersUri = this.rootUriFactory.MakeRootUri(),
+        AmountText = "Amount",
+        MountText = "Mount"
       };
     }
   }
