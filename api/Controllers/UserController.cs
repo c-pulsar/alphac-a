@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Pulsar.AlphacA.Representations;
 using Pulsar.AlphacA.Representations.Users;
 using Pulsar.AlphacA.Users;
 
@@ -11,23 +12,22 @@ namespace Pulsar.AlphacA.Controllers
   public class UserController : ControllerBase
   {
     private readonly ILogger<UserController> _logger;
+    private readonly UserUriFactory userUriFactory;
 
-    public UserController(ILogger<UserController> logger)
+    public UserController(ILogger<UserController> logger, UserUriFactory userUriFactory)
     {
       _logger = logger;
+      this.userUriFactory = userUriFactory;
     }
 
     [HttpGet("", Name = UserRoutes.GetUsers)]
-    public IEnumerable<User> Get()
+    public RepresentationCollection Get()
     {
-      return new User[]
+      return new RepresentationCollection
       {
-        new User
-        {
-          UserName = "roger.waters",
-          FirstName = "Roger",
-          LastName = "Waters"
-        }
+        Uri = this.userUriFactory.MakeUserCollectionUri(),
+        Title = "Users",
+        Items = new string[] { "http://localhost:3010/users/1", "http://localhost:3010/users/2" }
       };
     }
   }
