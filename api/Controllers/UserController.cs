@@ -27,7 +27,9 @@ namespace Pulsar.AlphacA.Controllers
       {
         Uri = this.userUriFactory.MakeUserCollectionUri(),
         Title = "Users",
-        Items = new string[] { "http://localhost:3010/users/1", "http://localhost:3010/users/2" }
+        Items = System.Array.Empty<string>(),
+        CreateFormUri = "http://localhost:3010/users/create-form"
+        //Items = new string[] { "http://localhost:3010/users/1", "http://localhost:3010/users/2" }
       };
     }
   }

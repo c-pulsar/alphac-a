@@ -10,6 +10,9 @@ namespace Pulsar.AlphacA.Representations
     [JsonProperty("_title")]
     public string Title { get; set; }
 
+    [JsonProperty("_type")]
+    public string Type { get; set; }
+
     [JsonProperty("@img")]
     public string ImageUri { get; set; }
   }
