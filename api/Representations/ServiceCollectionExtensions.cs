@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Pulsar.AlphacA.Representations.Users;
 
 namespace Pulsar.AlphacA.Representations
 {
@@ -10,7 +11,8 @@ namespace Pulsar.AlphacA.Representations
     {
       return services
         .AddUriInfrastructure()
-        .AddTransient<RootUriFactory>();
+        .AddTransient<RootUriFactory>()
+        .AddTransient<UserUriFactory>();
     }
 
     private static IServiceCollection AddUriInfrastructure(this IServiceCollection services)

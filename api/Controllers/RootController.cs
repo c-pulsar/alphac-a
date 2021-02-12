@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Pulsar.AlphacA.Representations;
+using Pulsar.AlphacA.Representations.Users;
 
 namespace Pulsar.AlphacA.Controllers
 {
@@ -8,10 +9,12 @@ namespace Pulsar.AlphacA.Controllers
   public class RootController : ControllerBase
   {
     private readonly RootUriFactory rootUriFactory;
+    private readonly UserUriFactory userUriFactory;
 
-    public RootController(RootUriFactory rootUriFactory)
+    public RootController(RootUriFactory rootUriFactory, UserUriFactory userUriFactory)
     {
       this.rootUriFactory = rootUriFactory;
+      this.userUriFactory = userUriFactory;
     }
 
     [HttpGet("", Name = RootRoutes.GetRoot)]
@@ -23,7 +26,7 @@ namespace Pulsar.AlphacA.Controllers
         Uri = this.rootUriFactory.MakeRootUri(),
         ImageUri = this.rootUriFactory.MakeRootUri(),
         Title = "This is the root representation",
-        UsersUri = this.rootUriFactory.MakeRootUri(),
+        UsersUri = this.userUriFactory.MakeUserCollectionUri(),
         AmountText = "Amount",
         MountText = "Mount"
       };

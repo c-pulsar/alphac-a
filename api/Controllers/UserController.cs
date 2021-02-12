@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Pulsar.AlphacA.Representations.Users;
 using Pulsar.AlphacA.Users;
 
 namespace Pulsar.AlphacA.Controllers
@@ -16,7 +17,7 @@ namespace Pulsar.AlphacA.Controllers
       _logger = logger;
     }
 
-    [HttpGet]
+    [HttpGet("", Name = UserRoutes.GetUsers)]
     public IEnumerable<User> Get()
     {
       return new User[]
