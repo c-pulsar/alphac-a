@@ -1,4 +1,4 @@
-namespace Pulsar.AlphacA
+namespace Pulsar.AlphacA.Representations
 {
   public abstract class Representation
   {

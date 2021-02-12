@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pulsar.AlphacA.Configuration;
 using Pulsar.AlphacA.DocumentStorage;
+using Pulsar.AlphacA.Representations;
 
 namespace Pulsar.AlphacA
 {
@@ -21,6 +22,7 @@ namespace Pulsar.AlphacA
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddConfiguration()
+              .AddUriFactory()
               .AddDocumentStore()
               .AddControllers();
     }

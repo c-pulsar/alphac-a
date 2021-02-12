@@ -1,4 +1,4 @@
-namespace Pulsar.AlphacA.Root
+namespace Pulsar.AlphacA.Representations
 {
   public class RootRepresentation : Representation
   {

@@ -18,6 +18,7 @@ services:
     command: sleep infinity
     environment: 
       - ASPNETCORE_ENVIRONMENT=Development
+      - API_BASE_URI=http://localhost:3010
       - DOCUMENT_STORE_SERVER_URL=http://document_store:8080
       - DOCUMENT_STORE_NAME=AlphaCentauri
   

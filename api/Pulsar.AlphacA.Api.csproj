@@ -7,7 +7,6 @@
 
   <ItemGroup>
      <ProjectReference Include="../domain/Pulsar.AlphacA.Domain.csproj" />
-     <ProjectReference Include="../representation/Pulsar.AlphacA.Representation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

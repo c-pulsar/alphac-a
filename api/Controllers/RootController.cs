@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Pulsar.AlphacA.Root;
+using Pulsar.AlphacA.Representations;
 
 namespace Pulsar.AlphacA.Controllers
 {
@@ -7,18 +7,22 @@ namespace Pulsar.AlphacA.Controllers
   [Route("")]
   public class RootController : ControllerBase
   {
-    // [HttpGet("root", Name = RootApiRoutes.GetRoot)]
-    // [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 60)]
+    private readonly RootUriFactory rootUriFactory;
 
-    [HttpGet("")]
+    public RootController(RootUriFactory rootUriFactory)
+    {
+      this.rootUriFactory = rootUriFactory;
+    }
+
+    [HttpGet("", Name = RootRoutes.GetRoot)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 60)]
     public ActionResult<RootRepresentation> GetRoot()
     {
       return new RootRepresentation
       {
-        Uri = "TODO",
+        Uri = this.rootUriFactory.MakeRootUri(),
         Title = "This is the root representation",
       };
-      //   return this.rootRepresentationMapper.MakeRepresentation();
     }
   }
 }

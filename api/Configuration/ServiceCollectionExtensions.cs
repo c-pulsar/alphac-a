@@ -16,6 +16,11 @@ namespace Pulsar.AlphacA.Configuration
         DocumentStoreServerUrl = environmentVariables.FindOrThrow("DOCUMENT_STORE_SERVER_URL"),
       });
 
+      services.AddSingleton(_ => new ApiUriConfiguration
+      {
+        BaseUri = environmentVariables.FindOrThrow("API_BASE_URI")
+      });
+
       return services;
     }
 
