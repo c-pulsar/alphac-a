@@ -1,7 +1,9 @@
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Pulsar.AlphacA.Configuration;
 using Pulsar.AlphacA.DocumentStorage;
@@ -39,6 +41,12 @@ namespace Pulsar.AlphacA
 
       app.UseDocumentStoreBuilder()
          .UseRouting()
+         .UseStaticFiles(new StaticFileOptions
+         {
+           FileProvider = new PhysicalFileProvider(
+             Path.Combine(env.ContentRootPath, "static")),
+           RequestPath = "/static"
+         })
          .UseEndpoints(endpoints => endpoints.MapControllers());
     }
   }
