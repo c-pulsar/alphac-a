@@ -18,5 +18,10 @@ namespace Pulsar.AlphacA.Representations.Users
     {
       return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.GetUsers)}";
     }
+
+    public string MakeGetUserCreateFormUri()
+    {
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.GetCreateUserForm)}";
+    }
   }
 }

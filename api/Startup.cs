@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Pulsar.AlphacA.Configuration;
 using Pulsar.AlphacA.DocumentStorage;
 using Pulsar.AlphacA.Representations;
+using Pulsar.AlphacA.Representations.Formatters;
 using Pulsar.AlphacA.Serialisation;
 
 namespace Pulsar.AlphacA
@@ -27,7 +28,12 @@ namespace Pulsar.AlphacA
       services.AddConfiguration()
               .AddUriFactory()
               .AddDocumentStore()
-              .AddControllers()
+              .AddControllers(options =>
+                    {
+                      options.RespectBrowserAcceptHeader = true;
+                      options.OutputFormatters.Add(new HtmlFormOutputFormatter());
+                      //options.InputFormatters.Add(new HtmlFormInputFormatter());
+                    })
               .AddJsonSerialisation();
     }
 

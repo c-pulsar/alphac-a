@@ -8,6 +8,7 @@ namespace Pulsar.AlphacA.Representations
     public string Uri { get; set; }
 
     [JsonProperty("_title")]
+    //[ReadOnly]
     public string Title { get; set; }
 
     [JsonProperty("_type")]
