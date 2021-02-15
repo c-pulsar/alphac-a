@@ -52,11 +52,10 @@ namespace Pulsar.AlphacA.Controllers
     [HttpGet("create-form", Name = UserRoutes.GetCreateUserForm)]
     public CreateFormRepresentation GetCreateUserForm()
     {
-      var generator = new JsonSchemaGenerator();
       return new CreateFormRepresentation
       {
         Uri = this.userUriFactory.MakeGetUserCreateFormUri(),
-        JsonSchema = generator.GenerateJSchemaObject(new UserRepresentation())
+        Schema = JsonSchemaGenerator.GenerateJSchemaObject(new UserRepresentation())
       };
     }
   }
