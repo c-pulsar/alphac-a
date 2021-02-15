@@ -19,10 +19,10 @@ namespace Pulsar.AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      if (typeof(CreateFormRepresentation).IsAssignableFrom(type))
-      {
-        return base.CanWriteType(type);
-      }
+      // if (typeof(CreateFormRepresentation).IsAssignableFrom(type))
+      // {
+      //   return base.CanWriteType(type);
+      // }
 
       return false;
     }

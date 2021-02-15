@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Pulsar.AlphacA.Representations.Schemas
 {
-  public static class JsonSchemaGenerator
+  public static class JsonSchema
   {
     private static class SchemaPropertyType
     {
@@ -15,114 +16,68 @@ namespace Pulsar.AlphacA.Representations.Schemas
       public const string Object = "object";
     }
 
-    public static JObject GenerateJSchemaObject<T>(T instance)
+    public static JObject Generate<T>(T instance)
     {
-      var type = instance.GetType();
-      var schemaType = GetSchemaPropertyType(type);
-      if (schemaType == SchemaPropertyType.Object)
-      {
-        return new JObject().AddPropertyObject(type, instance);
-      }
-
-      throw new InvalidOperationException("Cannot generate schema for primitive type.");
+      return new JObject(
+        new JProperty("type", SchemaPropertyType.Object),
+        new JProperty("properties", instance.GetType().ToObject()));
     }
 
-    private static JProperty MakeProperty<T>(PropertyInfo propertyInfo, T instance)
+    private static JProperty ToJProperty(this PropertyInfo propertyInfo)
     {
+      return new JProperty(
+        propertyInfo.GetPropertyName(),
+        new JObject(propertyInfo.GetPropertyAttributes().ToArray()));
+    }
+
+    private static IEnumerable<JProperty> GetPropertyAttributes(this PropertyInfo propertyInfo)
+    {
+      var propertySchemaType = propertyInfo.PropertyType.GetSchemaType();
+
+      yield return new JProperty("type", propertySchemaType);
+
       var displayNameAttr = propertyInfo.GetCustomAttribute<DisplayNameAttribute>();
-      if (displayNameAttr == null)
+      if (displayNameAttr != null)
       {
-        return null;
+        yield return new JProperty("title", displayNameAttr.DisplayName);
       }
 
-      var content = new JObject { new JProperty("title", displayNameAttr.DisplayName) }
-        .AddDescription(propertyInfo)
-        .AddRequired(propertyInfo)
-        .AddEmail(propertyInfo);
-
-      var propertyType = GetSchemaPropertyType(propertyInfo.PropertyType);
-      if (propertyType == SchemaPropertyType.Object)
-      {
-        content.AddPropertyObject(propertyInfo.PropertyType, instance);
-      }
-      else
-      {
-        content.AddPropertyValue(propertyInfo, propertyType, instance);
-      }
-
-      return new JProperty(propertyInfo.GetPropertyName(), content);
-    }
-
-    private static string GetPropertyName(this PropertyInfo propertyInfo)
-    {
-      // convert to camel-case
-      return Char.ToLowerInvariant(propertyInfo.Name[0]) + propertyInfo.Name[1..];
-    }
-
-    private static JObject AddDescription(this JObject jobj, PropertyInfo propertyInfo)
-    {
       var descriptionAttr = propertyInfo.GetCustomAttribute<DescriptionAttribute>();
       if (descriptionAttr != null)
       {
-        jobj.Add(new JProperty("description", descriptionAttr.Description));
+        yield return new JProperty("description", descriptionAttr.Description);
       }
 
-      return jobj;
-    }
-
-    private static JObject AddEmail(this JObject jobj, PropertyInfo propertyInfo)
-    {
-      var emailAttr = propertyInfo.GetCustomAttribute<EmailAddressAttribute>();
-      if (emailAttr != null)
-      {
-        jobj.Add(new JProperty("format", "email"));
-      }
-
-      return jobj;
-    }
-
-    private static JObject AddRequired(this JObject jobj, PropertyInfo propertyInfo)
-    {
       var requiredAttr = propertyInfo.GetCustomAttribute<RequiredAttribute>();
       if (requiredAttr != null)
       {
-        jobj.Add(new JProperty("required", true));
+        yield return new JProperty("required", true);
       }
 
-      return jobj;
-    }
-
-    private static JObject AddPropertyValue<T>(
-      this JObject jobj,
-      PropertyInfo propertyInfo,
-      string schemaType,
-      T instance)
-    {
-      jobj.Add(new JProperty("type", schemaType));
-      var value = propertyInfo.GetValue(instance);
-      if (value != null)
+      var emailAttr = propertyInfo.GetCustomAttribute<EmailAddressAttribute>();
+      if (emailAttr != null)
       {
-        jobj.Add(new JProperty("default", value));
+        yield return new JProperty("format", "email");
       }
 
-      return jobj;
+      if (propertySchemaType == SchemaPropertyType.Object)
+      {
+        yield return new JProperty(
+           "properties",
+           new JObject(propertyInfo.PropertyType
+             .GetProperties()
+             .Filter()
+             .Select(x => x.ToJProperty())));
+      }
     }
 
-    private static JObject AddPropertyObject<T>(this JObject jobj, Type propertyType, T instance)
+    private static JObject ToObject(this Type type)
     {
-      jobj.Add(new JProperty("type", "object"));
-      jobj.Add(new JProperty(
-        "properties",
-        new JObject(propertyType
-          .GetProperties()
-          .Select(p => MakeProperty(p, instance))
-          .Where(p => p != null)
-          .ToArray())));
-
-      return jobj;
+      return new JObject(
+        type.GetProperties().Filter().Select(x => x.ToJProperty()));
     }
 
-    private static string GetSchemaPropertyType(Type type)
+    private static string GetSchemaType(this Type type)
     {
       if (type == typeof(string))
       {
@@ -135,6 +90,20 @@ namespace Pulsar.AlphacA.Representations.Schemas
       }
 
       throw new NotSupportedException($"Property type {type} not implemented");
+    }
+
+    private static IEnumerable<PropertyInfo> Filter(this PropertyInfo[] properties)
+    {
+      return properties.Where(x =>
+        x.GetSetMethod() != null && // has public setter
+        x.GetGetMethod() != null && // has public getter
+        x.GetCustomAttribute<DisplayNameAttribute>() != null); // has display name
+    }
+
+    private static string GetPropertyName(this PropertyInfo propertyInfo)
+    {
+      // convert to camel-case
+      return Char.ToLowerInvariant(propertyInfo.Name[0]) + propertyInfo.Name[1..];
     }
   }
 }
