@@ -19,7 +19,7 @@ namespace Pulsar.AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      if (typeof(CreateFormRepresentation).IsAssignableFrom(type))
+      if (typeof(FormRepresentation).IsAssignableFrom(type))
       {
         return base.CanWriteType(type);
       }
@@ -30,18 +30,20 @@ namespace Pulsar.AlphacA.Representations.Formatters
     public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
     {
       var response = context.HttpContext.Response;
-      var representation = context.Object as CreateFormRepresentation;
+      var formRepresentation = context.Object as FormRepresentation;
 
-      var result = BuildCreateFormHtmlFromTemplate(representation);
+      var result = BuildFormHtmlFromTemplate(formRepresentation);
 
       await response.WriteAsync(result).ConfigureAwait(false);
     }
 
-    private static string BuildCreateFormHtmlFromTemplate(CreateFormRepresentation representation)
+    private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
     {
-      using var reader = new StreamReader(Path.Combine("static", "forms/create.html"));
+      using var reader = new StreamReader(Path.Combine("static", "forms/template.html"));
       var html = reader.ReadToEnd();
-      return html.Replace("//{{SCHEMA}}", $"schema: {representation.Schema},");
+      return html
+        .Replace("//{{TITLE}}", representation.Title)
+        .Replace("//{{SCHEMA}}", $"schema: {representation.Schema},");
     }
   }
 }

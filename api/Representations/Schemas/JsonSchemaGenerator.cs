@@ -74,7 +74,6 @@ namespace Pulsar.AlphacA.Representations.Schemas
           yield return new JProperty("default", value.ToString());
         }
       }
-
     }
 
     private static JObject ToObject(this Type type, object instance)

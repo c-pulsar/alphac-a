@@ -50,11 +50,12 @@ namespace Pulsar.AlphacA.Controllers
     }
 
     [HttpGet("create-form", Name = UserRoutes.GetCreateUserForm)]
-    public CreateFormRepresentation GetCreateUserForm()
+    public FormRepresentation GetCreateUserForm()
     {
-      return new CreateFormRepresentation
+      return new FormRepresentation
       {
         Uri = this.userUriFactory.MakeGetUserCreateFormUri(),
+        Title = "Create User",
         Schema = JsonSchema.Generate(
           new UserRepresentation
           {
