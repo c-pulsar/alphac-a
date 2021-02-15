@@ -1,28 +1,15 @@
 using System;
-using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json.Schema;
-using Pulsar.AlphacA.Representations.Users;
 
 namespace Pulsar.AlphacA.Representations.Formatters
 {
   public class HtmlFormOutputFormatter : TextOutputFormatter
   {
-    // private const string HtmlFormTemplate = @"
-    //     <!DOCTYPE html>
-    //     <html>
-    //         <body>
-    //             <form action='{0}' method='post' >
-    //                 {1}
-    //                 <input type='submit' value='Submit'>
-    //             </form> 
-    //         </body>
-    //     </html>";
-
     public HtmlFormOutputFormatter()
     {
       SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("text/html"));
@@ -32,30 +19,30 @@ namespace Pulsar.AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      // if (typeof(UserRepresentation).IsAssignableFrom(type))
-      // {
-      //     return base.CanWriteType(type);
-      // }
+      if (typeof(CreateFormRepresentation).IsAssignableFrom(type))
+      {
+        return base.CanWriteType(type);
+      }
 
       return false;
     }
 
     public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
     {
-      //var j = JsonSchema.Parse()
       var response = context.HttpContext.Response;
-      // var representation = context.Object as ResourceMetadataRepresentation;
-      // var result = this.BuildForm(representation);
+      var representation = context.Object as CreateFormRepresentation;
 
-      await response.WriteAsync("change this").ConfigureAwait(false);
+      var result = BuildCreateFormHtmlFromTemplate(representation);
+
+      await response.WriteAsync(result).ConfigureAwait(false);
     }
 
-    // private string BuildForm(ResourceMetadataRepresentation representation)
-    // {
-    //     return string.Format(
-    //         HtmlFormTemplate,
-    //         representation.CreateResourceUri,
-    //         string.Join(' ', representation.Attributes.Select(x => x.ToHtml()).ToArray()));
-    // }
+    private static string BuildCreateFormHtmlFromTemplate(CreateFormRepresentation representation)
+    {
+      using var reader = new StreamReader(Path.Combine("static", "forms/create.html"));
+      //return reader.ReadToEnd();
+      var html = reader.ReadToEnd();
+      return html.Replace("//{{SCHEMA}}", $"schema: {representation.Schema},");
+    }
   }
 }
