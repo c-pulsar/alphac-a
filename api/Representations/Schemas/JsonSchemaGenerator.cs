@@ -20,17 +20,17 @@ namespace Pulsar.AlphacA.Representations.Schemas
     {
       return new JObject(
         new JProperty("type", SchemaPropertyType.Object),
-        new JProperty("properties", instance.GetType().ToObject()));
+        new JProperty("properties", instance.GetType().ToObject(instance)));
     }
 
-    private static JProperty ToJProperty(this PropertyInfo propertyInfo)
+    private static JProperty ToJProperty(this PropertyInfo propertyInfo, object instance)
     {
       return new JProperty(
         propertyInfo.GetPropertyName(),
-        new JObject(propertyInfo.GetPropertyAttributes().ToArray()));
+        new JObject(propertyInfo.GetPropertyAttributes(instance).ToArray()));
     }
 
-    private static IEnumerable<JProperty> GetPropertyAttributes(this PropertyInfo propertyInfo)
+    private static IEnumerable<JProperty> GetPropertyAttributes(this PropertyInfo propertyInfo, object instance)
     {
       var propertySchemaType = propertyInfo.PropertyType.GetSchemaType();
 
@@ -63,18 +63,24 @@ namespace Pulsar.AlphacA.Representations.Schemas
       if (propertySchemaType == SchemaPropertyType.Object)
       {
         yield return new JProperty(
-           "properties",
-           new JObject(propertyInfo.PropertyType
-             .GetProperties()
-             .Filter()
-             .Select(x => x.ToJProperty())));
+          "properties",
+          propertyInfo.PropertyType.ToObject(instance));
       }
+      else
+      {
+        var value = propertyInfo.GetValue(instance);
+        if (value != null)
+        {
+          yield return new JProperty("default", value.ToString());
+        }
+      }
+
     }
 
-    private static JObject ToObject(this Type type)
+    private static JObject ToObject(this Type type, object instance)
     {
       return new JObject(
-        type.GetProperties().Filter().Select(x => x.ToJProperty()));
+        type.GetProperties().Filter().Select(x => x.ToJProperty(instance)));
     }
 
     private static string GetSchemaType(this Type type)

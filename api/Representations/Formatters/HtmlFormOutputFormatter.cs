@@ -19,10 +19,10 @@ namespace Pulsar.AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      // if (typeof(CreateFormRepresentation).IsAssignableFrom(type))
-      // {
-      //   return base.CanWriteType(type);
-      // }
+      if (typeof(CreateFormRepresentation).IsAssignableFrom(type))
+      {
+        return base.CanWriteType(type);
+      }
 
       return false;
     }
@@ -40,7 +40,6 @@ namespace Pulsar.AlphacA.Representations.Formatters
     private static string BuildCreateFormHtmlFromTemplate(CreateFormRepresentation representation)
     {
       using var reader = new StreamReader(Path.Combine("static", "forms/create.html"));
-      //return reader.ReadToEnd();
       var html = reader.ReadToEnd();
       return html.Replace("//{{SCHEMA}}", $"schema: {representation.Schema},");
     }

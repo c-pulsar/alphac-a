@@ -55,7 +55,14 @@ namespace Pulsar.AlphacA.Controllers
       return new CreateFormRepresentation
       {
         Uri = this.userUriFactory.MakeGetUserCreateFormUri(),
-        Schema = JsonSchema.Generate(new UserRepresentation())
+        Schema = JsonSchema.Generate(
+          new UserRepresentation
+          {
+            Email = "test@email.com",
+            FirstName = "Christiano",
+            LastName = "Borchardt",
+            UserName = "christianomb"
+          })
       };
     }
   }
