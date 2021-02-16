@@ -6,8 +6,8 @@
   <link rel="stylesheet" type="text/css" href="/static/forms/deps/opt/bootstrap.css" />
 </head>
 <body>
-  <h2>//{{TITLE}}</h2>
-  <form></form>
+  <h2 class="text-center">//{{TITLE}}</h2>
+  <form class="border container"></form>
   <div id="res" class="alert"></div>
   <script type="text/javascript" src="/static/forms/deps/jquery.min.js"></script>
   <script type="text/javascript" src="/static/forms/deps/underscore.js"></script>
@@ -15,13 +15,14 @@
   <script type="text/javascript" src="/static/forms/lib/jsonform.js"></script>
   <script type="text/javascript">
     $('form').jsonForm({
-      //{{SCHEMA}}
+      //{{SCHEMA}},
+      //{{FORM}},
       onSubmit: function (errors, values) {
         if (errors) {
           $('#res').html('<p>I beg your pardon?</p>');
         } else {
-          $('#res').html('<p>Hello ' + values.name + '.' +
-            (values.age ? '<br/>You are ' + values.age + '.' : '') +
+          $('#res').html('<p>Hello ' + values.email + '.' +
+            (values.age ? '<br/>You are ' + values.firstName + '.' : '') +
             '</p>');
         }
       }

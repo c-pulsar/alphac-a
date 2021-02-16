@@ -43,7 +43,8 @@ namespace Pulsar.AlphacA.Representations.Formatters
       var html = reader.ReadToEnd();
       return html
         .Replace("//{{TITLE}}", representation.Title)
-        .Replace("//{{SCHEMA}}", $"schema: {representation.Schema},");
+        .Replace("//{{SCHEMA}}", $"schema: {representation.Schema}")
+        .Replace("//{{FORM}}", $"form: {representation.Form}");
     }
   }
 }
