@@ -23,5 +23,10 @@ namespace Pulsar.AlphacA.Representations.Users
     {
       return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.GetCreateUserForm)}";
     }
+
+    public string MakeCreateUserUri()
+    {
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.CreateUser)}";
+    }
   }
 }

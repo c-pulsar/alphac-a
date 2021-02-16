@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Pulsar.AlphacA.Representations;
 using Pulsar.AlphacA.Representations.Schemas;
 using Pulsar.AlphacA.Representations.Users;
-using Pulsar.AlphacA.Users;
+using Raven.Client.Documents;
 
 namespace Pulsar.AlphacA.Controllers
 {
@@ -14,11 +14,16 @@ namespace Pulsar.AlphacA.Controllers
   {
     private readonly ILogger<UserController> _logger;
     private readonly UserUriFactory userUriFactory;
+    private readonly IDocumentStore documentStore;
 
-    public UserController(ILogger<UserController> logger, UserUriFactory userUriFactory)
+    public UserController(
+      IDocumentStore documentStore,
+      ILogger<UserController> logger,
+      UserUriFactory userUriFactory)
     {
       _logger = logger;
       this.userUriFactory = userUriFactory;
+      this.documentStore = documentStore;
     }
 
     [HttpGet("", Name = UserRoutes.GetUsers)]
@@ -49,22 +54,31 @@ namespace Pulsar.AlphacA.Controllers
       return user;
     }
 
+    [HttpPost("", Name = UserRoutes.CreateUser)]
+    public ActionResult CreateUser(UserRepresentation representation)
+    {
+      var mapper = new UserRepresentationMapper();
+      var user = mapper.MakeNewUser(representation);
+
+      using(var session = this.documentStore.OpenSession())
+      {
+        session.Store(user);
+        session.SaveChanges();
+      }
+      
+      Console.WriteLine("###################" + user.Id);
+      return this.Ok();
+    }
+
     [HttpGet("create-form", Name = UserRoutes.GetCreateUserForm)]
     public FormRepresentation GetCreateUserForm()
     {
       return new FormRepresentation
       {
         Uri = this.userUriFactory.MakeGetUserCreateFormUri(),
-        DestinationUri = this.userUriFactory.MakeGetUserCreateFormUri(),
+        DestinationUri = this.userUriFactory.MakeCreateUserUri(),
         Title = "Create User",
-        Schema = JsonSchema.Generate(
-          new UserRepresentation
-          {
-            Email = "test@email.com",
-            FirstName = "Christiano",
-            LastName = "Borchardt",
-            UserName = "christianomb"
-          }),
+        Schema = JsonSchema.Generate(new UserRepresentation()),
         Form = JsonForm.Generate()
       };
     }

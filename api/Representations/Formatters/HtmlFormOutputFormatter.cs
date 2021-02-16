@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,8 +42,10 @@ namespace Pulsar.AlphacA.Representations.Formatters
     {
       using var reader = new StreamReader(Path.Combine("static", "forms/template.html"));
       var html = reader.ReadToEnd();
+
       return html
         .Replace("//{{TITLE}}", representation.Title)
+        .Replace("//{{POST_URI}}", representation.DestinationUri)
         .Replace("//{{SCHEMA}}", $"schema: {representation.Schema}")
         .Replace("//{{FORM}}", $"form: {representation.Form}");
     }
