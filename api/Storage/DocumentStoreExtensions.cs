@@ -6,7 +6,7 @@ using Raven.Client.Exceptions.Database;
 using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 
-namespace AlphacA.DocumentStorage
+namespace AlphacA.Storage
 {
   public static class DocumentStoreExtensions
   {

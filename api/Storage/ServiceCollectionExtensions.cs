@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using AlphacA.Configuration;
 using Raven.Client.Documents;
 
-namespace AlphacA.DocumentStorage
+namespace AlphacA.Storage
 {
   public static class ServiceCollectionExtensions
   {

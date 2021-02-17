@@ -6,12 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using AlphacA.Configuration;
-using AlphacA.DocumentStorage;
 using AlphacA.Representations;
 using AlphacA.Representations.Formatters;
 using AlphacA.Serialisation;
 using AlphacA.Resources.Users;
 using AlphacA.Resources.Root;
+using AlphacA.Storage;
 
 namespace AlphacA
 {
