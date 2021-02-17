@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Pulsar.AlphacA.Representations.Users;
+using Pulsar.AlphacA.Root;
+using Pulsar.AlphacA.Users;
 
 namespace Pulsar.AlphacA.Representations
 {

@@ -1,9 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using Pulsar.AlphacA.Representations;
-using Pulsar.AlphacA.Representations.Users;
 
-namespace Pulsar.AlphacA.Controllers
+namespace Pulsar.AlphacA.Users
 {
   [ApiController]
   [Route("user")]
@@ -22,11 +21,11 @@ namespace Pulsar.AlphacA.Controllers
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
     public RepresentationCollection Get() =>
-      this.resourceHandler.GetAll().ToUserCollectionRepresentation(this.adapter);
+      resourceHandler.GetAll().ToUserCollectionRepresentation(adapter);
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]
     public UserRepresentation GetUser(Guid id) =>
-      this.resourceHandler.Get(id).ToRepresentation(this.adapter);
+      resourceHandler.Get(id).ToRepresentation(adapter);
 
     [HttpPost("")]
     public ActionResult CreateUser(UserRepresentation representation)
@@ -68,6 +67,6 @@ namespace Pulsar.AlphacA.Controllers
     }
 
     [HttpGet("create-form", Name = UserRoutes.UserCreateForm)]
-    public FormRepresentation GetCreateUserForm() => new UserRepresentation().ToCreateForm(this.adapter);
+    public FormRepresentation GetCreateUserForm() => new UserRepresentation().ToCreateForm(adapter);
   }
 }

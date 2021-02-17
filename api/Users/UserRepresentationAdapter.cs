@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pulsar.AlphacA.Representations;
 using Pulsar.AlphacA.Representations.Schemas;
-using Pulsar.AlphacA.Users;
 
-namespace Pulsar.AlphacA.Representations.Users
+namespace Pulsar.AlphacA.Users
 {
   public class UserRepresentationAdapter
   {
@@ -32,10 +32,10 @@ namespace Pulsar.AlphacA.Representations.Users
     {
       return new RepresentationCollection
       {
-        Uri = this.userUriFactory.MakeCollectionUri(),
+        Uri = userUriFactory.MakeCollectionUri(),
         Title = "Users",
-        Items = users.Select(x => this.userUriFactory.MakeUri(x)).ToArray(),
-        CreateFormUri = this.userUriFactory.MakeCreateFormUri()
+        Items = users.Select(x => userUriFactory.MakeUri(x)).ToArray(),
+        CreateFormUri = userUriFactory.MakeCreateFormUri()
       };
     }
 
@@ -43,7 +43,7 @@ namespace Pulsar.AlphacA.Representations.Users
     {
       return new UserRepresentation
       {
-        Uri = this.userUriFactory.MakeCollectionUri(),
+        Uri = userUriFactory.MakeCollectionUri(),
         // Title = "Users",
         // Email = "christiano@gmail.com"
         //Items = System.Array.Empty<string>(),
@@ -56,8 +56,8 @@ namespace Pulsar.AlphacA.Representations.Users
     {
       return new FormRepresentation
       {
-        Uri = this.userUriFactory.MakeCreateFormUri(),
-        DestinationUri = this.userUriFactory.MakeCollectionUri(),
+        Uri = userUriFactory.MakeCreateFormUri(),
+        DestinationUri = userUriFactory.MakeCollectionUri(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
         Form = JsonForm.Generate()

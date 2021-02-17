@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Pulsar.AlphacA.Representations;
-using Pulsar.AlphacA.Representations.Users;
+using Pulsar.AlphacA.Users;
 
-namespace Pulsar.AlphacA.Controllers
+namespace Pulsar.AlphacA.Root
 {
   [ApiController]
   [Route("")]
@@ -23,10 +22,10 @@ namespace Pulsar.AlphacA.Controllers
     {
       return new RootRepresentation
       {
-        Uri = this.rootUriFactory.MakeRootUri(),
-        ImageUri = this.rootUriFactory.MakeRootUri(),
+        Uri = rootUriFactory.MakeRootUri(),
+        ImageUri = rootUriFactory.MakeRootUri(),
         Title = "This is the root representation",
-        UsersUri = this.userUriFactory.MakeCollectionUri(),
+        UsersUri = userUriFactory.MakeCollectionUri(),
         AmountText = "Amount",
         MountText = "Mount"
       };

@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Pulsar.AlphacA.Users;
+using Pulsar.AlphacA.Representations;
 
-namespace Pulsar.AlphacA.Representations.Users
+namespace Pulsar.AlphacA.Users
 {
   public static class UserRepresentationAdapterExtensions
   {

@@ -1,4 +1,4 @@
-namespace Pulsar.AlphacA.Representations
+namespace Pulsar.AlphacA.Root
 {
   public static class RootRoutes
   {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Pulsar.AlphacA.Configuration;
 
-namespace Pulsar.AlphacA.Representations
+namespace Pulsar.AlphacA.Root
 {
   public class RootUriFactory
   {
@@ -15,7 +15,7 @@ namespace Pulsar.AlphacA.Representations
     }
     public string MakeRootUri()
     {
-        return $"{this.apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.GetRoot)}";
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.GetRoot)}";
     }
   }
 }

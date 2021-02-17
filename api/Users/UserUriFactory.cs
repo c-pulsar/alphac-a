@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Mvc;
 using Pulsar.AlphacA.Configuration;
 
-namespace Pulsar.AlphacA.Representations.Users
+namespace Pulsar.AlphacA.Users
 {
   public class UserUriFactory
   {
