@@ -41,6 +41,7 @@ namespace AlphacA.Representations.Formatters
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
     {
+      // This is an embedded resource included in the .csproj file
       const string template = "AlphacA.Representations.Templates.FormTemplate.html";
 
       var assembly = Assembly.GetExecutingAssembly();
