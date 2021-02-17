@@ -15,7 +15,7 @@ namespace AlphacA.Resources.Root
     }
     public string MakeRootUri()
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.GetRoot)}";
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.Root)}";
     }
   }
 }

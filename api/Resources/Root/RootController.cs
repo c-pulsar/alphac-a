@@ -1,34 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using AlphacA.Resources.Users;
 
 namespace AlphacA.Resources.Root
 {
   [ApiController]
   [Route("")]
-  public class RootController : ControllerBase
+  public class RootController
   {
-    private readonly RootUriFactory rootUriFactory;
-    private readonly UserUriFactory userUriFactory;
+    private readonly RootRepresentationAdapter adapter;
 
-    public RootController(RootUriFactory rootUriFactory, UserUriFactory userUriFactory)
+    public RootController(RootRepresentationAdapter adapter)
     {
-      this.rootUriFactory = rootUriFactory;
-      this.userUriFactory = userUriFactory;
+      this.adapter = adapter;
     }
 
-    [HttpGet("", Name = RootRoutes.GetRoot)]
-    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 60)]
-    public ActionResult<RootRepresentation> GetRoot()
-    {
-      return new RootRepresentation
-      {
-        Uri = rootUriFactory.MakeRootUri(),
-        ImageUri = rootUriFactory.MakeRootUri(),
-        Title = "This is the root representation",
-        UsersUri = userUriFactory.MakeCollectionUri(),
-        AmountText = "Amount",
-        MountText = "Mount"
-      };
-    }
+    [HttpGet("", Name = RootRoutes.Root)]
+    public ActionResult<RootRepresentation> GetRoot() => this.adapter.MakeRepresentation();
   }
 }

@@ -7,7 +7,8 @@ namespace AlphacA.Resources.Root
     public static IServiceCollection AddRoot(this IServiceCollection services)
     {
       return services
-        .AddTransient<RootUriFactory>();
+        .AddTransient<RootUriFactory>()
+        .AddTransient<RootRepresentationAdapter>();
     }
   }
 }

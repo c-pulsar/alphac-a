@@ -2,6 +2,6 @@ namespace AlphacA.Resources.Root
 {
   public static class RootRoutes
   {
-    public const string GetRoot = "GET-ROOT";
+    public const string Root = "ROOT";
   }
 }
