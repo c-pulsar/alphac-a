@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AlphacA.Exceptions;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Operations.CompareExchange;
 
@@ -16,23 +17,19 @@ namespace AlphacA.Storage.CompareExchange
       this.rollbackList = new List<KeyValuePair<string, long>>();
     }
 
-    public CompareExchangeScope Start(params KeyValuePair<string, string>[] compareExchangePairs)
+    public CompareExchangeScope Add(string key, string value, string conflictMessage)
     {
-      foreach (var cep in compareExchangePairs)
-      {
-        var result = this.documentStore.Operations.Send(
-              new PutCompareExchangeValueOperation<string>(
-              cep.Key, cep.Value, 0));
+      var result = this.documentStore.Operations.Send(
+        new PutCompareExchangeValueOperation<string>(key, value, 0));
 
-        if (result.Successful)
-        {
-          this.rollbackList.Add(new KeyValuePair<string, long>(cep.Key, result.Index));
-          Console.WriteLine($"Compare exchange key {cep.Key} created.");
-        }
-        else
-        {
-          throw new InvalidOperationException($"Compare exchange key {cep.Key} already exists");
-        }
+      if (result.Successful)
+      {
+        this.rollbackList.Add(new KeyValuePair<string, long>(key, result.Index));
+        Console.WriteLine($"Compare exchange key {key} created.");
+      }
+      else
+      {
+        throw new ResourceConflictException(conflictMessage);
       }
 
       return this;
@@ -45,22 +42,19 @@ namespace AlphacA.Storage.CompareExchange
 
     void IDisposable.Dispose()
     {
-      foreach (var cep in this.rollbackList)
+      foreach (var exchange in this.rollbackList)
       {
-        // var existing = this.documentStore.Operations.Send(
-        //   new GetCompareExchangeValueOperation<string>(cep.Key));
-
         var result = this.documentStore.Operations.Send(
-          new DeleteCompareExchangeValueOperation<string>(cep.Key, cep.Value));
+          new DeleteCompareExchangeValueOperation<string>(exchange.Key, exchange.Value));
 
         if (result.Successful)
         {
           // TODO: LOG HERE
-          Console.WriteLine($"Compare exchange key {cep.Key} deleted");
+          Console.WriteLine($"Compare exchange key {exchange.Key} deleted");
         }
         else
         {
-          Console.WriteLine($"Compare exchange key {cep.Key} could not be deleted");
+          Console.WriteLine($"Compare exchange key {exchange.Key} could not be deleted");
         }
       }
     }

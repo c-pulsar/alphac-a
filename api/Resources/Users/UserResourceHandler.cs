@@ -23,9 +23,9 @@ namespace AlphacA.Resources.Users
 
       using (var compareExchangeScope = new CompareExchangeScope(this.documentStore))
       {
-        compareExchangeScope.Start(
-          new KeyValuePair<string, string>($"usernames/{user.UserName}", user.Id),
-          new KeyValuePair<string, string>($"emails/{user.Email}", user.Id));
+        compareExchangeScope
+          .Add($"usernames/{user.UserName}", user.Id, "Username already exist.")
+          .Add($"emails/{user.Email}", user.Id, "Email already assigned to another user.");
 
         session.SaveChanges();
         compareExchangeScope.Complete();
