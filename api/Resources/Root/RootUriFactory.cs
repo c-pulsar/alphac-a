@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AlphacA.Configuration;
 
-namespace AlphacA.Resources
+namespace AlphacA.Resources.Root
 {
   public class RootUriFactory
   {

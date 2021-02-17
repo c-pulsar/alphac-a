@@ -1,4 +1,4 @@
-namespace AlphacA.Resources
+namespace AlphacA.Resources.Root
 {
   public static class RootRoutes
   {

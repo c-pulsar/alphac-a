@@ -11,7 +11,7 @@ using AlphacA.Representations;
 using AlphacA.Representations.Formatters;
 using AlphacA.Serialisation;
 using AlphacA.Resources.Users;
-using AlphacA.Resources;
+using AlphacA.Resources.Root;
 
 namespace AlphacA
 {

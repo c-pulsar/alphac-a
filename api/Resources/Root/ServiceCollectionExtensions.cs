@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AlphacA.Resources
+namespace AlphacA.Resources.Root
 {
   public static class ServiceCollectionExtensions
   {

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AlphacA.Resources.Users;
 
-namespace AlphacA.Resources
+namespace AlphacA.Resources.Root
 {
   [ApiController]
   [Route("")]
