@@ -26,7 +26,7 @@ namespace Pulsar.AlphacA.Controllers
         Uri = this.rootUriFactory.MakeRootUri(),
         ImageUri = this.rootUriFactory.MakeRootUri(),
         Title = "This is the root representation",
-        UsersUri = this.userUriFactory.MakeUserCollectionUri(),
+        UsersUri = this.userUriFactory.MakeCollectionUri(),
         AmountText = "Amount",
         MountText = "Mount"
       };

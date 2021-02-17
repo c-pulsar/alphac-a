@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Pulsar.AlphacA.Configuration;
 
@@ -14,19 +15,19 @@ namespace Pulsar.AlphacA.Representations.Users
       this.apiUriConfiguration = apiUriConfiguration;
     }
 
-    public string MakeUserCollectionUri()
+    public string MakeCollectionUri()
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.GetUsers)}";
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection)}";
     }
 
-    public string MakeGetUserCreateFormUri()
+    public string MakeCreateFormUri()
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.GetCreateUserForm)}";
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCreateForm)}";
     }
 
-    public string MakeCreateUserUri()
+    public string MakeUri(Guid id)
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.CreateUser)}";
+      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.User, new { id })}";
     }
   }
 }

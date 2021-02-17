@@ -1,3 +1,4 @@
+
 namespace Pulsar.AlphacA.Users
 {
   public class User
