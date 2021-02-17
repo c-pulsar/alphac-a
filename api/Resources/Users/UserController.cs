@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using AlphacA.Representations;
-using System.Threading.Tasks;
 
 namespace AlphacA.Resources.Users
 {

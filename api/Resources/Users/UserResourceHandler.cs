@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlphacA.Storage.CompareExchange;
 using AlphacA.Users;
 using Raven.Client.Documents;
-using Raven.Client.Documents.Operations.CompareExchange;
 
 namespace AlphacA.Resources.Users
 {
@@ -21,16 +21,16 @@ namespace AlphacA.Resources.Users
       using var session = this.documentStore.OpenSession();
       session.Store(user, Guid.NewGuid().ToString());
 
-      var reserveEmail = this.documentStore.Operations.Send(
-           new PutCompareExchangeValueOperation<string>(
-             $"emails/{user.Email}", user.Id, 0));
-
-      if (!reserveEmail.Successful)
+      using (var compareExchangeScope = new CompareExchangeScope(this.documentStore))
       {
-        throw new InvalidOperationException("User with email already exist");
+        compareExchangeScope.Start(
+          new KeyValuePair<string, string>($"usernames/{user.UserName}", user.Id),
+          new KeyValuePair<string, string>($"emails/{user.Email}", user.Id));
+
+        session.SaveChanges();
+        compareExchangeScope.Complete();
       }
 
-      session.SaveChanges();
       return user;
     }
 
@@ -46,20 +46,4 @@ namespace AlphacA.Resources.Users
       return session.Query<User>().ToArray().Select(x => x.Id);
     }
   }
-
-  //var s = this.userService.Create(user)
-
-  // using (var session = this.documentStore.OpenSession())
-  // {
-
-
-
-  //   session.Store(user, user.Id);
-  //   session.SaveChanges();
-  // }
-
-  // Console.WriteLine("###################" + user.Id);
-  //return this.Created();
-
-
 }
