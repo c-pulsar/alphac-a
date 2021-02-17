@@ -40,7 +40,7 @@ namespace AlphacA.Representations.Formatters
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
     {
-      using var reader = new StreamReader(Path.Combine("static", "forms/template.html"));
+      using var reader = new StreamReader(Path.Combine("", "template.html"));
       var html = reader.ReadToEnd();
 
       return html
