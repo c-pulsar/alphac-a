@@ -54,7 +54,7 @@ namespace AlphacA
          .UseStaticFiles(new StaticFileOptions
          {
            FileProvider = new PhysicalFileProvider(
-             Path.Combine("/app", "static")),
+             Path.Combine("/app", "static_content")),
            RequestPath = "/static"
          })
          .UseEndpoints(endpoints => endpoints.MapControllers());
