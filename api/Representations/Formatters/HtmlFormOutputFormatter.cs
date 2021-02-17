@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -40,7 +41,12 @@ namespace AlphacA.Representations.Formatters
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
     {
-      using var reader = new StreamReader(Path.Combine("", "template.html"));
+      const string template = "AlphacA.Representations.Templates.FormTemplate.html";
+
+      var assembly = Assembly.GetExecutingAssembly();
+      using var stream = assembly.GetManifestResourceStream(template);
+      using var reader = new StreamReader(stream);
+
       var html = reader.ReadToEnd();
 
       return html

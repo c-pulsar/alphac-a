@@ -31,7 +31,7 @@
           if (xhr.status == 201) {
             window.location.replace(xhr.getResponseHeader("location"));
           }
-          
+
           if (xhr.status >= 200 && xhr.status < 400) {
 
             $('#res').html(`Success: ${xhr.status} ${xhr.response}`);
@@ -41,7 +41,7 @@
           }
         }
 
-        xhr.onerror = function () { 
+        xhr.onerror = function () {
           $('#res').html('Network connection error');
         };
 
@@ -50,4 +50,5 @@
     });
   </script>
 </body>
+
 </html>
