@@ -33,10 +33,10 @@ namespace AlphacA.Resources.Users
     {
       return new RepresentationCollection
       {
-        Uri = userUriFactory.MakeCollectionUri(),
+        Id = userUriFactory.MakeCollectionUri(),
         Title = "Users",
         Items = users.Select(x => userUriFactory.MakeUri(x)).ToArray(),
-        CreateFormUri = userUriFactory.MakeCreateFormUri()
+        CreateForm = userUriFactory.MakeCreateFormUri()
       };
     }
 
@@ -44,7 +44,7 @@ namespace AlphacA.Resources.Users
     {
       return new UserRepresentation
       {
-        Uri = userUriFactory.MakeCollectionUri(),
+        //Uri = userUriFactory.MakeCollectionUri(),
         // Title = "Users",
         // Email = "christiano@gmail.com"
         //Items = System.Array.Empty<string>(),
@@ -57,8 +57,8 @@ namespace AlphacA.Resources.Users
     {
       return new FormRepresentation
       {
-        Uri = userUriFactory.MakeCreateFormUri(),
-        DestinationUri = userUriFactory.MakeCollectionUri(),
+        Id = userUriFactory.MakeCreateFormUri(),
+        //DestinationUri = userUriFactory.MakeCollectionUri(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
         Form = JsonForm.Generate()

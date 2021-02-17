@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using AlphacA.Configuration;
+using System;
 
 namespace AlphacA.Resources.Root
 {
@@ -13,9 +14,9 @@ namespace AlphacA.Resources.Root
       this.urlHelper = urlHelper;
       this.apiUriConfiguration = apiUriConfiguration;
     }
-    public string MakeRootUri()
+    public Uri MakeRootUri()
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.Root)}";
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.Root)}");
     }
   }
 }

@@ -17,9 +17,9 @@ namespace AlphacA.Resources.Root
     {
       return new RootRepresentation
       {
-        Uri = this.rootUriFactory.MakeRootUri(),
+        Id = this.rootUriFactory.MakeRootUri(),
         Title = "Alpha Centauri [ROOT]",
-        UsersUri = this.userUriFactory.MakeCollectionUri()
+        Users = this.userUriFactory.MakeCollectionUri()
       };
     }
   }

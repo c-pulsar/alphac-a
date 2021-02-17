@@ -45,7 +45,7 @@ namespace AlphacA.Representations.Formatters
 
       return html
         .Replace("//{{TITLE}}", representation.Title)
-        .Replace("//{{POST_URI}}", representation.DestinationUri)
+        .Replace("//{{POST_URI}}", representation.Destination.ToString())
         .Replace("//{{SCHEMA}}", $"schema: {representation.Schema}")
         .Replace("//{{FORM}}", $"form: {representation.Form}");
     }

@@ -15,19 +15,19 @@ namespace AlphacA.Resources.Users
       this.apiUriConfiguration = apiUriConfiguration;
     }
 
-    public string MakeCollectionUri()
+    public Uri MakeCollectionUri()
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection)}";
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection)}");
     }
 
-    public string MakeCreateFormUri()
+    public Uri MakeCreateFormUri()
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCreateForm)}";
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCreateForm)}");
     }
 
-    public string MakeUri(Guid id)
+    public Uri MakeUri(Guid id)
     {
-      return $"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.User, new { id })}";
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.User, new { id })}");
     }
   }
 }

@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 
 namespace AlphacA.Representations
@@ -5,7 +6,7 @@ namespace AlphacA.Representations
   public abstract class Representation
   {
     [JsonProperty("@id")]
-    public string Uri { get; set; }
+    public Uri Id { get; set; }
 
     [JsonProperty("_title")]
     public string Title { get; set; }
@@ -14,6 +15,6 @@ namespace AlphacA.Representations
     public string Type { get; set; }
 
     [JsonProperty("@img")]
-    public string ImageUri { get; set; }
+    public Uri Image { get; set; }
   }
 }
