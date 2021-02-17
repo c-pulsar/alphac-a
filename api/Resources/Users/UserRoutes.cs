@@ -1,4 +1,4 @@
-namespace Pulsar.AlphacA.Users
+namespace Pulsar.AlphacA.Resources.Users
 {
   public static class UserRoutes
   {

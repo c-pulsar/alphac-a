@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Pulsar.AlphacA.Representations;
 
-namespace Pulsar.AlphacA.Users
+namespace Pulsar.AlphacA.Resources.Users
 {
   public class UserRepresentation : Representation
   {

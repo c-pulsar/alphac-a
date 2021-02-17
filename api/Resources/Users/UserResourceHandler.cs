@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Pulsar.AlphacA.Users;
 
-namespace Pulsar.AlphacA.Users
+namespace Pulsar.AlphacA.Resources.Users
 {
   public class UserResourceHandler
   {

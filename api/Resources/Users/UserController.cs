@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Pulsar.AlphacA.Representations;
 
-namespace Pulsar.AlphacA.Users
+namespace Pulsar.AlphacA.Resources.Users
 {
   [ApiController]
   [Route("user")]

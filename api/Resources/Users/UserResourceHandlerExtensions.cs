@@ -1,4 +1,6 @@
-namespace Pulsar.AlphacA.Users
+using Pulsar.AlphacA.Users;
+
+namespace Pulsar.AlphacA.Resources.Users
 {
   public static class UserResourceHandlerExtensions
   {

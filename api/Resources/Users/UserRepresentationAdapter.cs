@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Pulsar.AlphacA.Representations;
 using Pulsar.AlphacA.Representations.Schemas;
+using Pulsar.AlphacA.Users;
 
-namespace Pulsar.AlphacA.Users
+namespace Pulsar.AlphacA.Resources.Users
 {
   public class UserRepresentationAdapter
   {
