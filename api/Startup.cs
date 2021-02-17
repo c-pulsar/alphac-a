@@ -10,6 +10,8 @@ using AlphacA.DocumentStorage;
 using AlphacA.Representations;
 using AlphacA.Representations.Formatters;
 using AlphacA.Serialisation;
+using AlphacA.Resources.Users;
+using AlphacA.Resources;
 
 namespace AlphacA
 {
@@ -26,8 +28,10 @@ namespace AlphacA
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddConfiguration()
-              .AddUriFactory()
+              .AddUriInfrastructure()
               .AddDocumentStore()
+              .AddRoot()
+              .AddUser()
               .AddControllers(options =>
                     {
                       options.RespectBrowserAcceptHeader = true;
