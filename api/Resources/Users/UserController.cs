@@ -67,6 +67,7 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("create-form", Name = UserRoutes.UserCreateForm)]
-    public FormRepresentation GetCreateUserForm() => new UserRepresentation().ToCreateForm(adapter);
+    public FormRepresentation GetCreateUserForm() =>
+      new UserRepresentation().ToCreateForm(adapter);
   }
 }
