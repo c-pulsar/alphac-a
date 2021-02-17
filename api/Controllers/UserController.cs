@@ -24,7 +24,7 @@ namespace Pulsar.AlphacA.Controllers
     public RepresentationCollection Get() =>
       this.resourceHandler.GetAll().ToUserCollectionRepresentation(this.adapter);
 
-    [HttpGet("{Guid:int}", Name = UserRoutes.User)]
+    [HttpGet("{id:Guid}", Name = UserRoutes.User)]
     public UserRepresentation GetUser(Guid id) =>
       this.resourceHandler.Get(id).ToRepresentation(this.adapter);
 
