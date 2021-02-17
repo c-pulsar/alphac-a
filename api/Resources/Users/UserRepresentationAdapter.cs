@@ -58,7 +58,7 @@ namespace AlphacA.Resources.Users
       return new FormRepresentation
       {
         Id = userUriFactory.MakeCreateFormUri(),
-        //DestinationUri = userUriFactory.MakeCollectionUri(),
+        Destination = userUriFactory.MakeCollectionUri(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
         Form = JsonForm.Generate()
