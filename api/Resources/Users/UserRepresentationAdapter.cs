@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Representations;
 using AlphacA.Representations.Schemas;
 using AlphacA.Users;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Resources.Users
 {
@@ -29,7 +29,7 @@ namespace AlphacA.Resources.Users
       };
     }
 
-    public RepresentationCollection ToRepresentation(IEnumerable<Guid> users)
+    public RepresentationCollection ToRepresentation(IEnumerable<string> users)
     {
       return new RepresentationCollection
       {
@@ -44,12 +44,13 @@ namespace AlphacA.Resources.Users
     {
       return new UserRepresentation
       {
-        //Uri = userUriFactory.MakeCollectionUri(),
-        // Title = "Users",
-        // Email = "christiano@gmail.com"
-        //Items = System.Array.Empty<string>(),
-        //CreateFormUri = "http://localhost:3010/users/create-form"
-        //Items = new string[] { "http://localhost:3010/users/1", "http://localhost:3010/users/2" }
+        Id = userUriFactory.MakeUri(user.Id),
+        Email = user.Email,
+        Title = $"{user.FirstName} {user.MiddleNames} {user.LastName}",
+        UserName = user.UserName,
+        FirstName = user.FirstName,
+        MiddleNames = user.MiddleNames,
+        LastName = user.LastName
       };
     }
 
@@ -63,6 +64,11 @@ namespace AlphacA.Resources.Users
         Schema = JsonSchema.Generate(representation),
         Form = JsonForm.Generate()
       };
+    }
+
+    public CreatedResult ToCreatedResult(User user)
+    {
+      return new CreatedResult(userUriFactory.MakeUri(user.Id), new { message = "User created." });
     }
   }
 }

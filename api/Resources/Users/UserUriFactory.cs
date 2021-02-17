@@ -25,7 +25,7 @@ namespace AlphacA.Resources.Users
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCreateForm)}");
     }
 
-    public Uri MakeUri(Guid id)
+    public Uri MakeUri(string id)
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.User, new { id })}");
     }

@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using AlphacA.Representations;
 using AlphacA.Users;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Resources.Users
 {
@@ -15,11 +15,14 @@ namespace AlphacA.Resources.Users
       this User user, UserRepresentationAdapter adapter) => adapter.ToRepresentation(user);
 
     public static RepresentationCollection ToUserCollectionRepresentation(
-      this IEnumerable<Guid> users,
+      this IEnumerable<string> users,
       UserRepresentationAdapter adapter) => adapter.ToRepresentation(users);
 
     public static FormRepresentation ToCreateForm(
       this UserRepresentation representation,
       UserRepresentationAdapter adapter) => adapter.ToCreateForm(representation);
+
+    public static CreatedResult ToCreatedResult(
+      this User user, UserRepresentationAdapter adapter) => adapter.ToCreatedResult(user);
   }
 }
