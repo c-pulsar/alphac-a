@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AlphacA.Representations
 {
-  public static class ServiceCollectionExtensions
+  public static class DependencyInjectionExtensions
   {
     public static IServiceCollection AddUriInfrastructure(this IServiceCollection services)
     {

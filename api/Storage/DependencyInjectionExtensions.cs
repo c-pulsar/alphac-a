@@ -4,7 +4,7 @@ using Raven.Client.Documents;
 
 namespace AlphacA.Storage
 {
-  public static class ServiceCollectionExtensions
+  public static class DependencyInjectionExtensions
   {
     public static IServiceCollection AddDocumentStore(this IServiceCollection services)
     {

@@ -2,7 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AlphacA.Resources.Users
 {
-  public static class ServiceCollectionExtensions
+  public static class DependencyInjectionExtensions
   {
     public static IServiceCollection AddUser(this IServiceCollection services)
     {

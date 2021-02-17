@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AlphacA.Configuration
 {
-  public static class ServiceCollectionExtensions
+  public static class DependencyInjectionExtensions
   {
     public static IServiceCollection AddConfiguration(this IServiceCollection services)
     {

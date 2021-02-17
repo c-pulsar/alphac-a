@@ -7,7 +7,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace AlphacA.Serialisation
 {
-  public static class MvcBuilderExtensions
+  public static class DependencyInjectionExtensions
   {
     public class OrderedContractResolver : DefaultContractResolver
     {
