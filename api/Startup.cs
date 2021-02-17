@@ -12,6 +12,7 @@ using AlphacA.Serialisation;
 using AlphacA.Resources.Users;
 using AlphacA.Resources.Root;
 using AlphacA.Storage;
+using AlphacA.Exceptions;
 
 namespace AlphacA
 {
@@ -29,6 +30,7 @@ namespace AlphacA
     {
       services.AddConfiguration()
               .AddUriInfrastructure()
+              .AddExceptions()
               .AddDocumentStore()
               .AddRoot()
               .AddUser()
@@ -36,9 +38,9 @@ namespace AlphacA
                     {
                       options.RespectBrowserAcceptHeader = true;
                       options.OutputFormatters.Add(new HtmlFormOutputFormatter());
-                      //options.InputFormatters.Add(new HtmlFormInputFormatter());
                     })
-              .AddJsonSerialisation();
+              .AddJsonSerialisation()
+              .AddExceptionFilters();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
