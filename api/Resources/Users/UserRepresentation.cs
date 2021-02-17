@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using Pulsar.AlphacA.Representations;
+using AlphacA.Representations;
 
-namespace Pulsar.AlphacA.Resources.Users
+namespace AlphacA.Resources.Users
 {
   public class UserRepresentation : Representation
   {

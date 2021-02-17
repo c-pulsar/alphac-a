@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Pulsar.AlphacA.Resources;
-using Pulsar.AlphacA.Resources.Users;
+using AlphacA.Resources;
+using AlphacA.Resources.Users;
 
-namespace Pulsar.AlphacA.Representations
+namespace AlphacA.Representations
 {
   public static class ServiceCollectionExtensions
   {

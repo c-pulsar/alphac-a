@@ -6,7 +6,7 @@ using Raven.Client.Exceptions.Database;
 using Raven.Client.ServerWide;
 using Raven.Client.ServerWide.Operations;
 
-namespace Pulsar.AlphacA.DocumentStorage
+namespace AlphacA.DocumentStorage
 {
   public static class DocumentStoreExtensions
   {

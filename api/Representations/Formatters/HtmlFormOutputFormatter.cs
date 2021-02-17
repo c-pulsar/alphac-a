@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 
-namespace Pulsar.AlphacA.Representations.Formatters
+namespace AlphacA.Representations.Formatters
 {
   public class HtmlFormOutputFormatter : TextOutputFormatter
   {

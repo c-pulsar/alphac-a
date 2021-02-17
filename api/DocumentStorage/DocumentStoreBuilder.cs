@@ -1,6 +1,6 @@
 using Raven.Client.Documents;
 
-namespace Pulsar.AlphacA.DocumentStorage
+namespace AlphacA.DocumentStorage
 {
   public class DocumentStoreBuilder
   {

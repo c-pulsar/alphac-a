@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Pulsar.AlphacA.Representations;
-using Pulsar.AlphacA.Representations.Schemas;
-using Pulsar.AlphacA.Users;
+using AlphacA.Representations;
+using AlphacA.Representations.Schemas;
+using AlphacA.Users;
 
-namespace Pulsar.AlphacA.Resources.Users
+namespace AlphacA.Resources.Users
 {
   public class UserRepresentationAdapter
   {

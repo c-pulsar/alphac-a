@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Pulsar.AlphacA.Serialisation
+namespace AlphacA.Serialisation
 {
   public static class MvcBuilderExtensions
   {

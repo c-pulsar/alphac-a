@@ -1,5 +1,5 @@
 
-namespace Pulsar.AlphacA.Users
+namespace AlphacA.Users
 {
   public class User
   {

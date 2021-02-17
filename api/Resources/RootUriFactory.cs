@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Pulsar.AlphacA.Configuration;
+using AlphacA.Configuration;
 
-namespace Pulsar.AlphacA.Resources
+namespace AlphacA.Resources
 {
   public class RootUriFactory
   {

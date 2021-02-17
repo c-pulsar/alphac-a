@@ -1,6 +1,6 @@
 using Newtonsoft.Json.Linq;
 
-namespace Pulsar.AlphacA.Representations.Schemas
+namespace AlphacA.Representations.Schemas
 {
   public static class JsonForm
   {

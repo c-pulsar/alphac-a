@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Pulsar.AlphacA.Representations
+namespace AlphacA.Representations
 {
   public class FormRepresentation : Representation
   {

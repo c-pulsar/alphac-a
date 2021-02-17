@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Pulsar.AlphacA.Configuration
+namespace AlphacA.Configuration
 {
   public static class ServiceCollectionExtensions
   {

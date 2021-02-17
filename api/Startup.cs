@@ -5,13 +5,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Pulsar.AlphacA.Configuration;
-using Pulsar.AlphacA.DocumentStorage;
-using Pulsar.AlphacA.Representations;
-using Pulsar.AlphacA.Representations.Formatters;
-using Pulsar.AlphacA.Serialisation;
+using AlphacA.Configuration;
+using AlphacA.DocumentStorage;
+using AlphacA.Representations;
+using AlphacA.Representations.Formatters;
+using AlphacA.Serialisation;
 
-namespace Pulsar.AlphacA
+namespace AlphacA
 {
   public class Startup
   {

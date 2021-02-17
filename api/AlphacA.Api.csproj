@@ -2,12 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Pulsar.AlphacA</RootNamespace>
+    <RootNamespace>AlphacA</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-     <ProjectReference Include="../domain/Pulsar.AlphacA.Domain.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.3" />

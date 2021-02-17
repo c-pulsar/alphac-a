@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Pulsar.AlphacA
+namespace AlphacA
 {
   public static class Program
   {

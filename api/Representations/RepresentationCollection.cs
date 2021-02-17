@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Pulsar.AlphacA.Representations
+namespace AlphacA.Representations
 {
   public class RepresentationCollection : Representation
   {

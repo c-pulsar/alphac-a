@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Raven.Client.Documents;
 
-namespace Pulsar.AlphacA.DocumentStorage
+namespace AlphacA.DocumentStorage
 {
   public static class ApplicationBuilderExtensions
   {

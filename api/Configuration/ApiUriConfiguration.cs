@@ -1,4 +1,4 @@
-namespace Pulsar.AlphacA.Configuration
+namespace AlphacA.Configuration
 {
   public class ApiUriConfiguration
   {

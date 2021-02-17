@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
-using Pulsar.AlphacA.Representations;
+using AlphacA.Representations;
 
-namespace Pulsar.AlphacA.Resources
+namespace AlphacA.Resources
 {
   public class RootRepresentation : Representation
   {
