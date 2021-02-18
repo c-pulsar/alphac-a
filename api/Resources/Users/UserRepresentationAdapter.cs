@@ -22,7 +22,6 @@ namespace AlphacA.Resources.Users
       {
         // Id = Guid.NewGuid().ToString(),
         UserName = representation.UserName,
-        Email = representation.Email,
         FirstName = representation.FirstName,
         MiddleNames = representation.MiddleNames,
         LastName = representation.LastName
@@ -45,7 +44,6 @@ namespace AlphacA.Resources.Users
       return new UserRepresentation
       {
         Id = this.userUriFactory.MakeUri(user.Id),
-        Email = user.Email,
         Title = $"{user.FirstName} {user.MiddleNames} {user.LastName}",
         UserName = user.UserName,
         FirstName = user.FirstName,
