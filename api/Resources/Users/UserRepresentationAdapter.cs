@@ -1,9 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Representations;
 using AlphacA.Representations.Schemas;
 using AlphacA.Users;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Resources.Users
 {
@@ -16,7 +16,7 @@ namespace AlphacA.Resources.Users
       this.userUriFactory = userUriFactory;
     }
 
-    public User ToDomain(UserRepresentation representation)
+    public User Domain(UserRepresentation representation)
     {
       return new User
       {
@@ -29,22 +29,22 @@ namespace AlphacA.Resources.Users
       };
     }
 
-    public RepresentationCollection ToRepresentation(IEnumerable<string> users)
+    public RepresentationCollection Representation(IEnumerable<string> users)
     {
       return new RepresentationCollection
       {
-        Id = userUriFactory.MakeCollectionUri(),
+        Id = this.userUriFactory.MakeCollectionUri(),
         Title = "Users",
-        Items = users.Select(x => userUriFactory.MakeUri(x)).ToArray(),
-        CreateForm = userUriFactory.MakeCreateFormUri()
+        Items = users.Select(x => this.userUriFactory.MakeUri(x)).ToArray(),
+        CreateForm = this.userUriFactory.MakeCreateFormUri()
       };
     }
 
-    public UserRepresentation ToRepresentation(User user)
+    public UserRepresentation Representation(User user)
     {
       return new UserRepresentation
       {
-        Id = userUriFactory.MakeUri(user.Id),
+        Id = this.userUriFactory.MakeUri(user.Id),
         Email = user.Email,
         Title = $"{user.FirstName} {user.MiddleNames} {user.LastName}",
         UserName = user.UserName,
@@ -54,21 +54,21 @@ namespace AlphacA.Resources.Users
       };
     }
 
-    public FormRepresentation ToCreateForm(UserRepresentation representation)
+    public FormRepresentation CreateForm(UserRepresentation representation)
     {
       return new FormRepresentation
       {
-        Id = userUriFactory.MakeCreateFormUri(),
-        Destination = userUriFactory.MakeCollectionUri(),
+        Id = this.userUriFactory.MakeCreateFormUri(),
+        Destination = this.userUriFactory.MakeCollectionUri(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
         Form = JsonForm.Generate()
       };
     }
 
-    public CreatedResult ToCreatedResult(User user)
+    public Uri GetUserUri(User user)
     {
-      return new CreatedResult(userUriFactory.MakeUri(user.Id), new { message = "User created." });
+      return this.userUriFactory.MakeUri(user.Id);
     }
   }
 }

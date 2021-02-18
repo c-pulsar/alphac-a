@@ -21,21 +21,21 @@ namespace AlphacA.Resources.Users
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
     public ActionResult<RepresentationCollection> Get() =>
-      resourceHandler.GetAll().ToUserCollectionRepresentation(adapter);
+      resourceHandler.GetAll().CollectionRepresentation(adapter);
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]
     public ActionResult<UserRepresentation> GetUser(Guid id) =>
-      resourceHandler.Get(id.ToString()).ToNotFoundOrReprentation(adapter);
+      resourceHandler.Get(id.ToString()).NotFoundOrResult(this.adapter);
 
     [HttpPost("")]
     public ActionResult CreateUser(UserRepresentation representation) =>
       representation
-        .ToDomain(this.adapter)
+        .Domain(this.adapter)
         .Create(this.resourceHandler)
-        .ToCreatedResult(this.adapter);
+        .CreatedResult(this.adapter);
 
     [HttpGet("create-form", Name = UserRoutes.UserCreateForm)]
     public ActionResult<FormRepresentation> GetCreateUserForm() =>
-      new UserRepresentation().ToCreateForm(adapter);
+      new UserRepresentation().CreateForm(adapter);
   }
 }

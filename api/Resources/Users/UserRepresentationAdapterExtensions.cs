@@ -8,33 +8,29 @@ namespace AlphacA.Resources.Users
 {
   public static class UserRepresentationAdapterExtensions
   {
-    public static User ToDomain(
+    public static User Domain(
       this UserRepresentation representation,
-      UserRepresentationAdapter adapter) => adapter.ToDomain(representation);
+      UserRepresentationAdapter adapter) => adapter.Domain(representation);
 
-    public static UserRepresentation ToRepresentation(
-      this User user, UserRepresentationAdapter adapter) => adapter.ToRepresentation(user);
+    public static UserRepresentation Representation(
+      this User user, UserRepresentationAdapter adapter) => adapter.Representation(user);
 
-    public static RepresentationCollection ToUserCollectionRepresentation(
+    public static RepresentationCollection CollectionRepresentation(
       this IEnumerable<string> users,
-      UserRepresentationAdapter adapter) => adapter.ToRepresentation(users);
+      UserRepresentationAdapter adapter) => adapter.Representation(users);
 
-    public static FormRepresentation ToCreateForm(
+    public static FormRepresentation CreateForm(
       this UserRepresentation representation,
-      UserRepresentationAdapter adapter) => adapter.ToCreateForm(representation);
+      UserRepresentationAdapter adapter) => adapter.CreateForm(representation);
 
-    public static CreatedResult ToCreatedResult(
-      this User user, UserRepresentationAdapter adapter) => adapter.ToCreatedResult(user);
+    public static CreatedResult CreatedResult(
+      this User user, UserRepresentationAdapter adapter) =>
+        new(adapter.GetUserUri(user), new { message = "User created." });
 
-    public static ActionResult<UserRepresentation> ToNotFoundOrReprentation(
-      this User user, UserRepresentationAdapter adapter)
-    {
-      if (user != null)
-      {
-        return adapter.ToRepresentation(user);
-      }
-
-      return new SimpleErrorResult(404, "User not found");
-    }
+    public static ActionResult<UserRepresentation> NotFoundOrResult(
+      this User user, UserRepresentationAdapter adapter) =>
+        user != null
+          ? adapter.Representation(user)
+          : new SimpleErrorResult(404, "User not found");
   }
 }
