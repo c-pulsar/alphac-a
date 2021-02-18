@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AlphacA.Exceptions
@@ -17,8 +16,7 @@ namespace AlphacA.Exceptions
       {
         if (context.Exception is ResourceConflictException)
         {
-          context.HttpContext.Response.StatusCode = 409;
-          context.Result = new JsonResult(new { error = context.Exception.Message });
+          context.Result = new SimpleErrorResult(409, context.Exception.Message);
           context.ExceptionHandled = true;
         }
       }

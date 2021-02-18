@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AlphacA.Exceptions;
 using AlphacA.Representations;
 using AlphacA.Users;
 using Microsoft.AspNetCore.Mvc;
@@ -24,5 +25,16 @@ namespace AlphacA.Resources.Users
 
     public static CreatedResult ToCreatedResult(
       this User user, UserRepresentationAdapter adapter) => adapter.ToCreatedResult(user);
+
+    public static ActionResult<UserRepresentation> ToNotFoundOrReprentation(
+      this User user, UserRepresentationAdapter adapter)
+    {
+      if (user != null)
+      {
+        return adapter.ToRepresentation(user);
+      }
+
+      return new SimpleErrorResult(404, "User not found");
+    }
   }
 }

@@ -20,12 +20,12 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
-    public RepresentationCollection Get() =>
+    public ActionResult<RepresentationCollection> Get() =>
       resourceHandler.GetAll().ToUserCollectionRepresentation(adapter);
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]
-    public UserRepresentation GetUser(Guid id) =>
-      resourceHandler.Get(id.ToString()).ToRepresentation(adapter);
+    public ActionResult<UserRepresentation> GetUser(Guid id) =>
+      resourceHandler.Get(id.ToString()).ToNotFoundOrReprentation(adapter);
 
     [HttpPost("")]
     public ActionResult CreateUser(UserRepresentation representation) =>
@@ -35,7 +35,7 @@ namespace AlphacA.Resources.Users
         .ToCreatedResult(this.adapter);
 
     [HttpGet("create-form", Name = UserRoutes.UserCreateForm)]
-    public FormRepresentation GetCreateUserForm() =>
+    public ActionResult<FormRepresentation> GetCreateUserForm() =>
       new UserRepresentation().ToCreateForm(adapter);
   }
 }
