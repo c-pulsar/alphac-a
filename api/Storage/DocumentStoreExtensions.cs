@@ -1,4 +1,5 @@
 using System;
+using AlphacA.Resources.Users.Indexing;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Operations;
 using Raven.Client.Exceptions;
@@ -23,6 +24,15 @@ namespace AlphacA.Storage
         store.Create(documentStoreName);
         Console.WriteLine($"Document store [{documentStoreName}] created.");
       }
+
+      return store;
+    }
+
+    public static IDocumentStore InitialiseIndexes(this IDocumentStore store)
+    {
+      Console.WriteLine("## User search index initialisation started.");
+      new UserSearch().Execute(store);
+      Console.WriteLine("## User search index initialisation completed.");
 
       return store;
     }

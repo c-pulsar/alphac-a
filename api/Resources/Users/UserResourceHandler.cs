@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Core;
+using AlphacA.Resources.Users.Indexing;
 using AlphacA.Storage.CompareExchange;
 using AlphacA.Users;
 using Raven.Client.Documents;
@@ -45,10 +46,20 @@ namespace AlphacA.Resources.Users
       return session.Load<User>(id);
     }
 
-    public IEnumerable<string> Find()
+    public IEnumerable<string> Find(string searchText)
     {
       using var session = this.documentStore.OpenSession();
-      return session.Query<User>().ToArray().Select(x => x.Id);
+      if (string.IsNullOrWhiteSpace(searchText))
+      {
+        return session.Query<User>().Select(x => x.Id).ToArray();
+      }
+
+      return session
+        .Query<UserSearch.Result, UserSearch>()
+        .Search(x => x.UserData, searchText)
+        .As<User>()
+        .Select(x => x.Id)
+        .ToArray();
     }
   }
 }

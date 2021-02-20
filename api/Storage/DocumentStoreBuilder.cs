@@ -1,3 +1,4 @@
+using AlphacA.Resources.Users.Indexing;
 using Raven.Client.Documents;
 
 namespace AlphacA.Storage
@@ -13,7 +14,7 @@ namespace AlphacA.Storage
 
     public void Build()
     {
-      store.CreateStoreIfDoesntExist(store.Database);
+      store.CreateStoreIfDoesntExist(store.Database).InitialiseIndexes();
     }
   }
 }

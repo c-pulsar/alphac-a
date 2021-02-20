@@ -20,8 +20,8 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
-    public ActionResult<RepresentationCollection> Get() =>
-      resourceHandler.Find().CollectionRepresentation(adapter);
+    public ActionResult<RepresentationCollection> Get(string searchText) =>
+      resourceHandler.Find(searchText).CollectionRepresentation(adapter);
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]
     public ActionResult<UserRepresentation> GetUser(Guid id) =>
