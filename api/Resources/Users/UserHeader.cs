@@ -2,7 +2,7 @@ using AlphacA.Core;
 
 namespace AlphacA.Resources.Users
 {
-  public class UserDescriptor : IResourceDescriptor
+  public class UserHeader : IResourceHeader
   {
     public string Id { get; set; }
 

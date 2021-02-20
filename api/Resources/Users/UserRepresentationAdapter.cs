@@ -29,13 +29,17 @@ namespace AlphacA.Resources.Users
       };
     }
 
-    public RepresentationCollection Representation(IEnumerable<IResourceDescriptor> users)
+    public RepresentationCollection Representation(IEnumerable<IResourceHeader> users)
     {
       return new RepresentationCollection
       {
         Id = this.userUriFactory.MakeCollectionUri(),
         Title = "Users",
-        Items = users.ToArray(),
+        Items = users.Select(x => new Representation
+        {
+          Id = this.userUriFactory.MakeUri(x.Id),
+          Title = x.Title
+        }).ToArray(),
         CreateForm = this.userUriFactory.MakeCreateFormUri()
       };
     }

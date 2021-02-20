@@ -1,7 +1,7 @@
 
 namespace AlphacA.Core
 {
-  public interface IResourceDescriptor
+  public interface IResourceHeader
   {
     string Id { get; }
 

@@ -7,7 +7,7 @@ namespace AlphacA.Resources.Users.Indexing
 {
   public class UserSearch : AbstractIndexCreationTask<User, UserSearch.Result>
   {
-    public class Result : UserDescriptor
+    public class Result : UserHeader
     {
       public string UserData { get; set; }
     }

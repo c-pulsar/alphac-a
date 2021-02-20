@@ -46,13 +46,13 @@ namespace AlphacA.Resources.Users
       return session.Load<User>(id);
     }
 
-    public IEnumerable<IResourceDescriptor> Find(string searchText)
+    public IEnumerable<IResourceHeader> Find(string searchText)
     {
       using var session = this.documentStore.OpenSession();
       if (string.IsNullOrWhiteSpace(searchText))
       {
         return session.Query<User>().Select(x =>
-          new UserDescriptor
+          new UserHeader
           {
             Id = x.Id,
             FirstName = x.FirstName,

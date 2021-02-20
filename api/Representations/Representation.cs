@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace AlphacA.Representations
 {
-  public abstract class Representation
+  public class Representation
   {
     [JsonProperty("@id")]
     public Uri Id { get; set; }

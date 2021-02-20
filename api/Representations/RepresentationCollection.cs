@@ -8,6 +8,6 @@ namespace AlphacA.Representations
   {
     [JsonProperty("@create-form")]
     public Uri CreateForm { get; set; }
-    public IResourceDescriptor[] Items { get; set; }
+    public Representation[] Items { get; set; }
   }
 }

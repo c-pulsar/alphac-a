@@ -17,7 +17,7 @@ namespace AlphacA.Resources.Users
       this User user, UserRepresentationAdapter adapter) => adapter.Representation(user);
 
     public static RepresentationCollection CollectionRepresentation(
-      this IEnumerable<IResourceDescriptor> users,
+      this IEnumerable<IResourceHeader> users,
       UserRepresentationAdapter adapter) => adapter.Representation(users);
 
     public static FormRepresentation CreateForm(
