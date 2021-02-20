@@ -13,6 +13,7 @@ using AlphacA.Resources.Users;
 using AlphacA.Resources.Root;
 using AlphacA.Storage;
 using AlphacA.Exceptions;
+using AlphacA.Core;
 
 namespace AlphacA
 {
@@ -30,6 +31,7 @@ namespace AlphacA
     {
       services.AddConfiguration()
               .AddUriInfrastructure()
+              .AddCore()
               .AddExceptions()
               .AddDocumentStore()
               .AddRoot()

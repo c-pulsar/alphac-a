@@ -21,7 +21,7 @@ namespace AlphacA.Resources.Users
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
     public ActionResult<RepresentationCollection> Get() =>
-      resourceHandler.GetAll().CollectionRepresentation(adapter);
+      resourceHandler.Find().CollectionRepresentation(adapter);
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]
     public ActionResult<UserRepresentation> GetUser(Guid id) =>

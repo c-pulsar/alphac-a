@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlphacA.Core;
 using AlphacA.Storage.CompareExchange;
 using AlphacA.Users;
 using Raven.Client.Documents;
@@ -10,14 +11,19 @@ namespace AlphacA.Resources.Users
   public class UserResourceHandler
   {
     private readonly IDocumentStore documentStore;
+    private readonly IClock clock;
 
-    public UserResourceHandler(IDocumentStore documentStore)
+    public UserResourceHandler(
+      IDocumentStore documentStore, IClock clock)
     {
       this.documentStore = documentStore;
+      this.clock = clock;
     }
 
     public User Create(User user)
     {
+      user.CreatedAt = user.UpdatedAt = this.clock.UtcNow();
+
       using var session = this.documentStore.OpenSession();
       session.Store(user, Guid.NewGuid().ToString());
 
@@ -39,7 +45,7 @@ namespace AlphacA.Resources.Users
       return session.Load<User>(id);
     }
 
-    public IEnumerable<string> GetAll()
+    public IEnumerable<string> Find()
     {
       using var session = this.documentStore.OpenSession();
       return session.Query<User>().ToArray().Select(x => x.Id);

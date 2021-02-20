@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using AlphacA.Representations;
+using System;
 
 namespace AlphacA.Resources.Users
 {
@@ -23,5 +24,9 @@ namespace AlphacA.Resources.Users
     [Required]
     [DisplayName("Last Name")]
     public string LastName { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
   }
 }

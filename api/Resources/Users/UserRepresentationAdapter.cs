@@ -48,7 +48,9 @@ namespace AlphacA.Resources.Users
         UserName = user.UserName,
         FirstName = user.FirstName,
         MiddleNames = user.MiddleNames,
-        LastName = user.LastName
+        LastName = user.LastName,
+        CreatedAt = user.CreatedAt,
+        UpdatedAt = user.UpdatedAt
       };
     }
 
