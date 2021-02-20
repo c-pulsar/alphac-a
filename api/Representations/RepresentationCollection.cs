@@ -1,4 +1,5 @@
 using System;
+using AlphacA.Core;
 using Newtonsoft.Json;
 
 namespace AlphacA.Representations
@@ -7,6 +8,6 @@ namespace AlphacA.Representations
   {
     [JsonProperty("@create-form")]
     public Uri CreateForm { get; set; }
-    public Uri[] Items { get; set; }
+    public IResourceDescriptor[] Items { get; set; }
   }
 }

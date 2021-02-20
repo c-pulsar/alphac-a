@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using AlphacA.Core;
 using AlphacA.Exceptions;
 using AlphacA.Representations;
 using AlphacA.Users;
@@ -16,7 +17,7 @@ namespace AlphacA.Resources.Users
       this User user, UserRepresentationAdapter adapter) => adapter.Representation(user);
 
     public static RepresentationCollection CollectionRepresentation(
-      this IEnumerable<string> users,
+      this IEnumerable<IResourceDescriptor> users,
       UserRepresentationAdapter adapter) => adapter.Representation(users);
 
     public static FormRepresentation CreateForm(

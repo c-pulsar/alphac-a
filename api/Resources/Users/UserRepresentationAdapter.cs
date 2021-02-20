@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Representations.Schemas;
 using AlphacA.Users;
@@ -28,13 +29,13 @@ namespace AlphacA.Resources.Users
       };
     }
 
-    public RepresentationCollection Representation(IEnumerable<string> users)
+    public RepresentationCollection Representation(IEnumerable<IResourceDescriptor> users)
     {
       return new RepresentationCollection
       {
         Id = this.userUriFactory.MakeCollectionUri(),
         Title = "Users",
-        Items = users.Select(x => this.userUriFactory.MakeUri(x)).ToArray(),
+        Items = users.ToArray(),
         CreateForm = this.userUriFactory.MakeCreateFormUri()
       };
     }
