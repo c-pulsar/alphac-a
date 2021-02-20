@@ -2,7 +2,16 @@ using AlphacA.Core;
 
 namespace AlphacA.Resources.Users
 {
-  public class UserHeader : IResourceHeader
+  public interface IUserHeader : IResourceHeader
+  {
+    string FirstName { get; set; }
+
+    string MiddleNames { get; set; }
+
+    string LastName { get; set; }
+  }
+
+  public class UserHeader : IUserHeader
   {
     public string Id { get; set; }
 
@@ -12,6 +21,6 @@ namespace AlphacA.Resources.Users
 
     public string LastName { get; set; }
 
-    public string Title => $"{this.FirstName} {this.MiddleNames} {this.LastName}";
+    public string Title => this.GetTitle();
   }
 }

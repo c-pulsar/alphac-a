@@ -1,9 +1,9 @@
 
 using System;
 
-namespace AlphacA.Users
+namespace AlphacA.Resources.Users
 {
-  public class User
+  public class User : IUserHeader
   {
     public string Id { get; set; }
     public string UserName { get; set; }
@@ -13,5 +13,7 @@ namespace AlphacA.Users
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    public string Title => this.GetTitle();
   }
 }

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using AlphacA.Core;
 using AlphacA.Exceptions;
 using AlphacA.Representations;
-using AlphacA.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Resources.Users

@@ -1,5 +1,3 @@
-using AlphacA.Users;
-
 namespace AlphacA.Resources.Users
 {
   public static class UserResourceHandlerExtensions

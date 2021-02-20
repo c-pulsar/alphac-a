@@ -1,6 +1,4 @@
 using System.Linq;
-using AlphacA.Core;
-using AlphacA.Users;
 using Raven.Client.Documents.Indexes;
 
 namespace AlphacA.Resources.Users.Indexing
@@ -21,13 +19,7 @@ namespace AlphacA.Resources.Users.Indexing
           x.FirstName,
           x.MiddleNames,
           x.LastName,
-          UserData = new object[]
-          {
-            x.UserName,
-            x.FirstName,
-            x.MiddleNames,
-            x.LastName
-          }
+          UserData = new[] { x.UserName, x.FirstName, x.MiddleNames, x.LastName }
         });
 
       Index(x => x.UserData, FieldIndexing.Search);

@@ -4,7 +4,6 @@ using System.Linq;
 using AlphacA.Core;
 using AlphacA.Resources.Users.Indexing;
 using AlphacA.Storage.CompareExchange;
-using AlphacA.Users;
 using Raven.Client.Documents;
 
 namespace AlphacA.Resources.Users

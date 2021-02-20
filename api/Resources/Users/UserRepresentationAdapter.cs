@@ -4,7 +4,6 @@ using System.Linq;
 using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Representations.Schemas;
-using AlphacA.Users;
 
 namespace AlphacA.Resources.Users
 {
@@ -49,7 +48,7 @@ namespace AlphacA.Resources.Users
       return new UserRepresentation
       {
         Id = this.userUriFactory.MakeUri(user.Id),
-        Title = $"{user.FirstName} {user.MiddleNames} {user.LastName}",
+        Title = user.Title,
         UserName = user.UserName,
         FirstName = user.FirstName,
         MiddleNames = user.MiddleNames,
