@@ -34,6 +34,7 @@ namespace AlphacA.Resources.Users
       {
         Id = this.userUriFactory.MakeCollectionUri(),
         Title = "Users",
+        Type = "UserCollection",
         Items = users.Select(x => new Representation
         {
           Id = this.userUriFactory.MakeUri(x.Id),
@@ -48,7 +49,9 @@ namespace AlphacA.Resources.Users
       return new UserRepresentation
       {
         Id = this.userUriFactory.MakeUri(user.Id),
+        Users = this.userUriFactory.MakeCollectionUri(),
         Title = user.Title,
+        Type = "User",
         UserName = user.UserName,
         FirstName = user.FirstName,
         MiddleNames = user.MiddleNames,

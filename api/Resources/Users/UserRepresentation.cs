@@ -28,5 +28,8 @@ namespace AlphacA.Resources.Users
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    [JsonProperty("@users")]
+    public Uri Users { get; set; }
   }
 }

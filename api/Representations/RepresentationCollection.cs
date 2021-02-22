@@ -1,5 +1,4 @@
 using System;
-using AlphacA.Core;
 using Newtonsoft.Json;
 
 namespace AlphacA.Representations
