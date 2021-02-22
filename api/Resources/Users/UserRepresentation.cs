@@ -10,6 +10,7 @@ namespace AlphacA.Resources.Users
   {
     [EmailAddress]
     [Required]
+    [ReadOnly(true)]
     [DisplayName("Username")]
     [Description("Must be an email address")]
     public string UserName { get; set; }
