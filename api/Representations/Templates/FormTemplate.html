@@ -28,12 +28,13 @@
         xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
 
         xhr.onload = function () {
-          if (xhr.status == 201) {
+          if (xhr.status === 201) {
             window.location.replace(xhr.getResponseHeader("location"));
+          } 
+          else if (xhr.status === 200) {
+            window.location.replace(url);
           }
-
-          if (xhr.status >= 200 && xhr.status < 400) {
-
+          else if (xhr.status > 200 && xhr.status < 400) {
             $('#res').html(`Success: ${xhr.status} ${xhr.response}`);
           }
           else {
