@@ -20,7 +20,7 @@ namespace AlphacA.Resources.Root
         Id = this.rootUriFactory.MakeRootUri(),
         Title = "Alpha Centauri",
         Type = "Root",
-        Users = this.userUriFactory.MakeCollectionUri()
+        Users = this.userUriFactory.MakeCollection()
       };
     }
   }

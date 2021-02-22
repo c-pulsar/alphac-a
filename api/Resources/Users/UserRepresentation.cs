@@ -30,5 +30,7 @@ namespace AlphacA.Resources.Users
     public DateTime UpdatedAt { get; set; }
 
     public Uri Users { get; set; }
+
+    public Uri EditForm { get; set; }
   }
 }

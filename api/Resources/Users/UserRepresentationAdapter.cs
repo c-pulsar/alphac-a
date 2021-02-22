@@ -20,7 +20,6 @@ namespace AlphacA.Resources.Users
     {
       return new User
       {
-        // Id = Guid.NewGuid().ToString(),
         UserName = representation.UserName,
         FirstName = representation.FirstName,
         MiddleNames = representation.MiddleNames,
@@ -32,15 +31,15 @@ namespace AlphacA.Resources.Users
     {
       return new RepresentationCollection
       {
-        Id = this.userUriFactory.MakeCollectionUri(),
+        Id = this.userUriFactory.MakeCollection(),
         Title = "Users",
         Type = "UserCollection",
         Items = users.Select(x => new Representation
         {
-          Id = this.userUriFactory.MakeUri(x.Id),
+          Id = this.userUriFactory.Make(x.Id),
           Title = x.Title
         }).ToArray(),
-        CreateForm = this.userUriFactory.MakeCreateFormUri()
+        CreateForm = this.userUriFactory.MakeCreateForm()
       };
     }
 
@@ -48,8 +47,9 @@ namespace AlphacA.Resources.Users
     {
       return new UserRepresentation
       {
-        Id = this.userUriFactory.MakeUri(user.Id),
-        Users = this.userUriFactory.MakeCollectionUri(),
+        Id = this.userUriFactory.Make(user.Id),
+        EditForm = this.userUriFactory.MakeEditForm(user.Id),
+        Users = this.userUriFactory.MakeCollection(),
         Title = user.Title,
         Type = "User",
         UserName = user.UserName,
@@ -61,12 +61,26 @@ namespace AlphacA.Resources.Users
       };
     }
 
+    public FormRepresentation EditForm(User user)
+    {
+      var representation = this.Representation(user);
+
+      return new FormRepresentation
+      {
+        Id = this.userUriFactory.MakeEditForm(user.Id),
+        Destination = this.userUriFactory.Make(user.Id),
+        Title = "Edit User",
+        Schema = JsonSchema.Generate(representation),
+        Form = JsonForm.Generate()
+      };
+    }
+
     public FormRepresentation CreateForm(UserRepresentation representation)
     {
       return new FormRepresentation
       {
-        Id = this.userUriFactory.MakeCreateFormUri(),
-        Destination = this.userUriFactory.MakeCollectionUri(),
+        Id = this.userUriFactory.MakeCreateForm(),
+        Destination = this.userUriFactory.MakeCollection(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
         Form = JsonForm.Generate()
@@ -75,7 +89,7 @@ namespace AlphacA.Resources.Users
 
     public Uri GetUserUri(User user)
     {
-      return this.userUriFactory.MakeUri(user.Id);
+      return this.userUriFactory.Make(user.Id);
     }
   }
 }

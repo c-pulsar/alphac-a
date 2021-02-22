@@ -39,6 +39,25 @@ namespace AlphacA.Resources.Users
       return user;
     }
 
+    public User Update(Guid id, User user)
+    {
+      using var session = this.documentStore.OpenSession();
+      var existing = session.Load<User>(id.ToString());
+      if (existing != null)
+      {
+        existing.UpdatedAt = this.clock.UtcNow();
+        existing.FirstName = user.FirstName;
+        existing.MiddleNames = user.MiddleNames;
+        existing.LastName = user.LastName;
+
+        session.SaveChanges();
+
+        return existing;
+      }
+
+      return null;
+    }
+
     public User Get(string id)
     {
       using var session = this.documentStore.OpenSession();
