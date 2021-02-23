@@ -22,7 +22,14 @@
         "*",
         {
           "type": "submit",
-          "title": "Submit"
+          "title": "Submit",
+          "htmlClass": "btn btn-success"
+        },
+        {
+          "type": "button",
+          "title": "Cancel",
+          "htmlClass": "btn btn-primary",
+          "onClick": function (e) { window.history.back(); }
         },
         {
           "type": "button",
@@ -63,8 +70,7 @@
     });
 
     function onDelete(e) {
-      if (confirm("Confirm?????"))
-      {
+      if (confirm("Confirm?????")) {
 
       }
     }

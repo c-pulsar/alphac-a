@@ -51,11 +51,9 @@ namespace AlphacA.Resources.Users
         existing.LastName = user.LastName;
 
         session.SaveChanges();
-
-        return existing;
       }
 
-      return null;
+      return existing;
     }
 
     public User Get(string id)
