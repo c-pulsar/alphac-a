@@ -1,14 +1,13 @@
-using System;
 using Newtonsoft.Json.Linq;
 
 namespace AlphacA.Representations
 {
-  public class FormRepresentation : Representation
+  public abstract class FormRepresentation : Representation
   {
-    public Uri Destination { get; set; }
-
     public JObject Schema { get; set; }
 
-    public bool CanDelete { get; set; }
+    public abstract string TemplateId { get; }
+
+    public abstract string ApplyTemplate(string template);
   }
 }

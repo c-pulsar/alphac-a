@@ -63,37 +63,37 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public FormRepresentation EditForm(User user, bool deleteEnabled = true)
+    public EditFormRepresentation EditForm(User user, bool deleteEnabled = true)
     {
       var representation = Representation(user);
 
-      return new FormRepresentation
+      return new EditFormRepresentation
       {
         Id = userUriFactory.MakeEditForm(user.Id),
-        Destination = userUriFactory.Make(user.Id),
+        ResourceId = userUriFactory.Make(user.Id),
+        CollectionId = userUriFactory.MakeCollection(),
         Title = "Edit User",
         CanDelete = deleteEnabled,
         Schema = JsonSchema.Generate(representation),
       };
     }
 
-    public FormRepresentation SearchForm(UserSearchRepresentation representation)
+    public SearchFormRepresentation SearchForm(UserSearchRepresentation representation)
     {
-      return new FormRepresentation
+      return new SearchFormRepresentation
       {
         Id = userUriFactory.MakeSearchForm(),
-        Destination = userUriFactory.MakeSearchForm(),
         Title = "Search Users",
         Schema = JsonSchema.Generate(representation),
       };
     }
 
-    public FormRepresentation CreateForm(UserRepresentation representation)
+    public CreateFormRepresentation CreateForm(UserRepresentation representation)
     {
-      return new FormRepresentation
+      return new CreateFormRepresentation
       {
-        Id = userUriFactory.MakeCreateForm(),
-        Destination = userUriFactory.MakeCreateForm(),
+        Id = this.userUriFactory.MakeCreateForm(),
+        CollectionId = this.userUriFactory.MakeCollection(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
       };

@@ -40,20 +40,12 @@ namespace AlphacA.Representations.Formatters
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
     {
-      // This is an embedded resource included in the .csproj file
-      const string template = "AlphacA.Representations.Templates.FormTemplate.html";
-
       var assembly = Assembly.GetExecutingAssembly();
-      using var stream = assembly.GetManifestResourceStream(template);
+      using var stream = assembly.GetManifestResourceStream(representation.TemplateId);
       using var reader = new StreamReader(stream);
 
-      var html = reader.ReadToEnd();
-
-      return html
-        .Replace("//{{TITLE}}", representation.Title)
-        .Replace("//{{DESTINATION_URI}}", representation.Destination.ToString())
-        .Replace("//{{DELETE_VISIBLE}}", representation.CanDelete ? "visible" : "invisible")
-        .Replace("//{{SCHEMA}}", $"schema: {representation.Schema}");
+      var template = reader.ReadToEnd();
+      return representation.ApplyTemplate(template);
     }
   }
 }
