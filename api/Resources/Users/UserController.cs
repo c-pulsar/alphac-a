@@ -89,5 +89,17 @@ namespace AlphacA.Resources.Users
 
       return new SimpleErrorResult(404, "User not found");
     }
+
+    [HttpDelete("{id:Guid}", Name = UserRoutes.Delete)]
+    public ActionResult Delete(Guid id)
+    {
+      var found = this.resourceHandler.Delete(id);
+      if (found)
+      {
+        return new OkResult();
+      }
+
+      return new SimpleErrorResult(404, "User not found");
+    }
   }
 }

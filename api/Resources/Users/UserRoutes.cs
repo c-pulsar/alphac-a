@@ -10,5 +10,6 @@ namespace AlphacA.Resources.Users
     public const string CreateSearch = "USER-CREATE-SEARCH";
     public const string Create = "USER-CREATE";
     public const string Update = "USER-UPDATE";
+    public const string Delete = "USER-DELETE";
   }
 }

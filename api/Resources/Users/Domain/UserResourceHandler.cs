@@ -56,10 +56,31 @@ namespace AlphacA.Resources.Users.Domain
       return existing;
     }
 
+    public bool Delete(Guid id)
+    {
+      using var session = documentStore.OpenSession();
+      var user = session.Load<User>(id.ToString());
+      if (user != null)
+      {
+        user.Status = UserStatus.Deleted;
+        session.SaveChanges();
+
+        return true;
+      }
+
+      return false;
+    }
+
     public User Get(string id)
     {
       using var session = documentStore.OpenSession();
-      return session.Load<User>(id);
+      var user = session.Load<User>(id);
+      if (user != null && user.Status != UserStatus.Deleted)
+      {
+        return user;
+      }
+
+      return null;
     }
 
     public IEnumerable<IResourceHeader> Find(string searchText)
@@ -67,14 +88,17 @@ namespace AlphacA.Resources.Users.Domain
       using var session = documentStore.OpenSession();
       if (string.IsNullOrWhiteSpace(searchText))
       {
-        return session.Query<User>().Select(x =>
-          new UserHeader
+        return session
+          .Query<User>()
+          .Where(x => x.Status != UserStatus.Deleted)
+          .Select(x => new UserHeader
           {
             Id = x.Id,
             FirstName = x.FirstName,
             MiddleNames = x.MiddleNames,
             LastName = x.LastName
-          }).ToArray();
+          })
+          .ToArray();
       }
 
       return session

@@ -11,9 +11,8 @@ namespace AlphacA.Resources.Users.Domain
     public string MiddleNames { get; set; }
     public string LastName { get; set; }
     public DateTime CreatedAt { get; set; }
-
     public DateTime UpdatedAt { get; set; }
-
+    public UserStatus Status { get; set; }
     public string Title => this.GetTitle();
   }
 }

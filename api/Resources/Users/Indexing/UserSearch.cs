@@ -13,7 +13,9 @@ namespace AlphacA.Resources.Users.Indexing
 
     public UserSearch()
     {
-      Map = users => users.Select(x =>
+      Map = users => users
+      .Where(x => x.Status != UserStatus.Deleted)
+      .Select(x =>
         new
         {
           x.Id,

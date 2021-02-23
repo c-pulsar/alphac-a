@@ -40,7 +40,7 @@
       ],
       onSubmitValid: function (obj) {
 
-        var url = "//{{POST_URI}}";
+        var url = "//{{DESTINATION_URI}}";
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url);
@@ -70,8 +70,26 @@
     });
 
     function onDelete(e) {
-      if (confirm("Confirm?????")) {
+      if (confirm("Are you sure?")) {
 
+        var url = "//{{DESTINATION_URI}}";
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url);
+
+        xhr.onload = function () {
+          if (xhr.status >= 200 && xhr.status < 400) {
+            $("#res").html(`Deleted Successful: ${xhr.status} ${xhr.response}`);
+          }
+          else {
+            $("#res").html(`Deleted Server Error: ${xhr.status} ${xhr.response}`);
+          }
+        }
+
+        xhr.onerror = function () {
+          $("#res").html("Deleted Network connection error");
+        };
+
+        xhr.send(null);
       }
     }
   </script>
