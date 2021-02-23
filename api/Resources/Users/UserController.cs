@@ -21,46 +21,34 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
-    public ActionResult<RepresentationCollection> Get(string search) =>
-      resourceHandler.Find(search).CollectionRepresentation(adapter);
-
-    [HttpGet("{id:Guid}", Name = UserRoutes.User)]
-    public ActionResult<UserRepresentation> GetUser(Guid id) =>
-      resourceHandler.Get(id.ToString()).NotFoundOrResult(this.adapter);
-
-    [HttpPost("", Name = UserRoutes.Create)]
-    public ActionResult CreateUser(UserRepresentation representation) =>
-      representation
-        .Domain(this.adapter)
-        .Create(this.resourceHandler)
-        .CreatedResult(this.adapter);
-
-    [HttpPost("{id:Guid}", Name = UserRoutes.Update)]
-    public ActionResult UpdateUser(Guid id, [FromBody] UserRepresentation representation)
+    public ActionResult<RepresentationCollection> GetCollection(string search)
     {
-      var user = this.resourceHandler.Update(id, representation.Domain(this.adapter));
-      if (user != null)
-      {
-        return new OkResult();
-      }
-
-      return new SimpleErrorResult(404, "User not found");
-    }
-
-    [HttpPost("search-form", Name = UserRoutes.CreateSearch)]
-    public ActionResult CreateUserSearch([FromBody] UserSearchRepresentation representation)
-    {
-      return new CreatedResult(
-        this.adapter.GetCollectionUri(representation.SearchText),
-        new { message = "Search Created" });
+      return this.adapter.Representation(resourceHandler.Find(search));
     }
 
     [HttpGet("search-form", Name = UserRoutes.SearchForm)]
-    public ActionResult<FormRepresentation> GetUserSearchForm() =>
-      this.adapter.SearchForm(new UserSearchRepresentation());
+    public ActionResult<FormRepresentation> GetSearchForm()
+    {
+      return this.adapter.SearchForm(new UserSearchRepresentation());
+    }
+
+    [HttpGet("create-form", Name = UserRoutes.CreateForm)]
+    public ActionResult<FormRepresentation> GetCreateForm()
+    {
+      return this.adapter.CreateForm(new UserRepresentation());
+    }
+
+    [HttpGet("{id:Guid}", Name = UserRoutes.User)]
+    public ActionResult<UserRepresentation> Get(Guid id)
+    {
+      var user = resourceHandler.Get(id.ToString());
+      return user != null
+        ? this.adapter.Representation(user)
+        : new SimpleErrorResult(404, "User not found");
+    }
 
     [HttpGet("{id:Guid}/edit-form", Name = UserRoutes.EditForm)]
-    public ActionResult<FormRepresentation> GetUserEditForm(Guid id)
+    public ActionResult<FormRepresentation> GetEditForm(Guid id)
     {
       var user = this.resourceHandler.Get(id.ToString());
       if (user != null)
@@ -68,11 +56,36 @@ namespace AlphacA.Resources.Users
         return this.adapter.EditForm(user);
       }
 
-      return new SimpleErrorResult(404, "User create-form not found");
+      return new SimpleErrorResult(404, "User not found");
     }
 
-    [HttpGet("create-form", Name = UserRoutes.CreateForm)]
-    public ActionResult<FormRepresentation> GetUserCreateForm() =>
-      new UserRepresentation().CreateForm(adapter);
+    [HttpPost("", Name = UserRoutes.Create)]
+    public ActionResult Create(UserRepresentation representation)
+    {
+      var user = this.resourceHandler.Create(this.adapter.Domain(representation));
+      return new CreatedResult(
+        this.adapter.GetUserUri(user),
+        new { message = "User created" });
+    }
+
+    [HttpPost("search-form", Name = UserRoutes.CreateSearch)]
+    public ActionResult CreateSearch([FromBody] UserSearchRepresentation representation)
+    {
+      return new CreatedResult(
+        this.adapter.GetCollectionUri(representation.SearchText),
+        new { message = "Search Created" });
+    }
+
+    [HttpPost("{id:Guid}", Name = UserRoutes.Update)]
+    public ActionResult Update(Guid id, [FromBody] UserRepresentation representation)
+    {
+      var user = this.resourceHandler.Update(id, this.adapter.Domain(representation));
+      if (user != null)
+      {
+        return new OkResult();
+      }
+
+      return new SimpleErrorResult(404, "User not found");
+    }
   }
 }
