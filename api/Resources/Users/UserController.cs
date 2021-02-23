@@ -21,8 +21,8 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
-    public ActionResult<RepresentationCollection> Get(string searchText) =>
-      resourceHandler.Find(searchText).CollectionRepresentation(adapter);
+    public ActionResult<RepresentationCollection> Get(string search) =>
+      resourceHandler.Find(search).CollectionRepresentation(adapter);
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]
     public ActionResult<UserRepresentation> GetUser(Guid id) =>
@@ -46,6 +46,18 @@ namespace AlphacA.Resources.Users
 
       return new SimpleErrorResult(404, "User not found");
     }
+
+    [HttpPost("search-form", Name = UserRoutes.CreateSearch)]
+    public ActionResult CreateUserSearch([FromBody] UserSearchRepresentation representation)
+    {
+      return new CreatedResult(
+        this.adapter.GetCollectionUri(representation.SearchText),
+        new { message = "Search Created" });
+    }
+
+    [HttpGet("search-form", Name = UserRoutes.SearchForm)]
+    public ActionResult<FormRepresentation> GetUserSearchForm() =>
+      this.adapter.SearchForm(new UserSearchRepresentation());
 
     [HttpGet("{id:Guid}/edit-form", Name = UserRoutes.EditForm)]
     public ActionResult<FormRepresentation> GetUserEditForm(Guid id)

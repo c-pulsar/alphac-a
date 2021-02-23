@@ -15,14 +15,21 @@ namespace AlphacA.Resources.Users
       this.apiUriConfiguration = apiUriConfiguration;
     }
 
-    public Uri MakeCollection()
+    public Uri MakeCollection(string search = null)
     {
-      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection)}");
+      return string.IsNullOrWhiteSpace(search)
+        ? new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection)}")
+        : new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection, new { search })}");
     }
 
     public Uri MakeCreateForm()
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.CreateForm)}");
+    }
+
+    public Uri MakeSearchForm()
+    {
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.SearchForm)}");
     }
 
     public Uri MakeEditForm(string id)

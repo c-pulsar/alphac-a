@@ -39,7 +39,8 @@ namespace AlphacA.Resources.Users
           Id = this.userUriFactory.Make(x.Id),
           Title = x.Title
         }).ToArray(),
-        CreateForm = this.userUriFactory.MakeCreateForm()
+        CreateForm = this.userUriFactory.MakeCreateForm(),
+        SearchForm = this.userUriFactory.MakeSearchForm()
       };
     }
 
@@ -75,15 +76,31 @@ namespace AlphacA.Resources.Users
       };
     }
 
+    public FormRepresentation SearchForm(UserSearchRepresentation representation)
+    {
+      return new FormRepresentation
+      {
+        Id = this.userUriFactory.MakeSearchForm(),
+        Destination = this.userUriFactory.MakeSearchForm(),
+        Title = "Search Users",
+        Schema = JsonSchema.Generate(representation),
+      };
+    }
+
     public FormRepresentation CreateForm(UserRepresentation representation)
     {
       return new FormRepresentation
       {
         Id = this.userUriFactory.MakeCreateForm(),
-        Destination = this.userUriFactory.MakeCollection(),
+        Destination = this.userUriFactory.MakeCreateForm(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
       };
+    }
+
+    public Uri GetCollectionUri(string search)
+    {
+      return this.userUriFactory.MakeCollection(search);
     }
 
     public Uri GetUserUri(User user)
