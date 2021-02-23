@@ -1,4 +1,4 @@
-namespace AlphacA.Resources.Users
+namespace AlphacA.Resources.Users.Domain
 {
   public static class UserHeaderExtensions
   {

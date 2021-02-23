@@ -1,6 +1,6 @@
 using AlphacA.Core;
 
-namespace AlphacA.Resources.Users
+namespace AlphacA.Resources.Users.Domain
 {
   public interface IUserHeader : IResourceHeader
   {

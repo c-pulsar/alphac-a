@@ -1,7 +1,7 @@
 
 using System;
 
-namespace AlphacA.Resources.Users
+namespace AlphacA.Resources.Users.Domain
 {
   public class User : IUserHeader
   {

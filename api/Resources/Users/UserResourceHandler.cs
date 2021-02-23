@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Core;
+using AlphacA.Resources.Users.Domain;
 using AlphacA.Resources.Users.Indexing;
 using AlphacA.Storage.CompareExchange;
 using Raven.Client.Documents;

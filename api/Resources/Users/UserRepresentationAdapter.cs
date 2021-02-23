@@ -4,6 +4,7 @@ using System.Linq;
 using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Representations.Schemas;
+using AlphacA.Resources.Users.Domain;
 
 namespace AlphacA.Resources.Users
 {

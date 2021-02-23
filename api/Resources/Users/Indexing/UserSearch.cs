@@ -1,4 +1,5 @@
 using System.Linq;
+using AlphacA.Resources.Users.Domain;
 using Raven.Client.Documents.Indexes;
 
 namespace AlphacA.Resources.Users.Indexing
