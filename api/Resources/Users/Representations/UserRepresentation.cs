@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using AlphacA.Representations;
 using System;
+using AlphacA.Representations;
 
-namespace AlphacA.Resources.Users
+namespace AlphacA.Resources.Users.Representations
 {
   public class UserRepresentation : Representation
   {

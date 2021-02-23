@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using AlphacA.Representations;
 using AlphacA.Exceptions;
+using AlphacA.Resources.Users.Domain;
+using AlphacA.Resources.Users.Representations;
 
 namespace AlphacA.Resources.Users
 {

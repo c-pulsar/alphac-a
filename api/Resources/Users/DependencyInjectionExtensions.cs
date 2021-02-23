@@ -1,3 +1,5 @@
+using AlphacA.Resources.Users.Domain;
+using AlphacA.Resources.Users.Representations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AlphacA.Resources.Users

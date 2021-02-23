@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using AlphacA.Representations;
 
-namespace AlphacA.Resources.Users
+namespace AlphacA.Resources.Users.Representations
 {
   public class UserSearchRepresentation : Representation
   {

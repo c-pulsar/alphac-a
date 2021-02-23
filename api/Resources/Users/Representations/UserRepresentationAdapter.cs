@@ -6,7 +6,7 @@ using AlphacA.Representations;
 using AlphacA.Representations.Schemas;
 using AlphacA.Resources.Users.Domain;
 
-namespace AlphacA.Resources.Users
+namespace AlphacA.Resources.Users.Representations
 {
   public class UserRepresentationAdapter
   {
@@ -32,16 +32,16 @@ namespace AlphacA.Resources.Users
     {
       return new RepresentationCollection
       {
-        Id = this.userUriFactory.MakeCollection(),
+        Id = userUriFactory.MakeCollection(),
         Title = "Users",
         Type = "UserCollection",
         Items = users.Select(x => new Representation
         {
-          Id = this.userUriFactory.Make(x.Id),
+          Id = userUriFactory.Make(x.Id),
           Title = x.Title
         }).ToArray(),
-        CreateForm = this.userUriFactory.MakeCreateForm(),
-        SearchForm = this.userUriFactory.MakeSearchForm()
+        CreateForm = userUriFactory.MakeCreateForm(),
+        SearchForm = userUriFactory.MakeSearchForm()
       };
     }
 
@@ -49,9 +49,9 @@ namespace AlphacA.Resources.Users
     {
       return new UserRepresentation
       {
-        Id = this.userUriFactory.Make(user.Id),
-        EditForm = this.userUriFactory.MakeEditForm(user.Id),
-        Users = this.userUriFactory.MakeCollection(),
+        Id = userUriFactory.Make(user.Id),
+        EditForm = userUriFactory.MakeEditForm(user.Id),
+        Users = userUriFactory.MakeCollection(),
         Title = user.Title,
         Type = "User",
         UserName = user.UserName,
@@ -65,12 +65,12 @@ namespace AlphacA.Resources.Users
 
     public FormRepresentation EditForm(User user, bool deleteEnabled = true)
     {
-      var representation = this.Representation(user);
+      var representation = Representation(user);
 
       return new FormRepresentation
       {
-        Id = this.userUriFactory.MakeEditForm(user.Id),
-        Destination = this.userUriFactory.Make(user.Id),
+        Id = userUriFactory.MakeEditForm(user.Id),
+        Destination = userUriFactory.Make(user.Id),
         Title = "Edit User",
         CanDelete = deleteEnabled,
         Schema = JsonSchema.Generate(representation),
@@ -81,8 +81,8 @@ namespace AlphacA.Resources.Users
     {
       return new FormRepresentation
       {
-        Id = this.userUriFactory.MakeSearchForm(),
-        Destination = this.userUriFactory.MakeSearchForm(),
+        Id = userUriFactory.MakeSearchForm(),
+        Destination = userUriFactory.MakeSearchForm(),
         Title = "Search Users",
         Schema = JsonSchema.Generate(representation),
       };
@@ -92,8 +92,8 @@ namespace AlphacA.Resources.Users
     {
       return new FormRepresentation
       {
-        Id = this.userUriFactory.MakeCreateForm(),
-        Destination = this.userUriFactory.MakeCreateForm(),
+        Id = userUriFactory.MakeCreateForm(),
+        Destination = userUriFactory.MakeCreateForm(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
       };
@@ -101,12 +101,12 @@ namespace AlphacA.Resources.Users
 
     public Uri GetCollectionUri(string search)
     {
-      return this.userUriFactory.MakeCollection(search);
+      return userUriFactory.MakeCollection(search);
     }
 
     public Uri GetUserUri(User user)
     {
-      return this.userUriFactory.Make(user.Id);
+      return userUriFactory.Make(user.Id);
     }
   }
 }
