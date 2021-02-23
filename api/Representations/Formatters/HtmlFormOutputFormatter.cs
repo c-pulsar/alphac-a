@@ -52,8 +52,8 @@ namespace AlphacA.Representations.Formatters
       return html
         .Replace("//{{TITLE}}", representation.Title)
         .Replace("//{{POST_URI}}", representation.Destination.ToString())
-        .Replace("//{{SCHEMA}}", $"schema: {representation.Schema}")
-        .Replace("//{{FORM}}", $"form: {representation.Form}");
+        .Replace("//{{DELETE_VISIBLE}}", representation.CanDelete ? "visible" : "invisible")
+        .Replace("//{{SCHEMA}}", $"schema: {representation.Schema}");
     }
   }
 }

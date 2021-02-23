@@ -61,7 +61,7 @@ namespace AlphacA.Resources.Users
       };
     }
 
-    public FormRepresentation EditForm(User user)
+    public FormRepresentation EditForm(User user, bool deleteEnabled = true)
     {
       var representation = this.Representation(user);
 
@@ -70,8 +70,8 @@ namespace AlphacA.Resources.Users
         Id = this.userUriFactory.MakeEditForm(user.Id),
         Destination = this.userUriFactory.Make(user.Id),
         Title = "Edit User",
+        CanDelete = deleteEnabled,
         Schema = JsonSchema.Generate(representation),
-        Form = JsonForm.Generate()
       };
     }
 
@@ -83,7 +83,6 @@ namespace AlphacA.Resources.Users
         Destination = this.userUriFactory.MakeCollection(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
-        Form = JsonForm.Generate()
       };
     }
 

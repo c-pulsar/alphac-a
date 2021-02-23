@@ -16,39 +16,58 @@
   <script type="text/javascript" src="/static/jsonforms/deps/opt/jsv.js"></script>
   <script type="text/javascript" src="/static/jsonforms/lib/jsonform.js"></script>
   <script type="text/javascript">
-    $('form').jsonForm({
+    $("form").jsonForm({
       //{{SCHEMA}},
-      //{{FORM}},
+      form: [
+        "*",
+        {
+          "type": "submit",
+          "title": "Submit"
+        },
+        {
+          "type": "button",
+          "title": "Delete",
+          "htmlClass": "//{{DELETE_VISIBLE}} btn btn-danger",
+          "onClick": function (e) { onDelete(e); }
+        }
+      ],
       onSubmitValid: function (obj) {
 
-        var url = '//{{POST_URI}}';
+        var url = "//{{POST_URI}}";
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+        xhr.open("POST", url);
+        xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
         xhr.onload = function () {
           if (xhr.status === 201) {
             window.location.replace(xhr.getResponseHeader("location"));
-          } 
+          }
           else if (xhr.status === 200) {
             window.location.replace(url);
           }
           else if (xhr.status > 200 && xhr.status < 400) {
-            $('#res').html(`Success: ${xhr.status} ${xhr.response}`);
+            $("#res").html(`Success: ${xhr.status} ${xhr.response}`);
           }
           else {
-            $('#res').html(`Server Error: ${xhr.status} ${xhr.response}`);
+            $("#res").html(`Server Error: ${xhr.status} ${xhr.response}`);
           }
         }
 
         xhr.onerror = function () {
-          $('#res').html('Network connection error');
+          $("#res").html("Network connection error");
         };
 
         xhr.send(JSON.stringify(obj));
       }
     });
+
+    function onDelete(e) {
+      if (confirm("Confirm?????"))
+      {
+
+      }
+    }
   </script>
 </body>
 
