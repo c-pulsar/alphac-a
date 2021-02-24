@@ -10,8 +10,6 @@ namespace AlphacA.Serialisation
     {
       return mvcBuilder.AddNewtonsoftJson(options =>
       {
-        //options.SerializerSettings.ContractResolver = new RepresentationContractResolver();
-
         options.SerializerSettings.ContractResolver = new DefaultContractResolver
         {
           NamingStrategy = new CamelCaseNamingStrategy()
