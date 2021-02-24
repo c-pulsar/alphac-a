@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using AlphacA.Representations.Schemas;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
@@ -20,7 +21,7 @@ namespace AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      if (typeof(FormRepresentation).IsAssignableFrom(type))
+      if (typeof(Representation).IsAssignableFrom(type))
       {
         return base.CanWriteType(type);
       }
@@ -31,11 +32,39 @@ namespace AlphacA.Representations.Formatters
     public override async Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
     {
       var response = context.HttpContext.Response;
-      var formRepresentation = context.Object as FormRepresentation;
 
-      var result = BuildFormHtmlFromTemplate(formRepresentation);
+      var representation = context.Object as Representation;
+
+      var result = BuildHtmlFromTemplate(representation);
 
       await response.WriteAsync(result).ConfigureAwait(false);
+    }
+
+    private static string BuildHtmlFromTemplate(Representation representation)
+    {
+      if (representation is FormRepresentation)
+      {
+        return BuildFormHtmlFromTemplate(representation as FormRepresentation);
+      }
+
+      return BuildResourceHtmlFromTemplate(representation);
+    }
+
+    private static string BuildResourceHtmlFromTemplate(Representation representation)
+    {
+      const string templateId = "AlphacA.Representations.Templates.ResourceViewTemplate.html";
+
+      var assembly = Assembly.GetExecutingAssembly();
+      using var stream = assembly.GetManifestResourceStream(templateId);
+      using var reader = new StreamReader(stream);
+
+      var template = reader.ReadToEnd();
+
+      var resourceHtml = HtmlResourceViewGenerator.Generate(representation).ToString();
+
+      return template
+        .Replace("//{{TITLE}}", representation.Title)
+        .Replace("//{{RESOURCE}}", resourceHtml);
     }
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
