@@ -32,6 +32,13 @@ namespace AlphacA.Resources.Users.Representations
     {
       return new RepresentationCollection
       {
+        Links = new Link[]
+        {
+          Link.Make("self", userUriFactory.MakeCollection(), "Self"),
+          Link.Make("create-form", userUriFactory.MakeCreateForm(), "Create"),
+          Link.Make("search", userUriFactory.MakeSearchForm(), "Search"),
+        },
+
         Id = userUriFactory.MakeCollection(),
         Title = "Users",
         Type = "UserCollection",
@@ -49,6 +56,13 @@ namespace AlphacA.Resources.Users.Representations
     {
       return new UserRepresentation
       {
+        Links = new Link[]
+        {
+          Link.Make("self", userUriFactory.Make(user.Id), "Self"),
+          Link.Make("edit-form", userUriFactory.MakeEditForm(user.Id), "Edit"),
+          Link.Make("users", userUriFactory.MakeCollection(), "Users"),
+        },
+
         Id = userUriFactory.Make(user.Id),
         EditForm = userUriFactory.MakeEditForm(user.Id),
         Users = userUriFactory.MakeCollection(),

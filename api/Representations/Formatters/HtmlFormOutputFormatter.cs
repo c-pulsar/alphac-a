@@ -21,10 +21,10 @@ namespace AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      if (typeof(Representation).IsAssignableFrom(type))
-      {
-        return base.CanWriteType(type);
-      }
+      // if (typeof(Representation).IsAssignableFrom(type))
+      // {
+      //   return base.CanWriteType(type);
+      // }
 
       return false;
     }
