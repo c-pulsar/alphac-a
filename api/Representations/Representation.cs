@@ -16,7 +16,7 @@ namespace AlphacA.Representations
 
     public virtual string Html()
     {
-      return new RepresentationHtmlBuilder().Html(this);
+      return new HtmlBuilder<Representation>().Html(this);
     }
   }
 }

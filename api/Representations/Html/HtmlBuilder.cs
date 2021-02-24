@@ -6,25 +6,25 @@ using Newtonsoft.Json;
 
 namespace AlphacA.Representations.Html
 {
-  public class RepresentationHtmlBuilder
+  public class HtmlBuilder<T> where T : Representation
   {
     private static readonly string[] IgnoreProperties = new string[]
     { "_links",  "_title", "_type", "_items" };
 
-    public virtual string Html(Representation representation)
+    public virtual string Html(T representation)
     {
-      var links = representation.Links.Select(x => this.LinkHtml(x)).ToArray();
-      var properties = representation
-        .GetType()
-        .GetProperties()
-        .Select(x => PropertyHtml(x, representation))
-        .Where(x => x != null)
-        .ToArray();
-
-      var linksPanel = this.PanelHtml(links, "Linkis");
-      var propertiesPanel = this.PanelHtml(properties, representation.Title);
-
-      var panelGroup = this.PanelGroupHtml(linksPanel, propertiesPanel);
+      var panelGroup = this.PanelGroupHtml(
+        this.PanelHtml(
+          representation.Links.Select(x => this.LinkHtml(x)).ToArray(),
+          "Links"),
+        this.PanelHtml(
+          representation
+            .GetType()
+            .GetProperties()
+            .Select(x => PropertyHtml(x, representation))
+            .Where(x => x != null)
+            .ToArray(),
+          representation.Title));
 
       return $"<!DOCTYPE html>{this.DocumentHtml(representation.Title, panelGroup)}";
     }
