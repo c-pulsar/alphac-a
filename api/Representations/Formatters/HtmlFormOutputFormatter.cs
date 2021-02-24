@@ -21,10 +21,10 @@ namespace AlphacA.Representations.Formatters
 
     protected override bool CanWriteType(Type type)
     {
-      // if (typeof(Representation).IsAssignableFrom(type))
-      // {
-      //   return base.CanWriteType(type);
-      // }
+      if (typeof(Representation).IsAssignableFrom(type))
+      {
+        return base.CanWriteType(type);
+      }
 
       return false;
     }
@@ -60,7 +60,7 @@ namespace AlphacA.Representations.Formatters
 
       var template = reader.ReadToEnd();
 
-      var resourceHtml = HtmlResourceViewGenerator.Generate(representation, representation.Title).ToString();
+      var resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
 
       return template
         .Replace("//{{TITLE}}", representation.Title)

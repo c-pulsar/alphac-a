@@ -4,28 +4,55 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace AlphacA.Representations.Schemas
 {
   public static class HtmlResourceViewGenerator
   {
-    public static XElement Generate<T>(T instance, string title)
-    {
-      var links = new List<XElement>();
+    private static readonly string[] PropertiesToIgnore = new string[]
+    { "_links",  "_title", "_type", "_items" };
 
-      var properties = instance
-          .GetType()
-          .GetProperties()
-          .Select(x => MakeField(x, instance, links))
-          .Where(x => x != null)
-          .ToArray();
+    public static XElement RepresentationHtml(Representation representation)
+    {
+      var links = MakeLinks(representation.Links);
+
+      var properties = representation
+        .GetType()
+        .GetProperties()
+        .Select(x => MakeField(x, representation))
+        .Where(x => x != null)
+        .ToArray();
 
       return new XElement("div", new XAttribute("class", "panel-group container"),
         MakeContainerRow(links.ToArray(), "Links"),
-        MakeContainerRow(properties, title));
+        MakeContainerRow(properties, representation.Title));
     }
 
-    private static XElement MakeField(PropertyInfo property, object instance, List<XElement> links)
+    public static XElement[] MakeLinks(Link[] links)
+    {
+      return links.Select(x => MakeLink(x.Title, x.Reference)).ToArray();
+    }
+
+    //++++++++++++++++++++++
+
+    // public static XElement Generate<T>(T instance, string title)
+    // {
+    //   var links = new List<XElement>();
+
+    //   var properties = instance
+    //       .GetType()
+    //       .GetProperties()
+    //       .Select(x => MakeField(x, instance, links))
+    //       .Where(x => x != null)
+    //       .ToArray();
+
+    //   return new XElement("div", new XAttribute("class", "panel-group container"),
+    //     MakeContainerRow(links.ToArray(), "Links"),
+    //     MakeContainerRow(properties, title));
+    // }
+
+    private static XElement MakeField(PropertyInfo property, object instance)
     {
       var displayNameAttr = property.GetCustomAttribute<DisplayNameAttribute>();
 
@@ -35,13 +62,13 @@ namespace AlphacA.Representations.Schemas
         return null;
       }
 
-      var name = displayNameAttr != null ? displayNameAttr.DisplayName : property.Name;
-
-      if (property.PropertyType.Equals(typeof(Uri)))
+      var jsonAttr = property.GetCustomAttribute<JsonPropertyAttribute>();
+      if (jsonAttr != null && PropertiesToIgnore.Any(x => x == jsonAttr.PropertyName))
       {
-        links.Add(MakeLink(name, value as Uri));
         return null;
       }
+
+      var name = displayNameAttr != null ? displayNameAttr.DisplayName : property.Name;
 
       return MakeGeneral(name, value);
     }
