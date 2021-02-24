@@ -9,7 +9,7 @@ namespace AlphacA.Representations.Schemas
 {
   public static class HtmlResourceViewGenerator
   {
-    public static XElement Generate<T>(T instance)
+    public static XElement Generate<T>(T instance, string title)
     {
       var links = new List<XElement>();
 
@@ -21,8 +21,8 @@ namespace AlphacA.Representations.Schemas
           .ToArray();
 
       return new XElement("div", new XAttribute("class", "panel-group container"),
-        MakeContainerRow(links.ToArray(), ""),
-        MakeContainerRow(properties, ""));
+        MakeContainerRow(links.ToArray(), "Links"),
+        MakeContainerRow(properties, title));
     }
 
     private static XElement MakeField(PropertyInfo property, object instance, List<XElement> links)
@@ -43,13 +43,14 @@ namespace AlphacA.Representations.Schemas
         return null;
       }
 
-      return MakeCustom(name, value);
+      return MakeGeneral(name, value);
     }
 
-    private static XElement MakeCustom(string displayName, object obj)
+    private static XElement MakeGeneral(string displayName, object obj)
     {
       return new XElement("div", new XAttribute("class", "row"),
-        new XElement("div", new XAttribute("class", "col-xs-2"),  displayName),
+        new XElement("div", new XAttribute("class", "col-xs-2"),
+          new XElement("p", new XElement("strong", displayName))),
         new XElement("div", new XAttribute("class", "col-xs-10"), obj.ToString()));
     }
 
