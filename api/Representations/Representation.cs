@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace AlphacA.Representations
 {
-  public class Representation
+  public abstract class Representation
   {
     [JsonProperty("_links", Order = -2)]
     public Link[] Links { get; set; }

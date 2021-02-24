@@ -60,7 +60,15 @@ namespace AlphacA.Representations.Formatters
 
       var template = reader.ReadToEnd();
 
-      var resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
+      string resourceHtml;
+      if (representation is RepresentationCollection)
+      {
+        resourceHtml = HtmlResourceViewGenerator.CollectionHtml(representation as RepresentationCollection).ToString();
+      }
+      else
+      {
+        resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
+      }
 
       return template
         .Replace("//{{TITLE}}", representation.Title)

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -29,7 +28,31 @@ namespace AlphacA.Representations.Schemas
         MakeContainerRow(properties, representation.Title));
     }
 
-    public static XElement[] MakeLinks(Link[] links)
+    public static XElement CollectionHtml(RepresentationCollection representation)
+    {
+      var links = MakeLinks(representation.Links);
+      var items = MakeCollectionItems(representation.Items);
+
+      return new XElement("div", new XAttribute("class", "panel-group container"),
+        MakeContainerRow(links.ToArray(), "Links"),
+        MakeContainerRow(items, representation.Title));
+    }
+
+    private static XElement[] MakeCollectionItems(RepresentationCollectionItem[] items)
+    {
+      return items.Select(x => MakeCollectionItem(x)).ToArray();
+    }
+
+    private static XElement MakeCollectionItem(RepresentationCollectionItem item)
+    {
+      return new XElement(
+        "a",
+        new XAttribute("class", "btn btn-link btn-default btn-block"),
+        new XAttribute("href", item.Reference.ToString()),
+        item.Title);
+    }
+
+    private static XElement[] MakeLinks(Link[] links)
     {
       return links.Select(x => MakeLink(x.Title, x.Reference)).ToArray();
     }
