@@ -1,3 +1,4 @@
+using AlphacA.Representations.Html;
 using Newtonsoft.Json;
 
 namespace AlphacA.Representations
@@ -12,5 +13,10 @@ namespace AlphacA.Representations
 
     [JsonProperty("_type", Order = -2)]
     public string Type { get; set; }
+
+    public virtual string Html()
+    {
+      return new RepresentationHtmlBuilder().Html(this);
+    }
   }
 }

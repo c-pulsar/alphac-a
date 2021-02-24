@@ -52,27 +52,28 @@ namespace AlphacA.Representations.Formatters
 
     private static string BuildResourceHtmlFromTemplate(Representation representation)
     {
-      const string templateId = "AlphacA.Representations.Templates.ResourceViewTemplate.html";
+      return representation.Html();
+      // const string templateId = "AlphacA.Representations.Templates.ResourceViewTemplate.html";
 
-      var assembly = Assembly.GetExecutingAssembly();
-      using var stream = assembly.GetManifestResourceStream(templateId);
-      using var reader = new StreamReader(stream);
+      // var assembly = Assembly.GetExecutingAssembly();
+      // using var stream = assembly.GetManifestResourceStream(templateId);
+      // using var reader = new StreamReader(stream);
 
-      var template = reader.ReadToEnd();
+      // var template = reader.ReadToEnd();
 
-      string resourceHtml;
-      if (representation is RepresentationCollection)
-      {
-        resourceHtml = HtmlResourceViewGenerator.CollectionHtml(representation as RepresentationCollection).ToString();
-      }
-      else
-      {
-        resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
-      }
+      // string resourceHtml;
+      // if (representation is RepresentationCollection)
+      // {
+      //   resourceHtml = HtmlResourceViewGenerator.CollectionHtml(representation as RepresentationCollection).ToString();
+      // }
+      // else
+      // {
+      //   resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
+      // }
 
-      return template
-        .Replace("//{{TITLE}}", representation.Title)
-        .Replace("//{{RESOURCE}}", resourceHtml);
+      // return template
+      //   .Replace("//{{TITLE}}", representation.Title)
+      //   .Replace("//{{RESOURCE}}", resourceHtml);
     }
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
