@@ -1,3 +1,4 @@
+using AlphacA.Representations;
 using AlphacA.Resources.Users;
 
 namespace AlphacA.Resources.Root
@@ -17,10 +18,14 @@ namespace AlphacA.Resources.Root
     {
       return new RootRepresentation
       {
-        Id = this.rootUriFactory.MakeRootUri(),
+        Links = new Link[]
+        {
+          Link.Make("self", this.rootUriFactory.MakeRootUri(), "Self"),
+          Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
+        },
+
         Title = "Alpha Centauri",
-        Type = "Root",
-        Users = this.userUriFactory.MakeCollection()
+        Type = "Root"
       };
     }
   }

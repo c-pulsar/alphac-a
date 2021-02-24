@@ -29,9 +29,5 @@ namespace AlphacA.Resources.Users.Representations
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
-
-    public Uri Users { get; set; }
-
-    public Uri EditForm { get; set; }
   }
 }

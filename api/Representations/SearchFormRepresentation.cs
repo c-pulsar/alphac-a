@@ -8,7 +8,7 @@ namespace AlphacA.Representations
     {
       return template
         .Replace("//{{TITLE}}", this.Title)
-        .Replace("//{{CREATE_URI}}", this.Id.ToString())
+        //.Replace("//{{CREATE_URI}}", this.Id.ToString())
         .Replace("//{{SCHEMA}}", $"schema: {this.Schema}");
     }
   }

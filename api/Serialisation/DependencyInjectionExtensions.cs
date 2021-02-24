@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace AlphacA.Serialisation
 {
@@ -9,7 +10,13 @@ namespace AlphacA.Serialisation
     {
       return mvcBuilder.AddNewtonsoftJson(options =>
       {
-        options.SerializerSettings.ContractResolver = new RepresentationContractResolver();
+        //options.SerializerSettings.ContractResolver = new RepresentationContractResolver();
+
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver
+        {
+          NamingStrategy = new CamelCaseNamingStrategy()
+        };
+
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
       });
     }

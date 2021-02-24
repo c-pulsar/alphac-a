@@ -39,16 +39,13 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("search", userUriFactory.MakeSearchForm(), "Search"),
         },
 
-        Id = userUriFactory.MakeCollection(),
         Title = "Users",
         Type = "UserCollection",
-        Items = users.Select(x => new Representation
+        Items = users.Select(x => new RepresentationCollectionItem
         {
-          Id = userUriFactory.Make(x.Id),
+          Reference = userUriFactory.Make(x.Id),
           Title = x.Title
         }).ToArray(),
-        CreateForm = userUriFactory.MakeCreateForm(),
-        SearchForm = userUriFactory.MakeSearchForm()
       };
     }
 
@@ -63,9 +60,6 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("users", userUriFactory.MakeCollection(), "Users"),
         },
 
-        Id = userUriFactory.Make(user.Id),
-        EditForm = userUriFactory.MakeEditForm(user.Id),
-        Users = userUriFactory.MakeCollection(),
         Title = user.Title,
         Type = "User",
         UserName = user.UserName,
@@ -83,7 +77,11 @@ namespace AlphacA.Resources.Users.Representations
 
       return new EditFormRepresentation
       {
-        Id = userUriFactory.MakeEditForm(user.Id),
+        Links = new Link[]
+        {
+          Link.Make("self", userUriFactory.MakeEditForm(user.Id), "Self")
+        },
+
         ResourceId = userUriFactory.Make(user.Id),
         CollectionId = userUriFactory.MakeCollection(),
         Title = "Edit User",
@@ -96,7 +94,11 @@ namespace AlphacA.Resources.Users.Representations
     {
       return new SearchFormRepresentation
       {
-        Id = userUriFactory.MakeSearchForm(),
+        Links = new Link[]
+        {
+          Link.Make("self", userUriFactory.MakeSearchForm(), "Self")
+        },
+
         Title = "Search Users",
         Schema = JsonSchema.Generate(representation),
       };
@@ -106,7 +108,11 @@ namespace AlphacA.Resources.Users.Representations
     {
       return new CreateFormRepresentation
       {
-        Id = this.userUriFactory.MakeCreateForm(),
+        Links = new Link[]
+        {
+          Link.Make("self", this.userUriFactory.MakeCreateForm(), "Self")
+        },
+
         CollectionId = this.userUriFactory.MakeCollection(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
