@@ -51,12 +51,12 @@ namespace AlphacA.Representations.Html
       yield return new XElement(
         "script",
         new XAttribute("type", "text/javascript"),
-        new XAttribute("src", "/static/forms/form.js"), "");
+        new XAttribute("src", "/static/forms/create-form.js"), "");
 
       yield return new XElement(
         "script",
         new XAttribute("type", "text/javascript"),
-        $"buildForm('/nosense/', {representation.Schema});");
+        $"buildFormFromSchema('{representation.PostUri}', {representation.Schema});");
     }
   }
 }

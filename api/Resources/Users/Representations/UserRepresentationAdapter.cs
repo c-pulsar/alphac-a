@@ -71,21 +71,21 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public EditFormRepresentation EditForm(User user, bool deleteEnabled = true)
+    public EditFormRepresentation EditForm(User user)
     {
-      var representation = Representation(user);
+      var representation = this.Representation(user);
 
       return new EditFormRepresentation
       {
         Links = new Link[]
         {
-          Link.Make("self", userUriFactory.MakeEditForm(user.Id), "Self")
+          Link.Make("self", this.userUriFactory.MakeEditForm(user.Id), "Self"),
+          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make("user", this.userUriFactory.Make(user.Id), "User")
         },
 
-        ResourceId = userUriFactory.Make(user.Id),
-        CollectionId = userUriFactory.MakeCollection(),
+        PostUri = this.userUriFactory.Make(user.Id),
         Title = "Edit User",
-        CanDelete = deleteEnabled,
         Schema = JsonSchema.Generate(representation),
       };
     }
@@ -110,10 +110,11 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("self", this.userUriFactory.MakeCreateForm(), "Self")
+          Link.Make("self", this.userUriFactory.MakeCreateForm(), "Self"),
+          Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 
-        CollectionId = this.userUriFactory.MakeCollection(),
+        PostUri = this.userUriFactory.MakeCollection(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
       };

@@ -1,5 +1,4 @@
-function buildForm(postFormUri, schema) {
-  alert('Oia');
+function buildFormFromSchema(postFormUri, schema) {
   $("form").jsonForm({
     schema: schema,
     form: [

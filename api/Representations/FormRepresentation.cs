@@ -1,3 +1,4 @@
+using System;
 using AlphacA.Representations.Html;
 using Newtonsoft.Json.Linq;
 
@@ -7,9 +8,7 @@ namespace AlphacA.Representations
   {
     public JObject Schema { get; set; }
 
-    public abstract string TemplateId { get; }
-
-    public abstract string ApplyTemplate(string template);
+    public Uri PostUri { get; set; }
 
     public override string Html()
     {
