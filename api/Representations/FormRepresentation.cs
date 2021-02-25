@@ -1,3 +1,4 @@
+using AlphacA.Representations.Html;
 using Newtonsoft.Json.Linq;
 
 namespace AlphacA.Representations
@@ -9,5 +10,10 @@ namespace AlphacA.Representations
     public abstract string TemplateId { get; }
 
     public abstract string ApplyTemplate(string template);
+
+    public override string Html()
+    {
+      return new FormHtmlBuilder().Html(this);
+    }
   }
 }

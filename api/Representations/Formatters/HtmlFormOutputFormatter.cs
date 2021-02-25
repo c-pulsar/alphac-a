@@ -36,44 +36,45 @@ namespace AlphacA.Representations.Formatters
       var representation = context.Object as Representation;
 
       var result = BuildHtmlFromTemplate(representation);
+      //var result = representation.Html();
 
       await response.WriteAsync(result).ConfigureAwait(false);
     }
 
     private static string BuildHtmlFromTemplate(Representation representation)
     {
-      if (representation is FormRepresentation)
-      {
-        return BuildFormHtmlFromTemplate(representation as FormRepresentation);
-      }
+      // if (representation is FormRepresentation)
+      // {
+      //   return BuildFormHtmlFromTemplate(representation as FormRepresentation);
+      // }
 
-      return BuildResourceHtmlFromTemplate(representation);
+      return representation.Html();
+      //return BuildResourceHtmlFromTemplate(representation);
     }
 
     private static string BuildResourceHtmlFromTemplate(Representation representation)
     {
-      return representation.Html();
-      // const string templateId = "AlphacA.Representations.Templates.ResourceViewTemplate.html";
+      const string templateId = "AlphacA.Representations.Templates.ResourceViewTemplate.html";
 
-      // var assembly = Assembly.GetExecutingAssembly();
-      // using var stream = assembly.GetManifestResourceStream(templateId);
-      // using var reader = new StreamReader(stream);
+      var assembly = Assembly.GetExecutingAssembly();
+      using var stream = assembly.GetManifestResourceStream(templateId);
+      using var reader = new StreamReader(stream);
 
-      // var template = reader.ReadToEnd();
+      var template = reader.ReadToEnd();
 
-      // string resourceHtml;
-      // if (representation is RepresentationCollection)
-      // {
-      //   resourceHtml = HtmlResourceViewGenerator.CollectionHtml(representation as RepresentationCollection).ToString();
-      // }
-      // else
-      // {
-      //   resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
-      // }
+      string resourceHtml;
+      if (representation is RepresentationCollection)
+      {
+        resourceHtml = HtmlResourceViewGenerator.CollectionHtml(representation as RepresentationCollection).ToString();
+      }
+      else
+      {
+        resourceHtml = HtmlResourceViewGenerator.RepresentationHtml(representation).ToString();
+      }
 
-      // return template
-      //   .Replace("//{{TITLE}}", representation.Title)
-      //   .Replace("//{{RESOURCE}}", resourceHtml);
+      return template
+        .Replace("//{{TITLE}}", representation.Title)
+        .Replace("//{{RESOURCE}}", resourceHtml);
     }
 
     private static string BuildFormHtmlFromTemplate(FormRepresentation representation)
