@@ -84,7 +84,7 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("user", this.userUriFactory.Make(user.Id), "User")
         },
 
-        PostUri = this.userUriFactory.Make(user.Id),
+        //PostUri = this.userUriFactory.Make(user.Id),
         Title = "Edit User",
         Schema = JsonSchema.Generate(representation),
       };
@@ -114,7 +114,7 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 
-        PostUri = this.userUriFactory.MakeCollection(),
+        CreateUri = this.userUriFactory.MakeCollection(),
         Title = "Create User",
         Schema = JsonSchema.Generate(representation),
       };

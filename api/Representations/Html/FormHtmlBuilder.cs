@@ -4,9 +4,9 @@ using System.Xml.Linq;
 
 namespace AlphacA.Representations.Html
 {
-  public class FormHtmlBuilder : HtmlBuilder<FormRepresentation>
+  public abstract class FormHtmlBuilder<T> : HtmlBuilder<T> where T : Representation
   {
-    public override string Html(FormRepresentation representation)
+    public override string Html(T representation)
     {
       var panelGroup = this.PanelGroupHtml(
         this.PanelHtml(
@@ -19,7 +19,7 @@ namespace AlphacA.Representations.Html
       return $"<!DOCTYPE html>{this.DocumentHtml(representation.Title, panelGroup)}";
     }
 
-    private static IEnumerable<XElement> FormHtml(FormRepresentation representation)
+    protected IEnumerable<XElement> FormHtml(T representation)
     {
       yield return new XElement("form", "");
 
@@ -48,15 +48,13 @@ namespace AlphacA.Representations.Html
         new XAttribute("type", "text/javascript"),
         new XAttribute("src", "/static/jsonforms/lib/jsonform.js"), "");
 
-      yield return new XElement(
-        "script",
-        new XAttribute("type", "text/javascript"),
-        new XAttribute("src", "/static/forms/create-form.js"), "");
+      yield return FormScript(representation);
 
-      yield return new XElement(
-        "script",
-        new XAttribute("type", "text/javascript"),
-        $"buildFormFromSchema('{representation.PostUri}', {representation.Schema});");
+      yield return InitialisationScript(representation);
     }
+
+    protected abstract XElement FormScript(T representation);
+
+    protected abstract XElement InitialisationScript(T representation);
   }
 }
