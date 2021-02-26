@@ -25,7 +25,8 @@ namespace AlphacA.Resources.Root
         },
 
         Title = "Alpha Centauri",
-        Type = "Root"
+        Type = "Root",
+        Version = "0.1.0",
       };
     }
   }

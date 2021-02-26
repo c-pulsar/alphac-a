@@ -26,8 +26,10 @@ namespace AlphacA.Resources.Users.Representations
     [DisplayName("Last Name")]
     public string LastName { get; set; }
 
+    [DisplayName("User Since")]
     public DateTime CreatedAt { get; set; }
 
+    [DisplayName("Last Updated")]
     public DateTime UpdatedAt { get; set; }
   }
 }
