@@ -18,7 +18,7 @@ namespace AlphacA.Representations.Html
       return new XElement(
         "script",
         new XAttribute("type", "text/javascript"),
-        $"buildFormFromSchema('{representation.CreateUri}', {representation.Schema});");
+        $"buildFormFromSchema('{representation.PostUri}', {representation.Schema});");
     }
   }
 }

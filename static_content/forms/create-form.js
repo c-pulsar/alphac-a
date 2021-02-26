@@ -1,4 +1,4 @@
-function buildFormFromSchema(createUri, schema) {
+function buildFormFromSchema(postUri, schema) {
   $("form").jsonForm({
     schema: schema,
     form: [
@@ -18,7 +18,7 @@ function buildFormFromSchema(createUri, schema) {
     onSubmitValid: function (obj) {
 
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", createUri);
+      xhr.open("POST", postUri);
       xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
       xhr.onload = function () {

@@ -1,4 +1,9 @@
-function buildFormFromSchema(postFormUri, schema) {
+function buildFormFromSchema(postUri, deleteRedirectUri, schema) {
+
+  var deleteButtonVisualAttributes = deleteRedirectUri
+    ? "visible btn btn-danger"
+    : "invisible";
+
   $("form").jsonForm({
     schema: schema,
     form: [
@@ -17,7 +22,7 @@ function buildFormFromSchema(postFormUri, schema) {
       {
         "type": "button",
         "title": "Delete",
-        "htmlClass": "visible btn btn-danger",
+        "htmlClass": deleteButtonVisualAttributes,
         "onClick": function (e) { onDelete(e); }
       }
     ],
@@ -25,12 +30,12 @@ function buildFormFromSchema(postFormUri, schema) {
     onSubmitValid: function (obj) {
 
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", postFormUri);
+      xhr.open("POST", postUri);
       xhr.setRequestHeader("content-type", "application/json;charset=UTF-8");
 
       xhr.onload = function () {
         if (xhr.status === 200) {
-          window.location.replace(postFormUri);
+          window.location.replace(postUri);
         }
         else {
           $("#res").html(`Unexpected response status: ${xhr.status} ${xhr.response}`);
@@ -49,11 +54,11 @@ function buildFormFromSchema(postFormUri, schema) {
     if (confirm("Are you sure?")) {
 
       var xhr = new XMLHttpRequest();
-      xhr.open("DELETE", postFormUri);
+      xhr.open("DELETE", postUri);
 
       xhr.onload = function () {
         if (xhr.status === 200) {
-          //window.location.replace(collectionUri);
+          window.location.replace(deleteRedirectUri);
         }
         else {
           $("#res").html(`Unexpected status code: ${xhr.status} ${xhr.response}`);
