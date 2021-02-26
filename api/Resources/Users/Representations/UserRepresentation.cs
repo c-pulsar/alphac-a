@@ -10,7 +10,7 @@ namespace AlphacA.Resources.Users.Representations
   {
     [EmailAddress]
     [Required]
-    [ReadOnly(true)]
+    [Editable(false)] // create only
     [DisplayName("Username")]
     [Description("Must be an email address")]
     public string UserName { get; set; }
@@ -26,10 +26,14 @@ namespace AlphacA.Resources.Users.Representations
     [DisplayName("Last Name")]
     public string LastName { get; set; }
 
+    //[Editable(false, AllowInitialValue = true)]
+    //[IgnoreDataMember]
     [DisplayName("User Since")]
+    [ReadOnly(true)]
     public DateTime CreatedAt { get; set; }
 
     [DisplayName("Last Updated")]
+    [ReadOnly(true)]
     public DateTime UpdatedAt { get; set; }
   }
 }

@@ -74,7 +74,7 @@ namespace AlphacA.Representations.Schemas
 
     private static string GetSchemaType(this Type type)
     {
-      if (type == typeof(string))
+      if (type == typeof(string) || type == typeof(DateTime))
       {
         return SchemaPropertyType.String;
       }
@@ -92,7 +92,18 @@ namespace AlphacA.Representations.Schemas
       return properties.Where(x =>
         x.GetSetMethod() != null && // has public setter
         x.GetGetMethod() != null && // has public getter
-        x.GetCustomAttribute<DisplayNameAttribute>() != null); // has display name
+        !x.IsReadOnly());
+    }
+
+    private static bool IsReadOnly(this PropertyInfo propertyInfo)
+    {
+      var readOnlyAttr = propertyInfo.GetCustomAttribute<ReadOnlyAttribute>();
+      if (readOnlyAttr != null)
+      {
+        return readOnlyAttr.IsReadOnly;
+      }
+
+      return false;
     }
 
     private static string GetPropertyName(this PropertyInfo propertyInfo)

@@ -65,8 +65,8 @@ namespace AlphacA.Representations.Schemas
 
     public bool AddReadOnly(PropertyInfo propertyInfo)
     {
-      var readOnlyAttr = propertyInfo.GetCustomAttribute<ReadOnlyAttribute>();
-      if (readOnlyAttr?.IsReadOnly == true)
+      var editable = propertyInfo.GetCustomAttribute<EditableAttribute>();
+      if (editable?.AllowEdit == false)
       {
         this.properties.Add(new JProperty("readonly", true));
         return true;
