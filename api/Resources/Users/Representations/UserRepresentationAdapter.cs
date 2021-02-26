@@ -92,14 +92,16 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public SearchFormRepresentation SearchForm(UserSearchRepresentation representation)
+    public FormRepresentation SearchForm(UserSearchRepresentation representation)
     {
-      return new SearchFormRepresentation
+      return new CreateFormRepresentation
       {
         Links = new Link[]
         {
           Link.Make("self", userUriFactory.MakeSearchForm(), "Self")
         },
+
+        PostUri = this.userUriFactory.MakeSearchForm(),
 
         Title = "Search Users",
         Schema = JsonSchema.Generate(representation),
