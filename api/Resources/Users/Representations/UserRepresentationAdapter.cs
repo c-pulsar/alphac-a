@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Core;
 using AlphacA.Representations;
-using AlphacA.Representations.Schemas;
+using AlphacA.Resources.Root;
 using AlphacA.Resources.Users.Domain;
 
 namespace AlphacA.Resources.Users.Representations
@@ -11,10 +11,14 @@ namespace AlphacA.Resources.Users.Representations
   public class UserRepresentationAdapter
   {
     private readonly UserUriFactory userUriFactory;
+    private readonly RootUriFactory rootUri;
 
-    public UserRepresentationAdapter(UserUriFactory userUriFactory)
+    public UserRepresentationAdapter(
+      UserUriFactory userUriFactory,
+      RootUriFactory rootUri)
     {
       this.userUriFactory = userUriFactory;
+      this.rootUri = rootUri;
     }
 
     public User Domain(UserRepresentation representation)
@@ -34,9 +38,10 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("self", userUriFactory.MakeCollection(), "Self"),
-          Link.Make("create-form", userUriFactory.MakeCreateForm(), "Create"),
-          Link.Make("search", userUriFactory.MakeSearchForm(), "Search"),
+          Link.Make("root", this.rootUri.MakeRootUri(), "Home"),
+          Link.Make("self", this.userUriFactory.MakeCollection(), "Self"),
+          Link.Make("create-form", this.userUriFactory.MakeCreateForm(), "Create"),
+          Link.Make("search", this.userUriFactory.MakeSearchForm(), "Search"),
         },
 
         Title = "Users",
@@ -55,9 +60,10 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("self", userUriFactory.Make(user.Id), "Self"),
-          Link.Make("edit-form", userUriFactory.MakeEditForm(user.Id), "Edit"),
-          Link.Make("users", userUriFactory.MakeCollection(), "Users"),
+          Link.Make("root", this.rootUri.MakeRootUri(), "Home"),
+          Link.Make("self", this.userUriFactory.Make(user.Id), "Self"),
+          Link.Make("edit-form", this.userUriFactory.MakeEditForm(user.Id), "Edit"),
+          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
         },
 
         Title = user.Title,
@@ -75,10 +81,11 @@ namespace AlphacA.Resources.Users.Representations
     {
       var representation = this.Representation(user);
 
-      return new EditFormRepresentation
+      return new EditFormRepresentation(representation)
       {
         Links = new Link[]
         {
+          Link.Make("root", this.rootUri.MakeRootUri(), "Home"),
           Link.Make("self", this.userUriFactory.MakeEditForm(user.Id), "Self"),
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
           Link.Make("user", this.userUriFactory.Make(user.Id), "User")
@@ -87,14 +94,13 @@ namespace AlphacA.Resources.Users.Representations
         PostUri = this.userUriFactory.Make(user.Id),
         DeleteRedirectUri = this.userUriFactory.MakeCollection(),
 
-        Title = "Edit User",
-        Schema = JsonSchema.Generate(representation),
+        Title = "Edit User"
       };
     }
 
     public FormRepresentation SearchForm(UserSearchRepresentation representation)
     {
-      return new CreateFormRepresentation
+      return new CreateFormRepresentation(representation)
       {
         Links = new Link[]
         {
@@ -103,14 +109,13 @@ namespace AlphacA.Resources.Users.Representations
 
         PostUri = this.userUriFactory.MakeSearchForm(),
 
-        Title = "Search Users",
-        Schema = JsonSchema.Generate(representation),
+        Title = "Search Users"
       };
     }
 
     public CreateFormRepresentation CreateForm(UserRepresentation representation)
     {
-      return new CreateFormRepresentation
+      return new CreateFormRepresentation(representation)
       {
         Links = new Link[]
         {
@@ -119,8 +124,7 @@ namespace AlphacA.Resources.Users.Representations
         },
 
         PostUri = this.userUriFactory.MakeCollection(),
-        Title = "Create User",
-        Schema = JsonSchema.Generate(representation),
+        Title = "Create User"
       };
     }
 
