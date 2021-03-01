@@ -56,10 +56,10 @@ namespace AlphacA
       }
 
       app.UseDocumentStoreBuilder()
-         //.UseCookiePolicy()
+         .UseCookiePolicy()
          .UseRouting()
          .UseAuthentication()
-         .UseMiddleware<AuthHandler>()
+         //.UseMiddleware<AuthHandler>()
          .UseAuthorization()
          .UseStaticFiles(new StaticFileOptions
          {

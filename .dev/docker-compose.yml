@@ -23,6 +23,8 @@ services:
       - DOCUMENT_STORE_NAME=AlphaCentauri
       - AUTH_AUTHORITY=https://dev-wkngfk2k.au.auth0.com/
       - AUTH_AUDIENCE=https://alpha-centauri-api@pulsar.com
+      - AUTH_CLIENT_ID=pyxvaVrmLOWyDWl5eRldzHZWwdNqCVaY
+      - AUTH_CLIENT_SECRET=D49YkQaAWASs1Yro0LMT04up_LMAglJiRaJL388WN3vGWeBWftckrKc4V2-_WDge
   
   document_store:
     image: ravendb/ravendb:5.1-ubuntu-latest
