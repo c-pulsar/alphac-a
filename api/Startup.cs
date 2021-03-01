@@ -14,6 +14,7 @@ using AlphacA.Resources.Root;
 using AlphacA.Storage;
 using AlphacA.Exceptions;
 using AlphacA.Core;
+using AlphacA.Auth;
 
 namespace AlphacA
 {
@@ -31,6 +32,7 @@ namespace AlphacA
     {
       services.AddConfiguration()
               .AddUriInfrastructure()
+              //.AddAuth()
               .AddCore()
               .AddExceptions()
               .AddDocumentStore()
@@ -54,7 +56,10 @@ namespace AlphacA
       }
 
       app.UseDocumentStoreBuilder()
+         //.UseCookiePolicy()
          .UseRouting()
+         //.UseAuthentication()
+         //.UseAuthorization()
          .UseStaticFiles(new StaticFileOptions
          {
            FileProvider = new PhysicalFileProvider(

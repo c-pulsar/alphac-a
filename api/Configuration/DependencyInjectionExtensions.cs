@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using AlphacA.Auth;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AlphacA.Configuration
@@ -19,6 +20,12 @@ namespace AlphacA.Configuration
       .AddSingleton(_ => new ApiUriConfiguration
       {
         BaseUri = environmentVariables.FindOrThrow("API_BASE_URI")
+      })
+      .AddSingleton(_ => new AuthConfig
+      {
+        Domain = environmentVariables.FindOrThrow("AUTH_DOMAIN"),
+        ClientId = environmentVariables.FindOrThrow("AUTH_CLIENT_ID"),
+        ClientSecret = environmentVariables.FindOrThrow("AUTH_CLIENT_SECRET")
       });
     }
 

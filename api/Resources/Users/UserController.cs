@@ -4,11 +4,13 @@ using AlphacA.Representations;
 using AlphacA.Exceptions;
 using AlphacA.Resources.Users.Domain;
 using AlphacA.Resources.Users.Representations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AlphacA.Resources.Users
 {
   [ApiController]
   [Route("user")]
+  [Authorize]
   public class UserController : ControllerBase
   {
     private readonly UserResourceHandler resourceHandler;
