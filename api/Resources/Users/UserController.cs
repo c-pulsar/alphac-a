@@ -10,7 +10,7 @@ namespace AlphacA.Resources.Users
 {
   [ApiController]
   [Route("user")]
-  [Authorize]
+  //[Authorize]
   public class UserController : ControllerBase
   {
     private readonly UserResourceHandler resourceHandler;
