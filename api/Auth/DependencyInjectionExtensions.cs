@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -54,16 +56,36 @@ namespace AlphacA.Auth
 
           // Configure the Claims Issuer to be Auth0
           options.ClaimsIssuer = "Auth0";
+
+          options.Events = new OpenIdConnectEvents
+          {
+            // handle the logout redirection
+            OnRedirectToIdentityProviderForSignOut = (context) =>
+            {
+              //var logoutUri = $"https://{Configuration["Auth0:Domain"]}/v2/logout?client_id={Configuration["Auth0:ClientId"]}";
+              var logoutUri = $"{options.Authority}v2/logout?client_id={options.ClientId}";
+
+              var postLogoutUri = context.Properties.RedirectUri;
+              if (!string.IsNullOrEmpty(postLogoutUri))
+              {
+                if (postLogoutUri.StartsWith("/"))
+                {
+                  // transform to absolute
+                  var request = context.Request;
+                  postLogoutUri = request.Scheme + "://" + request.Host + request.PathBase + postLogoutUri;
+                }
+                logoutUri += $"&returnTo={ Uri.EscapeDataString(postLogoutUri)}";
+              }
+
+              context.Response.Redirect(logoutUri);
+              context.HandleResponse();
+
+              return Task.CompletedTask;
+            }
+          };
         });
 
       return services;
     }
-
-    /*https://dev-wkngfk2k.au.auth0.com/authorize?
-  response_type=token&
-  client_id=pyxvaVrmLOWyDWl5eRldzHZWwdNqCVaY&
-  connection=Username-Password-Authentication&
-  redirect_uri=http://localhost:3010/auth0/callback&
-  state=STATE*/
   }
 }
