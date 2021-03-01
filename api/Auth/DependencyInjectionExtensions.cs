@@ -26,5 +26,12 @@ namespace AlphacA.Auth
 
       return services;
     }
+
+    /*https://dev-wkngfk2k.au.auth0.com/authorize?
+  response_type=token&
+  client_id=pyxvaVrmLOWyDWl5eRldzHZWwdNqCVaY&
+  connection=Username-Password-Authentication&
+  redirect_uri=http://localhost:3010/auth0/callback&
+  state=STATE*/
   }
 }
