@@ -23,9 +23,8 @@ namespace AlphacA.Configuration
       })
       .AddSingleton(_ => new AuthConfig
       {
-        Domain = environmentVariables.FindOrThrow("AUTH_DOMAIN"),
-        ClientId = environmentVariables.FindOrThrow("AUTH_CLIENT_ID"),
-        ClientSecret = environmentVariables.FindOrThrow("AUTH_CLIENT_SECRET")
+        Authority = environmentVariables.FindOrThrow("AUTH_AUTHORITY"),
+        Audience = environmentVariables.FindOrThrow("AUTH_AUDIENCE")
       });
     }
 

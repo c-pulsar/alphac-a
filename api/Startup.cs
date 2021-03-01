@@ -32,7 +32,7 @@ namespace AlphacA
     {
       services.AddConfiguration()
               .AddUriInfrastructure()
-              //.AddAuth()
+              .AddAuth()
               .AddCore()
               .AddExceptions()
               .AddDocumentStore()
@@ -58,8 +58,8 @@ namespace AlphacA
       app.UseDocumentStoreBuilder()
          //.UseCookiePolicy()
          .UseRouting()
-         //.UseAuthentication()
-         //.UseAuthorization()
+         .UseAuthentication()
+         .UseAuthorization()
          .UseStaticFiles(new StaticFileOptions
          {
            FileProvider = new PhysicalFileProvider(
