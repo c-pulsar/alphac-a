@@ -33,6 +33,7 @@ namespace AlphacA.Auth
        .AddAuthentication(options =>
        {
          options.DefaultAuthenticateScheme = "content-based";
+         options.DefaultSignInScheme = "content-based";
          options.DefaultChallengeScheme = "content-based";
        })
        .AddPolicyScheme("content-based", "Bearer or Cookie", options =>

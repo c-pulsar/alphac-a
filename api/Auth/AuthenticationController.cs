@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AlphacA.Resources.Root;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -10,6 +11,13 @@ namespace AlphacA.Auth
   [Route("auth")]
   public class AuthenticationController : Controller
   {
+    private readonly RootUriFactory rootUriFactory;
+
+    public AuthenticationController(RootUriFactory rootUriFactory)
+    {
+      this.rootUriFactory = rootUriFactory;
+    }
+
     [HttpGet("login")]
     public async Task Login(string redirectUri = "/")
     {
@@ -30,7 +38,7 @@ namespace AlphacA.Auth
           // Indicate here where Auth0 should redirect the user after a logout.
           // Note that the resulting absolute Uri must be added to the
           // **Allowed Logout URLs** settings for the app.
-          RedirectUri = "http://localhost:3010"
+          RedirectUri = this.rootUriFactory.MakeRootUri().ToString()
         })
         .ConfigureAwait(false);
 
