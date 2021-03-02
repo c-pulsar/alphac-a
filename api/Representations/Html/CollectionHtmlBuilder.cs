@@ -5,6 +5,10 @@ namespace AlphacA.Representations.Html
 {
   public class CollectionHtmlBuilder : HtmlBuilder<RepresentationCollection>
   {
+    public CollectionHtmlBuilder(System.Security.Principal.IIdentity identity) : base(identity)
+    {
+    }
+
     public override string Html(RepresentationCollection representation)
     {
       var panelGroup = this.PanelGroupHtml(

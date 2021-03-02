@@ -33,7 +33,7 @@ namespace AlphacA.Representations.Formatters
 
       var representation = (Representation)context.Object;
 
-      var result = representation.Html();
+      var result = representation.Html(context.HttpContext.User?.Identity);
 
       await response.WriteAsync(result).ConfigureAwait(false);
     }

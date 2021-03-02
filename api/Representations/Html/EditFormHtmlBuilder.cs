@@ -4,6 +4,10 @@ namespace AlphacA.Representations.Html
 {
   public class EditFormHtmlBuilder : FormHtmlBuilder<EditFormRepresentation>
   {
+    public EditFormHtmlBuilder(System.Security.Principal.IIdentity identity) : base(identity)
+    {
+    }
+
     protected override XElement FormScript(EditFormRepresentation representation)
     {
       return new XElement(

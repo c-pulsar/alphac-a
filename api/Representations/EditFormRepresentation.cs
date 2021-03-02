@@ -1,4 +1,5 @@
 using System;
+using System.Security.Principal;
 using AlphacA.Representations.Html;
 
 namespace AlphacA.Representations
@@ -11,9 +12,9 @@ namespace AlphacA.Representations
 
     public Uri DeleteRedirectUri {get; set;}
 
-    public override string Html()
+    public override string Html(IIdentity identity)
     {
-      return new EditFormHtmlBuilder().Html(this);
+      return new EditFormHtmlBuilder(identity).Html(this);
     }
   }
 }

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Security.Principal;
 using AlphacA.Representations.Html;
 using Newtonsoft.Json;
 
@@ -18,9 +19,9 @@ namespace AlphacA.Representations
     [JsonProperty("_type", Order = -2)]
     public string Type { get; set; }
 
-    public virtual string Html()
+    public virtual string Html(IIdentity identity)
     {
-      return new HtmlBuilder<Representation>().Html(this);
+      return new HtmlBuilder<Representation>(identity).Html(this);
     }
   }
 }

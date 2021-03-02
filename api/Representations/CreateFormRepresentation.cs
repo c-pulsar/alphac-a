@@ -1,4 +1,5 @@
 using System;
+using System.Security.Principal;
 using AlphacA.Representations.Html;
 
 namespace AlphacA.Representations
@@ -9,9 +10,9 @@ namespace AlphacA.Representations
     {
     }
 
-    public override string Html()
+    public override string Html(IIdentity identity)
     {
-      return new CreateFormHtmlBuilder().Html(this);
+      return new CreateFormHtmlBuilder(identity).Html(this);
     }
   }
 }

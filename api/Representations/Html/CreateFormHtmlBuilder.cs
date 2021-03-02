@@ -5,6 +5,10 @@ namespace AlphacA.Representations.Html
 {
   public class CreateFormHtmlBuilder : FormHtmlBuilder<CreateFormRepresentation>
   {
+    public CreateFormHtmlBuilder(System.Security.Principal.IIdentity identity) : base(identity)
+    {
+    }
+
     protected override XElement FormScript(CreateFormRepresentation representation)
     {
       return new XElement(

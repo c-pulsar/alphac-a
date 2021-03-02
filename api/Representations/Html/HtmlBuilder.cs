@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 
@@ -10,10 +11,17 @@ namespace AlphacA.Representations.Html
   {
     private static readonly string[] IgnoreProperties = new string[]
     { "_links",  "_title", "_type", "_items" };
+    private readonly IIdentity identity;
+
+    public HtmlBuilder(IIdentity identity)
+    {
+      this.identity = identity;
+    }
 
     public virtual string Html(T representation)
     {
       var panelGroup = this.PanelGroupHtml(
+        this.PanelHeadlessHtml(this.IdentityHeaderHtml()),
         this.PanelHtml(
           representation.Links.Select(x => this.LinkHtml(x)).ToArray(),
           "Links"),
@@ -47,6 +55,37 @@ namespace AlphacA.Representations.Html
       return new XElement("div",
          new XAttribute("class", "panel-group container"),
          panels);
+    }
+
+    protected XElement IdentityHeaderHtml()
+    {
+      var username = "[Unauthenticated]";
+      var linkText = "Log In";
+      var linkRef = "/auth/login";
+
+      if (this.identity?.IsAuthenticated == true)
+      {
+        username = string.IsNullOrWhiteSpace(this.identity.Name)
+          ? "Unknown"
+          : this.identity.Name;
+        linkText = "Log Out";
+        linkRef = "/auth/logout";
+      }
+
+      return new XElement("div", new XAttribute("class", "row"),
+        new XElement("div", new XAttribute("class", "col-xs-5"), ""),
+        new XElement("div", new XAttribute("class", "col-xs-6"),
+          new XElement("strong", new XAttribute("class", "pull-left"), username),
+          new XElement("a", new XAttribute("class", "pull-right"),
+             new XAttribute("href", linkRef),
+             linkText)));
+    }
+
+    protected XElement PanelHeadlessHtml(object content)
+    {
+      return new XElement("div",
+        new XAttribute("class", "panel panel-primary"),
+        new XElement("div", new XAttribute("class", "panel-body"), content));
     }
 
     protected XElement PanelHtml(object content, string title)

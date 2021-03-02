@@ -1,4 +1,5 @@
 using System;
+using System.Security.Principal;
 using AlphacA.Representations.Html;
 using Newtonsoft.Json;
 
@@ -9,9 +10,9 @@ namespace AlphacA.Representations
     [JsonProperty("_items", Order = -1)]
     public RepresentationCollectionItem[] Items { get; set; }
 
-    public override string Html()
+    public override string Html(IIdentity identity)
     {
-      return new CollectionHtmlBuilder().Html(this);
+      return new CollectionHtmlBuilder(identity).Html(this);
     }
   }
 
