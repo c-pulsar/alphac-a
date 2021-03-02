@@ -77,9 +77,10 @@ namespace AlphacA.Representations.Html
         new XElement("div", new XAttribute("class", "col-xs-4 text-center"),
           new XElement("strong", username)),
         new XElement("div", new XAttribute("class", "col-xs-4"),
-          new XElement("a", new XAttribute("class", "pull-right"),
-             new XAttribute("href", linkRef),
-             linkText)));
+          new XElement("a",
+            new XAttribute("class", "pull-right"),
+            new XAttribute("href", linkRef),
+            linkText)));
     }
 
     protected XElement PanelHeadlessHtml(object content)
