@@ -59,7 +59,6 @@ namespace AlphacA
          .UseCookiePolicy()
          .UseRouting()
          .UseAuthentication()
-         //.UseMiddleware<AuthHandler>()
          .UseAuthorization()
          .UseStaticFiles(new StaticFileOptions
          {
