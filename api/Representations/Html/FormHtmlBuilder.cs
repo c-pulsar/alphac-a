@@ -6,13 +6,14 @@ namespace AlphacA.Representations.Html
 {
   public abstract class FormHtmlBuilder<T> : HtmlBuilder<T> where T : Representation
   {
-    public FormHtmlBuilder(System.Security.Principal.IIdentity identity) : base(identity)
+    protected FormHtmlBuilder(System.Security.Principal.IIdentity identity) : base(identity)
     {
     }
 
     public override string Html(T representation)
     {
       var panelGroup = this.PanelGroupHtml(
+        this.PanelHeadlessHtml(this.IdentityHeaderHtml()),
         this.PanelHtml(
           representation.Links.Select(x => this.LinkHtml(x)).ToArray(),
           "Links"),

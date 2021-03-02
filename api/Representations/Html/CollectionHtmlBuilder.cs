@@ -12,6 +12,7 @@ namespace AlphacA.Representations.Html
     public override string Html(RepresentationCollection representation)
     {
       var panelGroup = this.PanelGroupHtml(
+        this.PanelHeadlessHtml(this.IdentityHeaderHtml()),
         this.PanelHtml(
           representation.Links.Select(x => this.LinkHtml(x)).ToArray(), 
           "Links"),
