@@ -3,25 +3,28 @@ using AlphacA.Resources.Root;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Auth
 {
   [ApiController]
   [Route("auth")]
-  public class AuthenticationController : Controller
+  public class AuthenticationController
   {
+    private readonly IHttpContextAccessor httpContextAccessor;
     private readonly RootUriFactory rootUriFactory;
 
-    public AuthenticationController(RootUriFactory rootUriFactory)
+    public AuthenticationController(IHttpContextAccessor httpContextAccessor, RootUriFactory rootUriFactory)
     {
+      this.httpContextAccessor = httpContextAccessor;
       this.rootUriFactory = rootUriFactory;
     }
 
     [HttpGet("login")]
     public async Task Login(string redirectUri = "/")
     {
-      await this.HttpContext
+      await this.httpContextAccessor.HttpContext
         .ChallengeAsync("Auth0", new AuthenticationProperties() { RedirectUri = redirectUri })
         .ConfigureAwait(false);
     }
@@ -30,7 +33,7 @@ namespace AlphacA.Auth
     [HttpGet("logout")]
     public async Task Logout()
     {
-      await this.HttpContext
+      await this.httpContextAccessor.HttpContext
         .SignOutAsync(
         "Auth0",
         new AuthenticationProperties
@@ -42,7 +45,7 @@ namespace AlphacA.Auth
         })
         .ConfigureAwait(false);
 
-      await this.HttpContext
+      await this.httpContextAccessor.HttpContext
         .SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme)
         .ConfigureAwait(false);
     }
