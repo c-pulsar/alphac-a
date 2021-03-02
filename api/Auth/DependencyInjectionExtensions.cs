@@ -1,10 +1,12 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace AlphacA.Auth
@@ -33,13 +35,31 @@ namespace AlphacA.Auth
       services
         .AddAuthentication(options =>
         {
-          // options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-          // options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+          options.DefaultAuthenticateScheme = "content-based";
+          options.DefaultChallengeScheme = "content-based";
 
-          options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-          options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-          options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+          //options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+          //options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+          // options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+          // options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+          // options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         })
+        .AddPolicyScheme("content-based", "Bearer or Cookie", options =>
+            {
+              options.ForwardDefaultSelector = context =>
+              {
+                if (context.Request.Headers.TryGetValue("accept", out StringValues values))
+                {
+                  if (values.Any(x => x.Contains("html")))
+                  {
+                    return CookieAuthenticationDefaults.AuthenticationScheme;
+                  }
+                }
+
+                return JwtBearerDefaults.AuthenticationScheme;
+              };
+            })
         .AddJwtBearer()
         .AddCookie()
         .AddOpenIdConnect("Auth0", options =>
