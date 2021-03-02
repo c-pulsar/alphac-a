@@ -73,9 +73,10 @@ namespace AlphacA.Representations.Html
       }
 
       return new XElement("div", new XAttribute("class", "row"),
-        new XElement("div", new XAttribute("class", "col-xs-5"), ""),
-        new XElement("div", new XAttribute("class", "col-xs-6"),
-          new XElement("strong", new XAttribute("class", "pull-left"), username),
+        new XElement("div", new XAttribute("class", "col-xs-4"), ""),
+        new XElement("div", new XAttribute("class", "col-xs-4 text-center"),
+          new XElement("strong", username)),
+        new XElement("div", new XAttribute("class", "col-xs-4"),
           new XElement("a", new XAttribute("class", "pull-right"),
              new XAttribute("href", linkRef),
              linkText)));
