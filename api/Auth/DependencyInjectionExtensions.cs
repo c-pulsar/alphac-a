@@ -21,8 +21,8 @@ namespace AlphacA.Auth
         .AddOpenIdConnectOptions()
         .AddContentBasedAuthentication()
         .AddJwtBearer()
-        .AddCookie()
-        .AddOpenIdConnectAuthentication();
+        .AddCookieCustom()
+        .AddOpenIdConnectCustom();
 
       return services;
     }
@@ -52,7 +52,17 @@ namespace AlphacA.Auth
        });
     }
 
-    private static AuthenticationBuilder AddOpenIdConnectAuthentication(this AuthenticationBuilder authenticationBuilder)
+    private static AuthenticationBuilder AddCookieCustom(this AuthenticationBuilder authenticationBuilder)
+    {
+      return authenticationBuilder.AddCookie(options =>
+      {
+        options.LoginPath = new PathString("/auth/login");
+        options.LogoutPath = new PathString("/auth/logout");
+        options.ReturnUrlParameter = "redirectUri";
+      });
+    }
+
+    private static AuthenticationBuilder AddOpenIdConnectCustom(this AuthenticationBuilder authenticationBuilder)
     {
       return authenticationBuilder.AddOpenIdConnect("Auth0", options =>
       {

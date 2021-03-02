@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Mvc;
 namespace AlphacA.Auth
 {
   [ApiController]
-  [Route("Account")]
-  public class AccountController : Controller
+  [Route("auth")]
+  public class AuthenticationController : Controller
   {
-    [HttpGet("Login")]
-    public async Task Login(string returnUrl = "/")
+    [HttpGet("login")]
+    public async Task Login(string redirectUri = "/")
     {
       await this.HttpContext
-        .ChallengeAsync("Auth0", new AuthenticationProperties() { RedirectUri = returnUrl })
+        .ChallengeAsync("Auth0", new AuthenticationProperties() { RedirectUri = redirectUri })
         .ConfigureAwait(false);
     }
 
     [Authorize]
-    [HttpGet("Logout")]
+    [HttpGet("logout")]
     public async Task Logout()
     {
       await this.HttpContext
@@ -31,7 +31,6 @@ namespace AlphacA.Auth
           // Note that the resulting absolute Uri must be added to the
           // **Allowed Logout URLs** settings for the app.
           RedirectUri = "http://localhost:3010"
-          //RedirectUri = Url.Action("GetRoot", "Root")
         })
         .ConfigureAwait(false);
 
