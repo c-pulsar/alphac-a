@@ -38,11 +38,15 @@ namespace AlphacA
               .AddDocumentStore()
               .AddRoot()
               .AddUser()
+              .AddCors(o => o.AddPolicy("DefaultPolicy", builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()))
               .AddControllers(options =>
-                    {
-                      options.RespectBrowserAcceptHeader = true;
-                      options.OutputFormatters.Add(new HtmlFormOutputFormatter());
-                    })
+                {
+                  options.RespectBrowserAcceptHeader = true;
+                  options.OutputFormatters.Add(new HtmlFormOutputFormatter());
+                })
               .AddJsonSerialisation()
               .AddExceptionFilters();
     }
@@ -57,6 +61,7 @@ namespace AlphacA
 
       app.UseDocumentStoreBuilder()
          .UseCookiePolicy()
+         .UseCors("DefaultPolicy")
          .UseRouting()
          .UseAuthentication()
          .UseAuthorization()
