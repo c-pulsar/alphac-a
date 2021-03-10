@@ -5,7 +5,6 @@ using AlphacA.Exceptions;
 using AlphacA.Resources.Users.Domain;
 using AlphacA.Resources.Users.Representations;
 using Newtonsoft.Json.Schema;
-using AlphacA.Representations.Schemas;
 
 namespace AlphacA.Resources.Users
 {
@@ -41,13 +40,13 @@ namespace AlphacA.Resources.Users
     [HttpGet("search-form", Name = UserRoutes.SearchForm)]
     public ActionResult<FormRepresentation> GetSearchForm()
     {
-      return this.adapter.SearchForm(new UserSearchRepresentation());
+      return this.adapter.SearchForm();
     }
 
     [HttpGet("create-form", Name = UserRoutes.CreateForm)]
     public ActionResult<FormRepresentation> GetCreateForm()
     {
-      return this.adapter.CreateForm(new UserRepresentation());
+      return this.adapter.CreateForm();
     }
 
     [HttpGet("{id:Guid}", Name = UserRoutes.User)]

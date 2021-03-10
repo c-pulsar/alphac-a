@@ -6,22 +6,22 @@ using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Schema.Generation;
 using Newtonsoft.Json.Serialization;
 
-namespace AlphacA.Representations.Schemas
+namespace AlphacA.Representations
 {
   public class RepresentationSchemaGenerator : JSchemaGenerator
   {
     public RepresentationSchemaGenerator()
     {
-      this.ContractResolver = new CamelCasePropertyNamesContractResolver();
-      this.DefaultRequired = Required.DisallowNull;
-      this.SchemaReferenceHandling = SchemaReferenceHandling.None;
+      ContractResolver = new CamelCasePropertyNamesContractResolver();
+      DefaultRequired = Required.DisallowNull;
+      SchemaReferenceHandling = SchemaReferenceHandling.None;
     }
 
     public override JSchema Generate(Type type)
     {
       var schema = base.Generate(type);
 
-      foreach (var property in type.GetProperties())//.Where(x => IsReadOnly(x)))
+      foreach (var property in type.GetProperties())
       {
         var propertyName = GetPropertyName(property);
         if (schema.Properties.TryGetValue(propertyName, out JSchema propertySchema))

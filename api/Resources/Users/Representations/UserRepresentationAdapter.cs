@@ -82,7 +82,7 @@ namespace AlphacA.Resources.Users.Representations
     {
       var representation = this.Representation(user);
 
-      return new EditFormRepresentation(representation)
+      return new EditFormRepresentation
       {
         Links = new Link[]
         {
@@ -99,9 +99,9 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public FormRepresentation SearchForm(UserSearchRepresentation representation)
+    public FormRepresentation SearchForm()
     {
-      return new CreateFormRepresentation(representation)
+      return new CreateFormRepresentation
       {
         Links = new Link[]
         {
@@ -114,9 +114,9 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public CreateFormRepresentation CreateForm(UserRepresentation representation)
+    public CreateFormRepresentation CreateForm()
     {
-      return new CreateFormRepresentation(representation)
+      return new CreateFormRepresentation
       {
         Links = new Link[]
         {

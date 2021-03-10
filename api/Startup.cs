@@ -7,7 +7,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using AlphacA.Configuration;
 using AlphacA.Representations;
-using AlphacA.Representations.Formatters;
 using AlphacA.Serialisation;
 using AlphacA.Resources.Users;
 using AlphacA.Resources.Root;
@@ -42,11 +41,7 @@ namespace AlphacA
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()))
-              .AddControllers(options =>
-                {
-                  options.RespectBrowserAcceptHeader = true;
-                  options.OutputFormatters.Add(new HtmlFormOutputFormatter());
-                })
+              .AddControllers()
               .AddJsonSerialisation()
               .AddExceptionFilters();
     }
