@@ -4,14 +4,15 @@ using AlphacA.Representations;
 using AlphacA.Exceptions;
 using AlphacA.Resources.Users.Domain;
 using AlphacA.Resources.Users.Representations;
-using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json.Schema;
+using AlphacA.Representations.Schemas;
 
 namespace AlphacA.Resources.Users
 {
   [ApiController]
   [Route("user")]
-  [Authorize]
-  public class UserController 
+  //[Authorize]
+  public class UserController
   {
     private readonly UserResourceHandler resourceHandler;
     private readonly UserRepresentationAdapter adapter;
@@ -28,6 +29,13 @@ namespace AlphacA.Resources.Users
     public ActionResult<RepresentationCollection> GetCollection(string search)
     {
       return this.adapter.Representation(resourceHandler.Find(search));
+    }
+
+    [HttpGet("schema", Name = UserRoutes.Schema)]
+    public ActionResult<JSchema> GetUserSchema()
+    {
+      var generator = new RepresentationSchemaGenerator();
+      return generator.Generate(typeof(UserRepresentation));
     }
 
     [HttpGet("search-form", Name = UserRoutes.SearchForm)]

@@ -3,6 +3,7 @@ namespace AlphacA.Resources.Users
   public static class UserRoutes
   {
     public const string User = "USER";
+    public const string Schema = "USER-SCHEMA";
     public const string UserCollection = "USERS";
     public const string CreateForm = "USER-CREATE-FORM";
     public const string EditForm = "USER-EDIT-FORM";

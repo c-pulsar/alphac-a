@@ -37,6 +37,11 @@ namespace AlphacA.Resources.Users
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.EditForm, new { id })}");
     }
 
+    public Uri MakeSchema()
+    {
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.Schema)}");
+    }
+
     public Uri Make(string id)
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.User, new { id })}");

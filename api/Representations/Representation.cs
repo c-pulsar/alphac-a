@@ -1,7 +1,10 @@
+using System;
 using System.ComponentModel;
+//using System.ComponentModel;
 using System.Security.Principal;
 using AlphacA.Representations.Html;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 
 namespace AlphacA.Representations
 {
@@ -18,6 +21,9 @@ namespace AlphacA.Representations
     [ReadOnly(true)]
     [JsonProperty("_type", Order = -2)]
     public string Type { get; set; }
+
+    [JsonProperty("_schema", Order = -2)]    
+    public Uri Schema { get; set; }
 
     public virtual string Html(IIdentity identity)
     {

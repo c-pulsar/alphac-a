@@ -66,6 +66,7 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
         },
 
+        Schema = this.userUriFactory.MakeSchema(),
         Title = user.Title,
         Type = "User",
         UserName = user.UserName,
