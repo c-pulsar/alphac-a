@@ -24,6 +24,7 @@ namespace AlphacA.Resources.Root
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 
+        Schema = this.rootUriFactory.MakeSchema(),
         Title = "Alpha Centauri",
         Type = "Root",
         Version = "0.1.0",

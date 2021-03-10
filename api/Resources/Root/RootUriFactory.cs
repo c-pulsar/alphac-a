@@ -14,6 +14,12 @@ namespace AlphacA.Resources.Root
       this.urlHelper = urlHelper;
       this.apiUriConfiguration = apiUriConfiguration;
     }
+
+    public Uri MakeSchema()
+    {
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.Schema)}");
+    }
+
     public Uri MakeRootUri()
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(RootRoutes.Root)}");
