@@ -31,6 +31,7 @@ namespace AlphacA
     {
       services.AddConfiguration()
               .AddUriInfrastructure()
+              .AddJsonSchemaGeneration()
               .AddAuth()
               .AddCore()
               .AddExceptions()

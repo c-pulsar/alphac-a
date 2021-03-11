@@ -1,4 +1,3 @@
-
 using AlphacA.Representations;
 
 namespace AlphacA.Resources.Root

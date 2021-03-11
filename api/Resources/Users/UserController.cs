@@ -4,7 +4,8 @@ using AlphacA.Representations;
 using AlphacA.Exceptions;
 using AlphacA.Resources.Users.Domain;
 using AlphacA.Resources.Users.Representations;
-using Newtonsoft.Json.Schema;
+using NJsonSchema.Generation;
+using NJsonSchema;
 
 namespace AlphacA.Resources.Users
 {
@@ -15,13 +16,16 @@ namespace AlphacA.Resources.Users
   {
     private readonly UserResourceHandler resourceHandler;
     private readonly UserRepresentationAdapter adapter;
+    private readonly JsonSchemaGenerator schemaGenerator;
 
     public UserController(
       UserResourceHandler resourceHandler,
-      UserRepresentationAdapter adapter)
+      UserRepresentationAdapter adapter,
+      JsonSchemaGenerator schemaGenerator)
     {
       this.resourceHandler = resourceHandler;
       this.adapter = adapter;
+      this.schemaGenerator = schemaGenerator;
     }
 
     [HttpGet("", Name = UserRoutes.UserCollection)]
@@ -31,10 +35,9 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("schema", Name = UserRoutes.Schema)]
-    public ActionResult<JSchema> GetUserSchema()
+    public ActionResult<JsonSchema> GetUserSchema()
     {
-      var generator = new RepresentationSchemaGenerator();
-      return generator.Generate(typeof(UserRepresentation));
+      return this.schemaGenerator.Generate(typeof(UserRepresentation));
     }
 
     [HttpGet("search-form", Name = UserRoutes.SearchForm)]

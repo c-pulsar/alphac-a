@@ -1,6 +1,6 @@
-using AlphacA.Representations;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Schema;
+using NJsonSchema;
+using NJsonSchema.Generation;
 
 namespace AlphacA.Resources.Root
 {
@@ -9,17 +9,21 @@ namespace AlphacA.Resources.Root
   public class RootController
   {
     private readonly RootRepresentationAdapter adapter;
+    private readonly JsonSchemaGenerator schemaGenerator;
 
-    public RootController(RootRepresentationAdapter adapter)
+    public RootController(RootRepresentationAdapter adapter, JsonSchemaGenerator schemaGenerator)
     {
       this.adapter = adapter;
+      this.schemaGenerator = schemaGenerator;
     }
 
     [HttpGet("", Name = RootRoutes.Root)]
     public ActionResult<RootRepresentation> GetRoot() => this.adapter.MakeRepresentation();
 
     [HttpGet("schema", Name = RootRoutes.Schema)]
-    public ActionResult<JSchema> GetSchema() =>
-      new RepresentationSchemaGenerator().Generate(typeof(RootRepresentation));
+    public ActionResult<JsonSchema> GetSchema()
+    {
+      return this.schemaGenerator.Generate(typeof(RootRepresentation));
+    }
   }
 }
