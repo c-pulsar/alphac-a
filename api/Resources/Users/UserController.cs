@@ -46,6 +46,12 @@ namespace AlphacA.Resources.Users
       return this.adapter.SearchForm();
     }
 
+    [HttpGet("search/schema", Name = UserRoutes.SearchSchema)]
+    public ActionResult<JsonSchema> GetUserSearchSchema()
+    {
+      return this.schemaGenerator.Generate(typeof(UserSearchRepresentation));
+    }
+
     [HttpGet("create-form", Name = UserRoutes.CreateForm)]
     public ActionResult<FormRepresentation> GetCreateForm()
     {

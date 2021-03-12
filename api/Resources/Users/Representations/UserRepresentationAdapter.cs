@@ -80,8 +80,6 @@ namespace AlphacA.Resources.Users.Representations
 
     public EditFormRepresentation EditForm(User user)
     {
-      var representation = this.Representation(user);
-
       return new EditFormRepresentation
       {
         Links = new Link[]
@@ -91,6 +89,8 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
           Link.Make("user", this.userUriFactory.Make(user.Id), "User")
         },
+
+        Type = "EditForm",
 
         PostUri = this.userUriFactory.Make(user.Id),
         DeleteRedirectUri = this.userUriFactory.MakeCollection(),
@@ -108,6 +108,8 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("self", userUriFactory.MakeSearchForm(), "Self")
         },
 
+        Schema = this.userUriFactory.MakeSearchSchema(),
+        Type = "CreateForm",
         PostUri = this.userUriFactory.MakeSearchForm(),
 
         Title = "Search Users"
@@ -124,6 +126,7 @@ namespace AlphacA.Resources.Users.Representations
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 
+        Type = "CreateForm",
         PostUri = this.userUriFactory.MakeCollection(),
         Title = "Create User"
       };

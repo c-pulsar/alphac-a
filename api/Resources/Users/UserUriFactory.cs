@@ -41,6 +41,10 @@ namespace AlphacA.Resources.Users
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.Schema)}");
     }
+    public Uri MakeSearchSchema()
+    {
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.SearchSchema)}");
+    }
 
     public Uri Make(string id)
     {
