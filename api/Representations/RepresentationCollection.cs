@@ -7,6 +7,7 @@ namespace AlphacA.Representations
   {
     [JsonProperty("_items", Order = -1)]
     public RepresentationCollectionItem[] Items { get; set; }
+    public override RepresentationType Type => RepresentationType.Collection;
   }
 
   public class RepresentationCollectionItem

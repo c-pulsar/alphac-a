@@ -1,20 +1,36 @@
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AlphacA.Representations
 {
   public abstract class Representation
   {
-    [JsonProperty("_links", Order = -2)]
+    [JsonProperty("_links", Order = -7)]
     public Link[] Links { get; set; }
+
+    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonProperty("_type", Order = -6)]
+    public virtual RepresentationType Type => RepresentationType.Representation;
+
+    [JsonProperty("_schema", Order = -5)]
+    public Uri Schema { get; set; }
+
+    [JsonProperty("_resource", Order = -4)]
+    public string Resource { get; set; }
+
+    [JsonProperty("_id", Order = -3)]
+    public Uri Id { get; set; }
 
     [JsonProperty("_title", Order = -2)]
     public string Title { get; set; }
+  }
 
-    [JsonProperty("_type", Order = -2)]
-    public string Type { get; set; }
-
-    [JsonProperty("_schema", Order = -2)]
-    public Uri Schema { get; set; }
+  public enum RepresentationType
+  {
+    Representation,
+    Collection,
+    CreateForm,
+    EditForm
   }
 }

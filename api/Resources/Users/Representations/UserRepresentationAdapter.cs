@@ -38,14 +38,14 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("root", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("self", this.userUriFactory.MakeCollection(), "Self"),
+          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
           Link.Make("create-form", this.userUriFactory.MakeCreateForm(), "Create"),
           Link.Make("search", this.userUriFactory.MakeSearchForm(), "Search"),
         },
 
+        Id = this.userUriFactory.MakeCollection(),
         Title = "Users",
-        Type = "UserCollection",
+        Resource = "User",
         Items = users.Select(x => new RepresentationCollectionItem
         {
           Reference = userUriFactory.Make(x.Id),
@@ -60,15 +60,15 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("root", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("self", this.userUriFactory.Make(user.Id), "Self"),
+          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
           Link.Make("edit-form", this.userUriFactory.MakeEditForm(user.Id), "Edit"),
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
         },
 
+        Id = this.userUriFactory.Make(user.Id),
         Schema = this.userUriFactory.MakeSchema(),
         Title = user.Title,
-        Type = "User",
+        Resource = "User",
         UserName = user.UserName,
         FirstName = user.FirstName,
         MiddleNames = user.MiddleNames,
@@ -84,17 +84,15 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("root", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("self", this.userUriFactory.MakeEditForm(user.Id), "Self"),
+          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
           Link.Make("user", this.userUriFactory.Make(user.Id), "User")
         },
 
-        Type = "EditForm",
-
+        Id = this.userUriFactory.MakeEditForm(user.Id),
+        Resource = "User",
         PostUri = this.userUriFactory.Make(user.Id),
         DeleteRedirectUri = this.userUriFactory.MakeCollection(),
-
         Title = "Edit User"
       };
     }
@@ -105,13 +103,14 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("self", userUriFactory.MakeSearchForm(), "Self")
+          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
+          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
         },
 
+        Id = this.userUriFactory.MakeSearchForm(),
         Schema = this.userUriFactory.MakeSearchSchema(),
-        Type = "CreateForm",
+        Resource = "User",
         PostUri = this.userUriFactory.MakeSearchForm(),
-
         Title = "Search Users"
       };
     }
@@ -122,11 +121,12 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("self", this.userUriFactory.MakeCreateForm(), "Self"),
+          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 
-        Type = "CreateForm",
+        Id = this.userUriFactory.MakeCreateForm(),
+        Resource = "User",
         PostUri = this.userUriFactory.MakeCollection(),
         Title = "Create User"
       };

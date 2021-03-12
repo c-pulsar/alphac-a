@@ -20,13 +20,13 @@ namespace AlphacA.Resources.Root
       {
         Links = new Link[]
         {
-          Link.Make("self", this.rootUriFactory.MakeRootUri(), "Self"),
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 
+        Id = this.rootUriFactory.MakeRootUri(),
         Schema = this.rootUriFactory.MakeSchema(),
         Title = "Alpha Centauri",
-        Type = "Root",
+        Resource = "Home",
         Version = "0.1.0",
       };
     }
