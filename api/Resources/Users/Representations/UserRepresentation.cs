@@ -10,26 +10,26 @@ namespace AlphacA.Resources.Users.Representations
   {
     [EmailAddress]
     [Required]
-    [DisplayName("Username")]
+    [Display(Name = "Username")]
     [Description("Must be an email address")]
     public string UserName { get; set; }
 
     [Required]
-    [DisplayName("First Name")]
+    [Display(Name = "First Name")]
     public string FirstName { get; set; }
 
-    [DisplayName("Middle Names")]
+    [Display(Name = "Middle Names")]
     public string MiddleNames { get; set; }
 
     [Required]
-    [DisplayName("Last Name")]
+    [Display(Name = "Last Name")]
     public string LastName { get; set; }
 
-    [DisplayName("User Since")]
+    [Display(Name = "User Since")]
     [ReadOnly(true)]
     public DateTime CreatedAt { get; set; }
 
-    [DisplayName("Last Updated")]
+    [Display(Name = "Last Updated")]
     [ReadOnly(true)]
     public DateTime UpdatedAt { get; set; }
   }
