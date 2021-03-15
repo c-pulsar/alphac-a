@@ -91,7 +91,7 @@ namespace AlphacA.Resources.Users.Representations
 
         Id = this.userUriFactory.MakeEditForm(user.Id),
         Resource = "User",
-        PostUri = this.userUriFactory.Make(user.Id),
+        PostLocation = this.userUriFactory.Make(user.Id),
         DeleteRedirectUri = this.userUriFactory.MakeCollection(),
         Title = "Edit User"
       };
@@ -110,7 +110,7 @@ namespace AlphacA.Resources.Users.Representations
         Id = this.userUriFactory.MakeSearchForm(),
         Schema = this.userUriFactory.MakeSearchSchema(),
         Resource = "User",
-        PostUri = this.userUriFactory.MakeSearchForm(),
+        PostLocation = this.userUriFactory.MakeSearchForm(),
         Title = "Search Users"
       };
     }
@@ -127,7 +127,7 @@ namespace AlphacA.Resources.Users.Representations
 
         Id = this.userUriFactory.MakeCreateForm(),
         Resource = "User",
-        PostUri = this.userUriFactory.MakeCollection(),
+        PostLocation = this.userUriFactory.MakeCollection(),
         Title = "Create User"
       };
     }

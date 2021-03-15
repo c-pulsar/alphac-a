@@ -41,7 +41,8 @@ namespace AlphacA
               .AddCors(o => o.AddPolicy("DefaultPolicy", builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader()))
+                .AllowAnyHeader()
+                .WithExposedHeaders("location")))
               .AddControllers()
               .AddJsonSerialisation()
               .AddExceptionFilters();
@@ -57,8 +58,8 @@ namespace AlphacA
 
       app.UseDocumentStoreBuilder()
          .UseCookiePolicy()
-         .UseCors("DefaultPolicy")
          .UseRouting()
+         .UseCors("DefaultPolicy")
          .UseAuthentication()
          .UseAuthorization()
          .UseStaticFiles(new StaticFileOptions
