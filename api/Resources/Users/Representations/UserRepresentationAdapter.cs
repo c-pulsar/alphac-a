@@ -107,9 +107,9 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public Representation SearchForm()
+    public SearchFormRepresentation SearchForm()
     {
-      return new CreateFormRepresentation
+      return new SearchFormRepresentation
       {
         Links = new Link[]
         {

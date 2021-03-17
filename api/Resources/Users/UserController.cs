@@ -53,7 +53,7 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("search", Name = UserRoutes.SearchForm)]
-    public ActionResult<Representation> GetSearchForm()
+    public ActionResult<SearchFormRepresentation> GetSearchForm()
     {
       return this.adapter.SearchForm();
     }

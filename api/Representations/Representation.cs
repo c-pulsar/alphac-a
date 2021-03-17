@@ -24,6 +24,7 @@ namespace AlphacA.Representations
     Representation,
     Collection,
     CreateForm,
-    EditForm
+    EditForm,
+    SearchForm
   }
 }
