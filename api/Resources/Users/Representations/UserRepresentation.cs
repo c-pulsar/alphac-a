@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using System;
 using AlphacA.Representations;
+using NJsonSchema;
+using NJsonSchema.Annotations;
 
 namespace AlphacA.Resources.Users.Representations
 {
@@ -27,10 +29,12 @@ namespace AlphacA.Resources.Users.Representations
 
     [Display(Name = "User Since")]
     [ReadOnly(true)]
+    [JsonSchema(JsonObjectType.String)]
     public DateTime CreatedAt { get; set; }
 
     [Display(Name = "Last Updated")]
     [ReadOnly(true)]
+    [JsonSchema(JsonObjectType.String)]
     public DateTime UpdatedAt { get; set; }
   }
 }

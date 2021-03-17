@@ -126,6 +126,7 @@ namespace AlphacA.Resources.Users.Representations
         },
 
         Id = this.userUriFactory.MakeCreateForm(),
+        Schema = this.userUriFactory.MakeSchema(),
         Resource = "User",
         PostLocation = this.userUriFactory.MakeCollection(),
         Title = "Create User"
