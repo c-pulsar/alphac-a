@@ -21,14 +21,14 @@ namespace AlphacA.Resources.Users.Representations
       this.rootUri = rootUri;
     }
 
-    public User Domain(UserRepresentation representation)
+    public User Domain(UserCreateForm createForm)
     {
       return new User
       {
-        UserName = representation.UserName,
-        FirstName = representation.FirstName,
-        MiddleNames = representation.MiddleNames,
-        LastName = representation.LastName
+        UserName = createForm.UserName,
+        FirstName = createForm.FirstName,
+        MiddleNames = createForm.MiddleNames,
+        LastName = createForm.LastName
       };
     }
 
@@ -131,7 +131,7 @@ namespace AlphacA.Resources.Users.Representations
         Links = new Link[]
         {
           Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeCreateForm(), "Create"),
-          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeSchema(), "Schema"),
+          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeCreateFormSchema(), "Schema"),
           Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
           Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
         },

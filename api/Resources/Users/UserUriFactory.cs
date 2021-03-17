@@ -18,8 +18,8 @@ namespace AlphacA.Resources.Users
     public Uri MakeCollection(string search = null)
     {
       return string.IsNullOrWhiteSpace(search)
-        ? new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection)}")
-        : new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.UserCollection, new { search })}");
+        ? new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.Collection)}")
+        : new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.Collection, new { search })}");
     }
 
     public Uri MakeCreateForm()
@@ -45,6 +45,11 @@ namespace AlphacA.Resources.Users
     public Uri MakeEditFormSchema()
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.EditFormSchema)}");
+    }
+
+    public Uri MakeCreateFormSchema()
+    {
+      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(UserRoutes.CreateFormSchema)}");
     }
 
     public Uri MakeSearchSchema()

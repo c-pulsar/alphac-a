@@ -28,16 +28,22 @@ namespace AlphacA.Resources.Users
       this.schemaGenerator = schemaGenerator;
     }
 
-    [HttpGet("", Name = UserRoutes.UserCollection)]
+    [HttpGet("", Name = UserRoutes.Collection)]
     public ActionResult<RepresentationCollection> GetCollection(string search)
     {
       return this.adapter.Collection(resourceHandler.Find(search));
     }
 
     [HttpGet("schema", Name = UserRoutes.Schema)]
-    public ActionResult<JsonSchema> GetUserSchema()
+    public ActionResult<JsonSchema> GetSchema()
     {
       return this.schemaGenerator.Generate(typeof(UserRepresentation));
+    }
+
+    [HttpGet("create-form/schema", Name = UserRoutes.CreateFormSchema)]
+    public ActionResult<JsonSchema> GetCreateFormSchema()
+    {
+      return this.schemaGenerator.Generate(typeof(UserCreateForm));
     }
 
     [HttpGet("edit-form/schema", Name = UserRoutes.EditFormSchema)]
@@ -46,15 +52,14 @@ namespace AlphacA.Resources.Users
       return this.schemaGenerator.Generate(typeof(UserEditForm));
     }
 
-    [HttpGet("search-form", Name = UserRoutes.SearchForm)]
+    [HttpGet("search", Name = UserRoutes.SearchForm)]
     public ActionResult<Representation> GetSearchForm()
     {
       return this.adapter.SearchForm();
     }
 
-
     [HttpGet("search/schema", Name = UserRoutes.SearchSchema)]
-    public ActionResult<JsonSchema> GetUserSearchSchema()
+    public ActionResult<JsonSchema> GetSearchSchema()
     {
       return this.schemaGenerator.Generate(typeof(UserSearchForm));
     }
@@ -87,9 +92,9 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpPost("", Name = UserRoutes.Create)]
-    public ActionResult Create(UserRepresentation representation)
+    public ActionResult Create(UserCreateForm createForm)
     {
-      var user = this.resourceHandler.Create(this.adapter.Domain(representation));
+      var user = this.resourceHandler.Create(this.adapter.Domain(createForm));
       return new CreatedResult(
         this.adapter.GetUserUri(user),
         new { message = "User created" });
