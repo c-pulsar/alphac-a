@@ -31,7 +31,7 @@ namespace AlphacA.Resources.Users
     [HttpGet("", Name = UserRoutes.UserCollection)]
     public ActionResult<RepresentationCollection> GetCollection(string search)
     {
-      return this.adapter.Representation(resourceHandler.Find(search));
+      return this.adapter.Collection(resourceHandler.Find(search));
     }
 
     [HttpGet("schema", Name = UserRoutes.Schema)]
@@ -47,7 +47,7 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("search-form", Name = UserRoutes.SearchForm)]
-    public ActionResult<FormRepresentation> GetSearchForm()
+    public ActionResult<Representation> GetSearchForm()
     {
       return this.adapter.SearchForm();
     }
@@ -60,7 +60,7 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("create-form", Name = UserRoutes.CreateForm)]
-    public ActionResult<FormRepresentation> GetCreateForm()
+    public ActionResult<CreateFormRepresentation> GetCreateForm()
     {
       return this.adapter.CreateForm();
     }
@@ -75,7 +75,7 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpGet("{id:Guid}/edit-form", Name = UserRoutes.EditForm)]
-    public ActionResult<FormRepresentation> GetEditForm(Guid id)
+    public ActionResult<EditFormRepresentation> GetEditForm(Guid id)
     {
       var user = this.resourceHandler.Get(id.ToString());
       if (user != null)

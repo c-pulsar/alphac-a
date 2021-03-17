@@ -5,7 +5,6 @@ using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Resources.Root;
 using AlphacA.Resources.Users.Domain;
-using NJsonSchema.Generation;
 
 namespace AlphacA.Resources.Users.Representations
 {
@@ -43,18 +42,18 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
-    public RepresentationCollection Representation(IEnumerable<IResourceHeader> users)
+    public RepresentationCollection Collection(IEnumerable<IResourceHeader> users)
     {
       return new RepresentationCollection
       {
         Links = new Link[]
         {
-          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("create-form", this.userUriFactory.MakeCreateForm(), "Create"),
-          Link.Make("search", this.userUriFactory.MakeSearchForm(), "Search"),
+          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeCollection(), "Self"),
+          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(IanaLinkRelations.CreateForm, this.userUriFactory.MakeCreateForm(), "Create"),
+          Link.Make(IanaLinkRelations.Search, this.userUriFactory.MakeSearchForm(), "Search"),
         },
 
-        Id = this.userUriFactory.MakeCollection(),
         Title = "Users",
         Resource = "User",
         Items = users.Select(x => new RepresentationCollectionItem
@@ -71,13 +70,13 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("edit-form", this.userUriFactory.MakeEditForm(user.Id), "Edit"),
-          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(IanaLinkRelations.Self, this.userUriFactory.Make(user.Id), "Self"),
+          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeSchema(), "Schema"),
+          Link.Make(IanaLinkRelations.EditForm, this.userUriFactory.MakeEditForm(user.Id), "Edit"),
+          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
         },
 
-        Id = this.userUriFactory.Make(user.Id),
-        Schema = this.userUriFactory.MakeSchema(),
         Title = user.Title,
         Resource = "User",
         UserName = user.UserName,
@@ -95,36 +94,32 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
-          Link.Make("user", this.userUriFactory.Make(user.Id), "User")
+          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeEditForm(user.Id), "Self"),
+          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeEditFormSchema(), "Schema"),
+          Link.Make(IanaLinkRelations.About, this.userUriFactory.Make(user.Id), "User")
         },
 
-        Id = this.userUriFactory.MakeEditForm(user.Id),
         Resource = "User",
-        Schema = this.userUriFactory.MakeEditFormSchema(),
-        PostLocation = this.userUriFactory.Make(user.Id),
-        ParentLocation = this.userUriFactory.MakeCollection(),
         CanDelete = true,
         Title = "Edit User"
       };
     }
 
-    public FormRepresentation SearchForm()
+    public Representation SearchForm()
     {
       return new CreateFormRepresentation
       {
         Links = new Link[]
         {
-          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeSearchForm(), "Self"),
+          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeSearchSchema(), "Schema"),
+          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
         },
 
-        Id = this.userUriFactory.MakeSearchForm(),
-        Schema = this.userUriFactory.MakeSearchSchema(),
         Resource = "User",
-        ParentLocation = this.userUriFactory.MakeCollection(),
-        PostLocation = this.userUriFactory.MakeSearchForm(),
         Title = "Search Users"
       };
     }
@@ -135,15 +130,12 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make("home", this.rootUri.MakeRootUri(), "Home"),
-          Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
+          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeCreateForm(), "Create"),
+          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeSchema(), "Schema"),
+          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
         },
-
-        Id = this.userUriFactory.MakeCreateForm(),
-        ParentLocation = this.userUriFactory.MakeCollection(),
-        Schema = this.userUriFactory.MakeSchema(),
         Resource = "User",
-        PostLocation = this.userUriFactory.MakeCollection(),
         Title = "Create User"
       };
     }
