@@ -33,6 +33,16 @@ namespace AlphacA.Resources.Users.Representations
       };
     }
 
+    public User Domain(UserEditForm editForm)
+    {
+      return new User
+      {
+        FirstName = editForm.FirstName,
+        MiddleNames = editForm.MiddleNames,
+        LastName = editForm.LastName
+      };
+    }
+
     public RepresentationCollection Representation(IEnumerable<IResourceHeader> users)
     {
       return new RepresentationCollection

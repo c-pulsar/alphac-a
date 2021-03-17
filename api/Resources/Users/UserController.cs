@@ -104,9 +104,9 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpPost("{id:Guid}", Name = UserRoutes.Update)]
-    public ActionResult Update(Guid id, [FromBody] UserRepresentation representation)
+    public ActionResult Update(Guid id, [FromBody] UserEditForm editForm)
     {
-      var user = this.resourceHandler.Update(id, this.adapter.Domain(representation));
+      var user = this.resourceHandler.Update(id, this.adapter.Domain(editForm));
       if (user != null)
       {
         return new OkResult();
