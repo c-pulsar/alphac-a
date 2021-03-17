@@ -40,16 +40,23 @@ namespace AlphacA.Resources.Users
       return this.schemaGenerator.Generate(typeof(UserRepresentation));
     }
 
+    [HttpGet("edit-form/schema", Name = UserRoutes.EditFormSchema)]
+    public ActionResult<JsonSchema> GetEditFormSchema()
+    {
+      return this.schemaGenerator.Generate(typeof(UserEditForm));
+    }
+
     [HttpGet("search-form", Name = UserRoutes.SearchForm)]
     public ActionResult<FormRepresentation> GetSearchForm()
     {
       return this.adapter.SearchForm();
     }
 
+
     [HttpGet("search/schema", Name = UserRoutes.SearchSchema)]
     public ActionResult<JsonSchema> GetUserSearchSchema()
     {
-      return this.schemaGenerator.Generate(typeof(UserSearchRepresentation));
+      return this.schemaGenerator.Generate(typeof(UserSearchForm));
     }
 
     [HttpGet("create-form", Name = UserRoutes.CreateForm)]
@@ -89,10 +96,10 @@ namespace AlphacA.Resources.Users
     }
 
     [HttpPost("search-form", Name = UserRoutes.CreateSearch)]
-    public ActionResult CreateSearch([FromBody] UserSearchRepresentation representation)
+    public ActionResult CreateSearch([FromBody] UserSearchForm searchForm)
     {
       return new CreatedResult(
-        this.adapter.GetCollectionUri(representation.SearchText),
+        this.adapter.GetCollectionUri(searchForm.SearchText),
         new { message = "Search Created" });
     }
 

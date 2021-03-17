@@ -7,6 +7,7 @@ namespace AlphacA.Resources.Users
     public const string UserCollection = "USERS";
     public const string CreateForm = "USER-CREATE-FORM";
     public const string EditForm = "USER-EDIT-FORM";
+    public const string EditFormSchema = "USER-EDIT-FORM-SCHEMA";
     public const string SearchForm = "USER-SEARCH-FORM";
     public const string SearchSchema = "USER-SEARCH-SCHEMA";
     public const string CreateSearch = "USER-CREATE-SEARCH";

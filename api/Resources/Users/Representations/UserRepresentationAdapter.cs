@@ -5,6 +5,7 @@ using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Resources.Root;
 using AlphacA.Resources.Users.Domain;
+using NJsonSchema.Generation;
 
 namespace AlphacA.Resources.Users.Representations
 {
@@ -91,7 +92,7 @@ namespace AlphacA.Resources.Users.Representations
 
         Id = this.userUriFactory.MakeEditForm(user.Id),
         Resource = "User",
-        Schema = this.userUriFactory.MakeSchema(),
+        Schema = this.userUriFactory.MakeEditFormSchema(),
         PostLocation = this.userUriFactory.Make(user.Id),
         ParentLocation = this.userUriFactory.MakeCollection(),
         CanDelete = true,
