@@ -100,7 +100,7 @@ namespace AlphacA.Resources.Users
         new { message = "User created" });
     }
 
-    [HttpPost("search-form", Name = UserRoutes.CreateSearch)]
+    [HttpPost("search", Name = UserRoutes.CreateSearch)]
     public ActionResult CreateSearch([FromBody] UserSearchForm searchForm)
     {
       return new CreatedResult(
