@@ -102,7 +102,7 @@ namespace AlphacA.Resources.Users.Representations
         },
 
         Resource = "User",
-        CanDelete = true,
+        DeleteEnabled = true,
         Title = "Edit User"
       };
     }

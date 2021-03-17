@@ -4,8 +4,8 @@ namespace AlphacA.Representations
 {
   public class EditFormRepresentation : Representation
   {
-    [JsonProperty("_canDelete")]
-    public bool CanDelete { get; set; }
+    [JsonProperty("_deleteEnabled")]
+    public bool DeleteEnabled { get; set; }
 
     public override RepresentationType Type => RepresentationType.EditForm;
   }
