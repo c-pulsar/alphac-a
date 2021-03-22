@@ -1,3 +1,4 @@
+using System;
 using AlphacA.Representations;
 using AlphacA.Resources.Users;
 
@@ -22,7 +23,11 @@ namespace AlphacA.Resources.Root
         {
           Link.Make(LinkRelations.Self, this.rootUriFactory.MakeRootUri(), "Self"),
           Link.Make(LinkRelations.Manifest, this.rootUriFactory.MakeSchema(), "Schema"),
-          Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
+          Link.Make("users", this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(
+            LinkRelations.Image,
+            new Uri("https://pbs.twimg.com/profile_images/787000536759431168/j5soSgvM_400x400.jpg") ,
+            "Users")
         },
 
         Title = "Alpha Centauri",
