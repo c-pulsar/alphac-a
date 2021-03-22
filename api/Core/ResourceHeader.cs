@@ -4,5 +4,7 @@ namespace AlphacA.Core
   {
     string Id { get; }
     string Title { get; }
+
+    string Image {get;}
   }
 }

@@ -28,7 +28,8 @@ namespace AlphacA.Resources.Users.Representations
         UserName = createForm.UserName,
         FirstName = createForm.FirstName,
         MiddleNames = createForm.MiddleNames,
-        LastName = createForm.LastName
+        LastName = createForm.LastName,
+        ProfileImageUrl = createForm.ProfileImageUrl
       };
     }
 
@@ -38,7 +39,8 @@ namespace AlphacA.Resources.Users.Representations
       {
         FirstName = editForm.FirstName,
         MiddleNames = editForm.MiddleNames,
-        LastName = editForm.LastName
+        LastName = editForm.LastName,
+        ProfileImageUrl = editForm.ProfileImageUrl
       };
     }
 
@@ -48,10 +50,10 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeCollection(), "Self"),
-          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(IanaLinkRelations.CreateForm, this.userUriFactory.MakeCreateForm(), "Create"),
-          Link.Make(IanaLinkRelations.Search, this.userUriFactory.MakeSearchForm(), "Search"),
+          Link.Make(LinkRelations.Self, this.userUriFactory.MakeCollection(), "Self"),
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(LinkRelations.CreateForm, this.userUriFactory.MakeCreateForm(), "Create"),
+          Link.Make(LinkRelations.Search, this.userUriFactory.MakeSearchForm(), "Search"),
         },
 
         Title = "Users",
@@ -59,24 +61,31 @@ namespace AlphacA.Resources.Users.Representations
         Items = users.Select(x => new RepresentationCollectionItem
         {
           Reference = userUriFactory.Make(x.Id),
-          Title = x.Title
+          Title = x.Title,
+          Image = string.IsNullOrWhiteSpace(x.Image) ? null : new Uri(x.Image)
         }).ToArray(),
       };
     }
 
     public UserRepresentation Representation(User user)
     {
+      var links = new List<Link>()
+      {
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(LinkRelations.Self, this.userUriFactory.Make(user.Id), "Self"),
+          Link.Make(LinkRelations.Manifest, this.userUriFactory.MakeSchema(), "Schema"),
+          Link.Make(LinkRelations.EditForm, this.userUriFactory.MakeEditForm(user.Id), "Edit"),
+          Link.Make(LinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users")
+      };
+
+      if (user.ProfileImageUrl != null)
+      {
+        links.Add(Link.Make(LinkRelations.Image, user.ProfileImageUrl, "Image"));
+      }
+
       return new UserRepresentation
       {
-        Links = new Link[]
-        {
-          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(IanaLinkRelations.Self, this.userUriFactory.Make(user.Id), "Self"),
-          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeSchema(), "Schema"),
-          Link.Make(IanaLinkRelations.EditForm, this.userUriFactory.MakeEditForm(user.Id), "Edit"),
-          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
-        },
-
+        Links = links.ToArray(),
         Title = user.Title,
         Resource = "User",
         UserName = user.UserName,
@@ -84,7 +93,8 @@ namespace AlphacA.Resources.Users.Representations
         MiddleNames = user.MiddleNames,
         LastName = user.LastName,
         CreatedAt = user.CreatedAt,
-        UpdatedAt = user.UpdatedAt
+        UpdatedAt = user.UpdatedAt,
+        ProfileImageUrl = user.ProfileImageUrl
       };
     }
 
@@ -94,11 +104,11 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeEditForm(user.Id), "Self"),
-          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
-          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeEditFormSchema(), "Schema"),
-          Link.Make(IanaLinkRelations.About, this.userUriFactory.Make(user.Id), "User")
+          Link.Make(LinkRelations.Self, this.userUriFactory.MakeEditForm(user.Id), "Self"),
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(LinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(LinkRelations.Manifest, this.userUriFactory.MakeEditFormSchema(), "Schema"),
+          Link.Make(LinkRelations.About, this.userUriFactory.Make(user.Id), "User")
         },
 
         Resource = "User",
@@ -113,10 +123,10 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeSearchForm(), "Self"),
-          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeSearchSchema(), "Schema"),
-          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(LinkRelations.Self, this.userUriFactory.MakeSearchForm(), "Self"),
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(LinkRelations.Manifest, this.userUriFactory.MakeSearchSchema(), "Schema"),
+          Link.Make(LinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
         },
 
         Resource = "User",
@@ -130,10 +140,10 @@ namespace AlphacA.Resources.Users.Representations
       {
         Links = new Link[]
         {
-          Link.Make(IanaLinkRelations.Self, this.userUriFactory.MakeCreateForm(), "Create"),
-          Link.Make(IanaLinkRelations.Manifest, this.userUriFactory.MakeCreateFormSchema(), "Schema"),
-          Link.Make(IanaLinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
-          Link.Make(IanaLinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(LinkRelations.Self, this.userUriFactory.MakeCreateForm(), "Create"),
+          Link.Make(LinkRelations.Manifest, this.userUriFactory.MakeCreateFormSchema(), "Schema"),
+          Link.Make(LinkRelations.Collection, this.userUriFactory.MakeCollection(), "Users"),
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
         },
         Resource = "User",
         Title = "Create User"

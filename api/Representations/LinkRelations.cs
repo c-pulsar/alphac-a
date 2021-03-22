@@ -1,6 +1,8 @@
 namespace AlphacA.Representations
 {
-  public static class IanaLinkRelations
+  // use IANA relations when possible
+  // see more: https://www.iana.org/assignments/link-relations/link-relations.xhtml
+  public static class LinkRelations
   {
     public const string About = "about";
     public const string Self = "self";
@@ -10,5 +12,6 @@ namespace AlphacA.Representations
     public const string CreateForm = "create-form";
     public const string EditForm = "edit-form";
     public const string Search = "search";
+    public const string Image = "image";
   }
 }

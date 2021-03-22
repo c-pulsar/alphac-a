@@ -21,6 +21,8 @@ namespace AlphacA.Resources.Users.Domain
 
     public string LastName { get; set; }
 
+    public string Image { get; set; }
+
     public string Title => this.GetTitle();
   }
 }

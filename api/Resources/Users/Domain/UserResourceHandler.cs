@@ -49,6 +49,7 @@ namespace AlphacA.Resources.Users.Domain
         existing.FirstName = user.FirstName;
         existing.MiddleNames = user.MiddleNames;
         existing.LastName = user.LastName;
+        existing.ProfileImageUrl = user.ProfileImageUrl;
 
         session.SaveChanges();
       }
@@ -96,7 +97,8 @@ namespace AlphacA.Resources.Users.Domain
             Id = x.Id,
             FirstName = x.FirstName,
             MiddleNames = x.MiddleNames,
-            LastName = x.LastName
+            LastName = x.LastName,
+            Image = x.ProfileImageUrl.ToString()
           })
           .ToArray();
       }

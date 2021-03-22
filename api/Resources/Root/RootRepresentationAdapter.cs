@@ -20,8 +20,8 @@ namespace AlphacA.Resources.Root
       {
         Links = new Link[]
         {
-          Link.Make(IanaLinkRelations.Self, this.rootUriFactory.MakeRootUri(), "Self"),
-          Link.Make(IanaLinkRelations.Manifest, this.rootUriFactory.MakeSchema(), "Schema"),
+          Link.Make(LinkRelations.Self, this.rootUriFactory.MakeRootUri(), "Self"),
+          Link.Make(LinkRelations.Manifest, this.rootUriFactory.MakeSchema(), "Schema"),
           Link.Make("users", this.userUriFactory.MakeCollection(), "Users")
         },
 

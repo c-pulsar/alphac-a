@@ -13,6 +13,8 @@ namespace AlphacA.Resources.Users.Domain
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public UserStatus Status { get; set; }
+    public Uri ProfileImageUrl { get; set; }
     public string Title => this.GetTitle();
+    public string Image => this.ProfileImageUrl.ToString();
   }
 }

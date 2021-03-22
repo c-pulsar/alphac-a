@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlphacA.Resources.Users.Representations
@@ -14,5 +15,8 @@ namespace AlphacA.Resources.Users.Representations
     [Required]
     [Display(Name = "Last Name")]
     public string LastName { get; set; }
+
+    [Display(Name = "Profile Image URL")]
+    public Uri ProfileImageUrl { get; set; }
   }
 }

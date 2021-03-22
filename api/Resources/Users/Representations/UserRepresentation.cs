@@ -26,5 +26,8 @@ namespace AlphacA.Resources.Users.Representations
 
     [Display(Name = "Last Updated")]
     public DateTime UpdatedAt { get; set; }
+
+    [Display(Name = "Profile Image URL")]
+    public Uri ProfileImageUrl { get; set; }
   }
 }

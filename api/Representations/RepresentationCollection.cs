@@ -17,5 +17,8 @@ namespace AlphacA.Representations
 
     [JsonProperty("title")]
     public string Title { get; set; }
+
+    [JsonProperty("image")]
+    public Uri Image { get; set;}
   }
 }
