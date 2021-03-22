@@ -22,7 +22,7 @@ namespace AlphacA.Resources.Users.Indexing
           x.FirstName,
           x.MiddleNames,
           x.LastName,
-          x.Image,
+          x.ProfileImageUrl,
           UserData = new[] { x.UserName, x.FirstName, x.MiddleNames, x.LastName }
         });
 

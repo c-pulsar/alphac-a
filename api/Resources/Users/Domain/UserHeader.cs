@@ -1,3 +1,4 @@
+using System;
 using AlphacA.Core;
 
 namespace AlphacA.Resources.Users.Domain
@@ -21,7 +22,9 @@ namespace AlphacA.Resources.Users.Domain
 
     public string LastName { get; set; }
 
-    public string Image { get; set; }
+    public Uri ProfileImageUrl { get; set; }
+
+    public string Image => this.ProfileImageUrl?.ToString();
 
     public string Title => this.GetTitle();
   }

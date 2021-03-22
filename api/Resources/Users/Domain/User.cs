@@ -15,6 +15,6 @@ namespace AlphacA.Resources.Users.Domain
     public UserStatus Status { get; set; }
     public Uri ProfileImageUrl { get; set; }
     public string Title => this.GetTitle();
-    public string Image => this.ProfileImageUrl.ToString();
+    public string Image => this.ProfileImageUrl?.ToString();
   }
 }

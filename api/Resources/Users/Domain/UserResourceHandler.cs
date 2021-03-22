@@ -98,7 +98,7 @@ namespace AlphacA.Resources.Users.Domain
             FirstName = x.FirstName,
             MiddleNames = x.MiddleNames,
             LastName = x.LastName,
-            Image = x.ProfileImageUrl.ToString()
+            ProfileImageUrl = x.ProfileImageUrl
           })
           .ToArray();
       }
