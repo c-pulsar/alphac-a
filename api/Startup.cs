@@ -1,9 +1,7 @@
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using AlphacA.Configuration;
 using AlphacA.Representations;
@@ -62,12 +60,6 @@ namespace AlphacA
          .UseCors("DefaultPolicy")
          .UseAuthentication()
          .UseAuthorization()
-         .UseStaticFiles(new StaticFileOptions
-         {
-           FileProvider = new PhysicalFileProvider(
-             Path.Combine("/app", "static_content")),
-           RequestPath = "/static"
-         })
          .UseEndpoints(endpoints => endpoints.MapControllers());
     }
   }
