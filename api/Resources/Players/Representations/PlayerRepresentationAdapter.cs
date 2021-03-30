@@ -6,19 +6,23 @@ using AlphacA.Representations;
 using AlphacA.Resources.Root;
 using AlphacA.Resources.Players.Domain;
 using Microsoft.AspNetCore.Mvc;
+using AlphacA.Resources.Clubs;
 
 namespace AlphacA.Resources.Players.Representations
 {
   public class PlayerRepresentationAdapter
   {
     private readonly PlayerUriFactory playerUriFactory;
+    private readonly ClubUriFactory clubUriFactory;
     private readonly RootUriFactory rootUri;
 
     public PlayerRepresentationAdapter(
       PlayerUriFactory playerUriFactory,
+      ClubUriFactory clubUriFactory,
       RootUriFactory rootUri)
     {
       this.playerUriFactory = playerUriFactory;
+      this.clubUriFactory = clubUriFactory;
       this.rootUri = rootUri;
     }
 
@@ -33,7 +37,7 @@ namespace AlphacA.Resources.Players.Representations
       };
     }
 
-    public RepresentationCollection Collection(IEnumerable<IResourceHeader> Players)
+    public RepresentationCollection Collection(IEnumerable<IResourceHeader> players)
     {
       return new RepresentationCollection
       {
@@ -46,7 +50,7 @@ namespace AlphacA.Resources.Players.Representations
 
         Title = "Players",
         Resource = "Player",
-        Items = Players.Select(x => new RepresentationCollectionItem
+        Items = players.Select(x => new RepresentationCollectionItem
         {
           Reference = playerUriFactory.Make(x.Id),
           Title = x.Title,
@@ -55,48 +59,49 @@ namespace AlphacA.Resources.Players.Representations
       };
     }
 
-    public PlayerRepresentation Representation(Player Player)
+    public PlayerRepresentation Representation(Player player)
     {
       var links = new List<Link>()
       {
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(LinkRelations.Self, this.playerUriFactory.Make(Player.Id), "Self"),
+          Link.Make(LinkRelations.Self, this.playerUriFactory.Make(player.Id), "Self"),
           Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeSchema(), "Schema"),
-          Link.Make(LinkRelations.EditForm, this.playerUriFactory.MakeEditForm(Player.Id), "Edit"),
-          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players")
+          Link.Make(LinkRelations.EditForm, this.playerUriFactory.MakeEditForm(player.Id), "Edit"),
+          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players"),
+          Link.Make("club", this.clubUriFactory.Make(player.ClubId), "Club")
       };
 
-      if (Player.ProfileImageUrl != null)
+      if (player.ProfileImageUrl != null)
       {
-        links.Add(Link.Make(LinkRelations.Image, Player.ProfileImageUrl, "Image"));
+        links.Add(Link.Make(LinkRelations.Image, player.ProfileImageUrl, "Image"));
       }
 
       return new PlayerRepresentation
       {
         Links = links.ToArray(),
-        Title = Player.Title,
+        Title = player.Title,
         Resource = "Player",
-        PlayerName = Player.Email,
-        FirstName = Player.FirstName,
-        MiddleNames = Player.MiddleNames,
-        LastName = Player.LastName,
-        CreatedAt = Player.CreatedAt,
-        UpdatedAt = Player.UpdatedAt,
-        ProfileImageUrl = Player.ProfileImageUrl
+        PlayerName = player.Email,
+        FirstName = player.FirstName,
+        MiddleNames = player.MiddleNames,
+        LastName = player.LastName,
+        CreatedAt = player.CreatedAt,
+        UpdatedAt = player.UpdatedAt,
+        ProfileImageUrl = player.ProfileImageUrl
       };
     }
 
-    public EditFormRepresentation EditForm(Player Player)
+    public EditFormRepresentation EditForm(Player player)
     {
       return new EditFormRepresentation
       {
         Links = new Link[]
         {
-          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeEditForm(Player.Id), "Self"),
+          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeEditForm(player.Id), "Self"),
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
           Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players"),
           Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeEditFormSchema(), "Schema"),
-          Link.Make(LinkRelations.About, this.playerUriFactory.Make(Player.Id), "Player")
+          Link.Make(LinkRelations.About, this.playerUriFactory.Make(player.Id), "Player")
         },
 
         Resource = "Player",

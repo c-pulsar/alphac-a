@@ -114,7 +114,7 @@ namespace AlphacA.Resources.Players.Domain
       using var session = documentStore.OpenSession();
       return session
         .Query<Player>()
-        .Where(x => x.ClubId == clubId)
+        .Where(x => x.ClubId == clubId && x.Status != PlayerStatus.Deleted)
         .Select(x => new PlayerHeader
         {
           Id = x.Id,

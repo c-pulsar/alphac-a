@@ -37,7 +37,7 @@ namespace AlphacA.Resources.Root
             "Image")
         },
 
-        Title = "Football Universe",
+        Title = "Football World",
         Resource = "Home",
         Version = "0.1.0",
       };

@@ -67,19 +67,19 @@ namespace AlphacA.Resources.Players
     [HttpGet("{id:Guid}", Name = PlayerRoutes.Player)]
     public ActionResult<PlayerRepresentation> Get(Guid id)
     {
-      var Player = resourceHandler.Get(id.ToString());
-      return Player != null
-        ? this.adapter.Representation(Player)
+      var player = resourceHandler.Get(id.ToString());
+      return player != null
+        ? this.adapter.Representation(player)
         : new SimpleErrorResult(404, "Player not found");
     }
 
     [HttpGet("{id:Guid}/edit-form", Name = PlayerRoutes.EditForm)]
     public ActionResult<EditFormRepresentation> GetEditForm(Guid id)
     {
-      var Player = this.resourceHandler.Get(id.ToString());
-      if (Player != null)
+      var player = this.resourceHandler.Get(id.ToString());
+      if (player != null)
       {
-        return this.adapter.EditForm(Player);
+        return this.adapter.EditForm(player);
       }
 
       return new SimpleErrorResult(404, "Player not found");
@@ -94,8 +94,8 @@ namespace AlphacA.Resources.Players
     [HttpPost("{id:Guid}", Name = PlayerRoutes.Update)]
     public ActionResult Update(Guid id, [FromBody] PlayerEditForm editForm)
     {
-      var Player = this.resourceHandler.Update(id, this.adapter.Domain(editForm));
-      if (Player != null)
+      var player = this.resourceHandler.Update(id, this.adapter.Domain(editForm));
+      if (player != null)
       {
         return new OkResult();
       }
