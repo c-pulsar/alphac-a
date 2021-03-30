@@ -5,6 +5,7 @@ using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Resources.Root;
 using AlphacA.Resources.Players.Domain;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Resources.Players.Representations
 {
@@ -19,18 +20,6 @@ namespace AlphacA.Resources.Players.Representations
     {
       this.playerUriFactory = playerUriFactory;
       this.rootUri = rootUri;
-    }
-
-    public Player Domain(PlayerCreateForm createForm)
-    {
-      return new Player
-      {
-        Email = createForm.EmailAddress,
-        FirstName = createForm.FirstName,
-        MiddleNames = createForm.MiddleNames,
-        LastName = createForm.LastName,
-        ProfileImageUrl = createForm.ProfileImageUrl
-      };
     }
 
     public Player Domain(PlayerEditForm editForm)
@@ -52,7 +41,6 @@ namespace AlphacA.Resources.Players.Representations
         {
           Link.Make(LinkRelations.Self, this.playerUriFactory.MakeCollection(), "Self"),
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(LinkRelations.CreateForm, this.playerUriFactory.MakeCreateForm(), "Create"),
           Link.Make(LinkRelations.Search, this.playerUriFactory.MakeSearchForm(), "Search"),
         },
 
@@ -134,30 +122,11 @@ namespace AlphacA.Resources.Players.Representations
       };
     }
 
-    public CreateFormRepresentation CreateForm()
+    public CreatedResult CreatedSearchResult(string search)
     {
-      return new CreateFormRepresentation
-      {
-        Links = new Link[]
-        {
-          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeCreateForm(), "Create"),
-          Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeCreateFormSchema(), "Schema"),
-          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players"),
-          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-        },
-        Resource = "Player",
-        Title = "Create Player"
-      };
-    }
-
-    public Uri GetCollectionUri(string search)
-    {
-      return playerUriFactory.MakeCollection(search);
-    }
-
-    public Uri GetPlayerUri(Player Player)
-    {
-      return playerUriFactory.Make(Player.Id);
+      return new CreatedResult(
+        this.playerUriFactory.MakeCollection(search),
+        new { message = "Search Created" });
     }
   }
 }

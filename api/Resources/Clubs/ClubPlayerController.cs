@@ -4,12 +4,13 @@ using AlphacA.Representations;
 using AlphacA.Resources.Clubs.Domain;
 using AlphacA.Resources.Clubs.Representations;
 using AlphacA.Resources.Players.Domain;
+using AlphacA.Resources.Players.Representations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlphacA.Resources.Clubs
 {
   [ApiController]
-  [Route("club")]
+  [Route("club/{id:Guid}/player")]
   public class ClubPlayerController
   {
     private readonly ClubPlayerRepresentationAdapter adapter;
@@ -26,7 +27,7 @@ namespace AlphacA.Resources.Clubs
       this.playerResourceHandler = playerResourceHandler;
     }
 
-    [HttpGet("{id:Guid}/player", Name = ClubPlayerRoutes.Collection)]
+    [HttpGet("", Name = ClubPlayerRoutes.Collection)]
     public ActionResult<RepresentationCollection> GetCollection(Guid id)
     {
       var club = this.clubResourceHandler.Get(id.ToString());
@@ -39,8 +40,8 @@ namespace AlphacA.Resources.Clubs
         club, this.playerResourceHandler.GetClubPlayers(club.Id));
     }
 
-    [HttpGet("{id:Guid}/player/create-form", Name = ClubPlayerRoutes.CreateForm)]
-    public ActionResult<CreateFormRepresentation> GetPlayerCreateForm(Guid id)
+    [HttpGet("create-form", Name = ClubPlayerRoutes.CreateForm)]
+    public ActionResult<CreateFormRepresentation> GetCreateForm(Guid id)
     {
       var club = this.clubResourceHandler.Get(id.ToString());
       if (club == null)
@@ -49,6 +50,15 @@ namespace AlphacA.Resources.Clubs
       }
 
       return this.adapter.CreateForm(club);
+    }
+
+    [HttpPost("", Name = ClubPlayerRoutes.Create)]
+    public ActionResult Create(Guid id, PlayerCreateForm createForm)
+    {
+      var player = this.playerResourceHandler.Create(
+        this.adapter.Domain(id.ToString(), createForm));
+
+      return this.adapter.CreatedResult(player);
     }
   }
 }

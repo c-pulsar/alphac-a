@@ -64,12 +64,6 @@ namespace AlphacA.Resources.Players
       return this.schemaGenerator.Generate(typeof(PlayerSearchForm));
     }
 
-    [HttpGet("create-form", Name = PlayerRoutes.CreateForm)]
-    public ActionResult<CreateFormRepresentation> GetCreateForm()
-    {
-      return this.adapter.CreateForm();
-    }
-
     [HttpGet("{id:Guid}", Name = PlayerRoutes.Player)]
     public ActionResult<PlayerRepresentation> Get(Guid id)
     {
@@ -91,21 +85,10 @@ namespace AlphacA.Resources.Players
       return new SimpleErrorResult(404, "Player not found");
     }
 
-    [HttpPost("", Name = PlayerRoutes.Create)]
-    public ActionResult Create(PlayerCreateForm createForm)
-    {
-      var Player = this.resourceHandler.Create(this.adapter.Domain(createForm));
-      return new CreatedResult(
-        this.adapter.GetPlayerUri(Player),
-        new { message = "Player created" });
-    }
-
     [HttpPost("search", Name = PlayerRoutes.CreateSearch)]
     public ActionResult CreateSearch([FromBody] PlayerSearchForm searchForm)
     {
-      return new CreatedResult(
-        this.adapter.GetCollectionUri(searchForm.SearchText),
-        new { message = "Search Created" });
+      return this.adapter.CreatedSearchResult(searchForm.SearchText);
     }
 
     [HttpPost("{id:Guid}", Name = PlayerRoutes.Update)]

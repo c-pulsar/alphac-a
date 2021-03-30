@@ -22,11 +22,6 @@ namespace AlphacA.Resources.Players
         : new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(PlayerRoutes.Collection, new { search })}");
     }
 
-    public Uri MakeCreateForm()
-    {
-      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(PlayerRoutes.CreateForm)}");
-    }
-
     public Uri MakeSearchForm()
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(PlayerRoutes.SearchForm)}");
