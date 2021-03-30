@@ -3,6 +3,8 @@ namespace AlphacA.Resources.Clubs
   public static class ClubRoutes
   {
     public const string Club = "CLUB";
+    public const string ClubPlayers = "CLUB-PLAYERS";
+    public const string ClubPlayerCreateForm = "CLUB-PLAYER-CREATE-FORM";
     public const string Schema = "CLUB-SCHEMA";
     public const string Collection = "CLUB-COLLECTION";
     public const string CreateForm = "CLUB-CREATE-FORM";

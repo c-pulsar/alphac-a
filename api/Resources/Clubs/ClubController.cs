@@ -130,5 +130,30 @@ namespace AlphacA.Resources.Clubs
 
       return new SimpleErrorResult(404, "Club not found");
     }
+
+    [HttpGet("{id:Guid}/player", Name = ClubRoutes.ClubPlayers)]
+    public ActionResult<RepresentationCollection> GetPlayersCollection(Guid id)
+    {
+      var club = this.resourceHandler.Get(id.ToString());
+      if (club == null)
+      {
+        return new SimpleErrorResult(404, "Club not found");
+      }
+
+      return this.adapter.PlayerCollection(
+        club, this.resourceHandler.GetPlayers(id.ToString()));
+    }
+
+    [HttpGet("{id:Guid}/player/create-form", Name = ClubRoutes.ClubPlayerCreateForm)]
+    public ActionResult<CreateFormRepresentation> GetPlayerCreateForm(Guid id)
+    {
+      var club = this.resourceHandler.Get(id.ToString());
+      if (club == null)
+      {
+        return new SimpleErrorResult(404, "Club not found");
+      }
+
+      return this.adapter.PlayerCreateForm(club);
+    }
   }
 }

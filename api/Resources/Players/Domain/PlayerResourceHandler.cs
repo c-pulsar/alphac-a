@@ -30,7 +30,7 @@ namespace AlphacA.Resources.Players.Domain
       using (var compareExchangeScope = new CompareExchangeScope(documentStore))
       {
         compareExchangeScope
-          .Add($"Playernames/{Player.PlayerName}", Player.Id, "Playername already exist.");
+          .Add($"Playernames/{Player.Email}", Player.Id, "Playername already exist.");
 
         session.SaveChanges();
         compareExchangeScope.Complete();

@@ -10,14 +10,14 @@ namespace AlphacA.Resources.Players.Representations
 {
   public class PlayerRepresentationAdapter
   {
-    private readonly PlayerUriFactory PlayerUriFactory;
+    private readonly PlayerUriFactory playerUriFactory;
     private readonly RootUriFactory rootUri;
 
     public PlayerRepresentationAdapter(
-      PlayerUriFactory PlayerUriFactory,
+      PlayerUriFactory playerUriFactory,
       RootUriFactory rootUri)
     {
-      this.PlayerUriFactory = PlayerUriFactory;
+      this.playerUriFactory = playerUriFactory;
       this.rootUri = rootUri;
     }
 
@@ -25,7 +25,7 @@ namespace AlphacA.Resources.Players.Representations
     {
       return new Player
       {
-        PlayerName = createForm.PlayerName,
+        Email = createForm.EmailAddress,
         FirstName = createForm.FirstName,
         MiddleNames = createForm.MiddleNames,
         LastName = createForm.LastName,
@@ -50,17 +50,17 @@ namespace AlphacA.Resources.Players.Representations
       {
         Links = new Link[]
         {
-          Link.Make(LinkRelations.Self, this.PlayerUriFactory.MakeCollection(), "Self"),
+          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeCollection(), "Self"),
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(LinkRelations.CreateForm, this.PlayerUriFactory.MakeCreateForm(), "Create"),
-          Link.Make(LinkRelations.Search, this.PlayerUriFactory.MakeSearchForm(), "Search"),
+          Link.Make(LinkRelations.CreateForm, this.playerUriFactory.MakeCreateForm(), "Create"),
+          Link.Make(LinkRelations.Search, this.playerUriFactory.MakeSearchForm(), "Search"),
         },
 
         Title = "Players",
         Resource = "Player",
         Items = Players.Select(x => new RepresentationCollectionItem
         {
-          Reference = PlayerUriFactory.Make(x.Id),
+          Reference = playerUriFactory.Make(x.Id),
           Title = x.Title,
           Image = string.IsNullOrWhiteSpace(x.Image) ? null : new Uri(x.Image)
         }).ToArray(),
@@ -72,10 +72,10 @@ namespace AlphacA.Resources.Players.Representations
       var links = new List<Link>()
       {
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(LinkRelations.Self, this.PlayerUriFactory.Make(Player.Id), "Self"),
-          Link.Make(LinkRelations.Manifest, this.PlayerUriFactory.MakeSchema(), "Schema"),
-          Link.Make(LinkRelations.EditForm, this.PlayerUriFactory.MakeEditForm(Player.Id), "Edit"),
-          Link.Make(LinkRelations.Collection, this.PlayerUriFactory.MakeCollection(), "Players")
+          Link.Make(LinkRelations.Self, this.playerUriFactory.Make(Player.Id), "Self"),
+          Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeSchema(), "Schema"),
+          Link.Make(LinkRelations.EditForm, this.playerUriFactory.MakeEditForm(Player.Id), "Edit"),
+          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players")
       };
 
       if (Player.ProfileImageUrl != null)
@@ -88,7 +88,7 @@ namespace AlphacA.Resources.Players.Representations
         Links = links.ToArray(),
         Title = Player.Title,
         Resource = "Player",
-        PlayerName = Player.PlayerName,
+        PlayerName = Player.Email,
         FirstName = Player.FirstName,
         MiddleNames = Player.MiddleNames,
         LastName = Player.LastName,
@@ -104,11 +104,11 @@ namespace AlphacA.Resources.Players.Representations
       {
         Links = new Link[]
         {
-          Link.Make(LinkRelations.Self, this.PlayerUriFactory.MakeEditForm(Player.Id), "Self"),
+          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeEditForm(Player.Id), "Self"),
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(LinkRelations.Collection, this.PlayerUriFactory.MakeCollection(), "Players"),
-          Link.Make(LinkRelations.Manifest, this.PlayerUriFactory.MakeEditFormSchema(), "Schema"),
-          Link.Make(LinkRelations.About, this.PlayerUriFactory.Make(Player.Id), "Player")
+          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players"),
+          Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeEditFormSchema(), "Schema"),
+          Link.Make(LinkRelations.About, this.playerUriFactory.Make(Player.Id), "Player")
         },
 
         Resource = "Player",
@@ -123,10 +123,10 @@ namespace AlphacA.Resources.Players.Representations
       {
         Links = new Link[]
         {
-          Link.Make(LinkRelations.Self, this.PlayerUriFactory.MakeSearchForm(), "Self"),
+          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeSearchForm(), "Self"),
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
-          Link.Make(LinkRelations.Manifest, this.PlayerUriFactory.MakeSearchSchema(), "Schema"),
-          Link.Make(LinkRelations.Collection, this.PlayerUriFactory.MakeCollection(), "Players"),
+          Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeSearchSchema(), "Schema"),
+          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players"),
         },
 
         Resource = "Player",
@@ -140,9 +140,9 @@ namespace AlphacA.Resources.Players.Representations
       {
         Links = new Link[]
         {
-          Link.Make(LinkRelations.Self, this.PlayerUriFactory.MakeCreateForm(), "Create"),
-          Link.Make(LinkRelations.Manifest, this.PlayerUriFactory.MakeCreateFormSchema(), "Schema"),
-          Link.Make(LinkRelations.Collection, this.PlayerUriFactory.MakeCollection(), "Players"),
+          Link.Make(LinkRelations.Self, this.playerUriFactory.MakeCreateForm(), "Create"),
+          Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeCreateFormSchema(), "Schema"),
+          Link.Make(LinkRelations.Collection, this.playerUriFactory.MakeCollection(), "Players"),
           Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
         },
         Resource = "Player",
@@ -152,12 +152,12 @@ namespace AlphacA.Resources.Players.Representations
 
     public Uri GetCollectionUri(string search)
     {
-      return PlayerUriFactory.MakeCollection(search);
+      return playerUriFactory.MakeCollection(search);
     }
 
     public Uri GetPlayerUri(Player Player)
     {
-      return PlayerUriFactory.Make(Player.Id);
+      return playerUriFactory.Make(Player.Id);
     }
   }
 }

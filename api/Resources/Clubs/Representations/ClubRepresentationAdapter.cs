@@ -4,6 +4,7 @@ using System.Linq;
 using AlphacA.Core;
 using AlphacA.Representations;
 using AlphacA.Resources.Clubs.Domain;
+using AlphacA.Resources.Players;
 using AlphacA.Resources.Root;
 
 namespace AlphacA.Resources.Clubs.Representations
@@ -11,13 +12,16 @@ namespace AlphacA.Resources.Clubs.Representations
   public class ClubRepresentationAdapter
   {
     private readonly ClubUriFactory clubUriFactory;
+    private readonly PlayerUriFactory playerUriFactory;
     private readonly RootUriFactory rootUri;
 
     public ClubRepresentationAdapter(
       ClubUriFactory clubUriFactory,
+      PlayerUriFactory playerUriFactory,
       RootUriFactory rootUri)
     {
       this.clubUriFactory = clubUriFactory;
+      this.playerUriFactory = playerUriFactory;
       this.rootUri = rootUri;
     }
 
@@ -70,7 +74,8 @@ namespace AlphacA.Resources.Clubs.Representations
           Link.Make(LinkRelations.Self, this.clubUriFactory.Make(club.Id), "Self"),
           Link.Make(LinkRelations.Manifest, this.clubUriFactory.MakeSchema(), "Schema"),
           Link.Make(LinkRelations.EditForm, this.clubUriFactory.MakeEditForm(club.Id), "Edit"),
-          Link.Make(LinkRelations.Collection, this.clubUriFactory.MakeCollection(), "Clubs")
+          Link.Make(LinkRelations.Collection, this.clubUriFactory.MakeCollection(), "Clubs"),
+          Link.Make("players", this.clubUriFactory.MakePlayersCollection(club.Id), "Players")
       };
 
       if (club.ProfileImageUrl != null)
@@ -150,6 +155,44 @@ namespace AlphacA.Resources.Clubs.Representations
     public Uri GetClubUri(Club club)
     {
       return clubUriFactory.Make(club.Id);
+    }
+
+    public RepresentationCollection PlayerCollection(Club club, IEnumerable<IResourceHeader> players)
+    {
+      return new RepresentationCollection
+      {
+        Links = new Link[]
+        {
+          Link.Make(LinkRelations.Self, this.clubUriFactory.MakePlayersCollection(club.Id), "Self"),
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+          Link.Make(LinkRelations.CreateForm, this.clubUriFactory.MakePlayerCreateForm(club.Id), "Create"),
+        },
+
+        Title = $"{club.Name} Players",
+        Resource = "Player",
+        Items = players.Select(x => new RepresentationCollectionItem
+        {
+          Reference = clubUriFactory.Make(x.Id),
+          Title = x.Title,
+          Image = string.IsNullOrWhiteSpace(x.Image) ? null : new Uri(x.Image)
+        }).ToArray(),
+      };
+    }
+
+    public CreateFormRepresentation PlayerCreateForm(Club club)
+    {
+      return new CreateFormRepresentation
+      {
+        Links = new Link[]
+        {
+          Link.Make(LinkRelations.Self, this.clubUriFactory.MakePlayerCreateForm(club.Id), "Create"),
+          Link.Make(LinkRelations.Manifest, this.playerUriFactory.MakeCreateFormSchema(), "Schema"),
+          Link.Make(LinkRelations.Collection, this.clubUriFactory.MakePlayersCollection(club.Id), "Players"),
+          Link.Make(LinkRelations.Start, this.rootUri.MakeRootUri(), "Home"),
+        },
+        Resource = "Player",
+        Title = $"Create Player for {club.Name}"
+      };
     }
   }
 }

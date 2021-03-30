@@ -23,7 +23,7 @@ namespace AlphacA.Resources.Players.Indexing
           x.MiddleNames,
           x.LastName,
           x.ProfileImageUrl,
-          PlayerData = new[] { x.PlayerName, x.FirstName, x.MiddleNames, x.LastName }
+          PlayerData = new[] { x.Email, x.FirstName, x.MiddleNames, x.LastName }
         });
 
       Index(x => x.PlayerData, FieldIndexing.Search);
