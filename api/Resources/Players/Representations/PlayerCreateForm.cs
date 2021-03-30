@@ -8,7 +8,7 @@ namespace AlphacA.Resources.Players.Representations
   {
     [EmailAddress]
     [Required]
-    [Display(Name = "Player email address")]
+    [Display(Name = "Email address")]
     [Description("Must be an email address")]
     public string EmailAddress { get; set; }
 

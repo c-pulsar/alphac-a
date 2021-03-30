@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Core;
 using AlphacA.Resources.Clubs.Indexing;
-using AlphacA.Resources.Players.Domain;
 using Raven.Client.Documents;
 
 namespace AlphacA.Resources.Clubs.Domain
@@ -95,23 +94,6 @@ namespace AlphacA.Resources.Clubs.Domain
       return session
         .Query<ClubSearch.Result, ClubSearch>()
         .Search(x => x.ClubData, searchText)
-        .ToArray();
-    }
-
-    public IEnumerable<IResourceHeader> GetPlayers(string clubId)
-    {
-      using var session = documentStore.OpenSession();
-      return session
-        .Query<Player>()
-        .Where(x => x.ClubId == clubId)
-        .Select(x => new PlayerHeader
-         {
-           Id = x.Id,
-           FirstName = x.FirstName,
-           MiddleNames = x.MiddleNames,
-           LastName = x.LastName,
-           ProfileImageUrl = x.ProfileImageUrl
-         })
         .ToArray();
     }
   }

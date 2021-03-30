@@ -10,7 +10,9 @@ namespace AlphacA.Resources.Clubs
     {
       return services
         .AddTransient<ClubUriFactory>()
+        .AddTransient<ClubPlayerUriFactory>()
         .AddTransient<ClubRepresentationAdapter>()
+        .AddTransient<ClubPlayerRepresentationAdapter>()
         .AddTransient<ClubResourceHandler>();
     }
   }

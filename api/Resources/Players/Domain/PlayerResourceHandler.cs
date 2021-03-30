@@ -108,5 +108,22 @@ namespace AlphacA.Resources.Players.Domain
         .Search(x => x.PlayerData, searchText)
         .ToArray();
     }
+
+    public IEnumerable<IResourceHeader> GetClubPlayers(string clubId)
+    {
+      using var session = documentStore.OpenSession();
+      return session
+        .Query<Player>()
+        .Where(x => x.ClubId == clubId)
+        .Select(x => new PlayerHeader
+        {
+          Id = x.Id,
+          FirstName = x.FirstName,
+          MiddleNames = x.MiddleNames,
+          LastName = x.LastName,
+          ProfileImageUrl = x.ProfileImageUrl
+        })
+        .ToArray();
+    }
   }
 }

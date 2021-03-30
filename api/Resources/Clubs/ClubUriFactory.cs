@@ -22,16 +22,6 @@ namespace AlphacA.Resources.Clubs
         : new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(ClubRoutes.Collection, new { search })}");
     }
 
-    public Uri MakePlayersCollection(string id)
-    {
-      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(ClubRoutes.ClubPlayers, new { id })}");
-    }
-
-    public Uri MakePlayerCreateForm(string id)
-    {
-      return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(ClubRoutes.ClubPlayerCreateForm, new { id })}");
-    }
-
     public Uri MakeCreateForm()
     {
       return new Uri($"{apiUriConfiguration.BaseUri}{urlHelper.RouteUrl(ClubRoutes.CreateForm)}");
