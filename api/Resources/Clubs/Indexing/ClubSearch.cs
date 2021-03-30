@@ -21,7 +21,7 @@ namespace AlphacA.Resources.Clubs.Indexing
           x.Id,
           x.Name,
           x.ProfileImageUrl,
-          UserData = new[] { x.Name }
+          ClubData = new[] { x.Name }
         });
 
       Index(x => x.ClubData, FieldIndexing.Search);
