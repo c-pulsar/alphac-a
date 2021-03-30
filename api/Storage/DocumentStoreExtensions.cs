@@ -1,4 +1,5 @@
 using System;
+using AlphacA.Resources.Clubs.Indexing;
 using AlphacA.Resources.Users.Indexing;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Operations;
@@ -33,6 +34,10 @@ namespace AlphacA.Storage
       Console.WriteLine("## User search index initialisation started.");
       new UserSearch().Execute(store);
       Console.WriteLine("## User search index initialisation completed.");
+
+      Console.WriteLine("## Club search index initialisation started.");
+      new ClubSearch().Execute(store);
+      Console.WriteLine("## Club search index initialisation completed.");
 
       return store;
     }

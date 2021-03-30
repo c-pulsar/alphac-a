@@ -12,6 +12,7 @@ using AlphacA.Storage;
 using AlphacA.Exceptions;
 using AlphacA.Core;
 using AlphacA.Auth;
+using AlphacA.Resources.Clubs;
 
 namespace AlphacA
 {
@@ -36,6 +37,7 @@ namespace AlphacA
               .AddDocumentStore()
               .AddRoot()
               .AddUser()
+              .AddClub()
               .AddCors(o => o.AddPolicy("DefaultPolicy", builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
