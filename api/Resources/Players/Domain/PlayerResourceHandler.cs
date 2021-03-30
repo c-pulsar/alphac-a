@@ -2,54 +2,54 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AlphacA.Core;
-using AlphacA.Resources.Users.Indexing;
+using AlphacA.Resources.Players.Indexing;
 using AlphacA.Storage.CompareExchange;
 using Raven.Client.Documents;
 
-namespace AlphacA.Resources.Users.Domain
+namespace AlphacA.Resources.Players.Domain
 {
-  public class UserResourceHandler
+  public class PlayerResourceHandler
   {
     private readonly IDocumentStore documentStore;
     private readonly IClock clock;
 
-    public UserResourceHandler(
+    public PlayerResourceHandler(
       IDocumentStore documentStore, IClock clock)
     {
       this.documentStore = documentStore;
       this.clock = clock;
     }
 
-    public User Create(User user)
+    public Player Create(Player Player)
     {
-      user.CreatedAt = user.UpdatedAt = clock.UtcNow();
+      Player.CreatedAt = Player.UpdatedAt = clock.UtcNow();
 
       using var session = documentStore.OpenSession();
-      session.Store(user, Guid.NewGuid().ToString());
+      session.Store(Player, Guid.NewGuid().ToString());
 
       using (var compareExchangeScope = new CompareExchangeScope(documentStore))
       {
         compareExchangeScope
-          .Add($"usernames/{user.UserName}", user.Id, "Username already exist.");
+          .Add($"Playernames/{Player.PlayerName}", Player.Id, "Playername already exist.");
 
         session.SaveChanges();
         compareExchangeScope.Complete();
       }
 
-      return user;
+      return Player;
     }
 
-    public User Update(Guid id, User user)
+    public Player Update(Guid id, Player Player)
     {
       using var session = documentStore.OpenSession();
-      var existing = session.Load<User>(id.ToString());
+      var existing = session.Load<Player>(id.ToString());
       if (existing != null)
       {
         existing.UpdatedAt = clock.UtcNow();
-        existing.FirstName = user.FirstName;
-        existing.MiddleNames = user.MiddleNames;
-        existing.LastName = user.LastName;
-        existing.ProfileImageUrl = user.ProfileImageUrl;
+        existing.FirstName = Player.FirstName;
+        existing.MiddleNames = Player.MiddleNames;
+        existing.LastName = Player.LastName;
+        existing.ProfileImageUrl = Player.ProfileImageUrl;
 
         session.SaveChanges();
       }
@@ -60,10 +60,10 @@ namespace AlphacA.Resources.Users.Domain
     public bool Delete(Guid id)
     {
       using var session = documentStore.OpenSession();
-      var user = session.Load<User>(id.ToString());
-      if (user != null)
+      var Player = session.Load<Player>(id.ToString());
+      if (Player != null)
       {
-        user.Status = UserStatus.Deleted;
+        Player.Status = PlayerStatus.Deleted;
         session.SaveChanges();
 
         return true;
@@ -72,13 +72,13 @@ namespace AlphacA.Resources.Users.Domain
       return false;
     }
 
-    public User Get(string id)
+    public Player Get(string id)
     {
       using var session = documentStore.OpenSession();
-      var user = session.Load<User>(id);
-      if (user != null && user.Status != UserStatus.Deleted)
+      var Player = session.Load<Player>(id);
+      if (Player != null && Player.Status != PlayerStatus.Deleted)
       {
-        return user;
+        return Player;
       }
 
       return null;
@@ -90,9 +90,9 @@ namespace AlphacA.Resources.Users.Domain
       if (string.IsNullOrWhiteSpace(searchText))
       {
         return session
-          .Query<User>()
-          .Where(x => x.Status != UserStatus.Deleted)
-          .Select(x => new UserHeader
+          .Query<Player>()
+          .Where(x => x.Status != PlayerStatus.Deleted)
+          .Select(x => new PlayerHeader
           {
             Id = x.Id,
             FirstName = x.FirstName,
@@ -104,8 +104,8 @@ namespace AlphacA.Resources.Users.Domain
       }
 
       return session
-        .Query<UserSearch.Result, UserSearch>()
-        .Search(x => x.UserData, searchText)
+        .Query<PlayerSearch.Result, PlayerSearch>()
+        .Search(x => x.PlayerData, searchText)
         .ToArray();
     }
   }

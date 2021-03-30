@@ -1,4 +1,3 @@
-using AlphacA.Resources.Users.Indexing;
 using Raven.Client.Documents;
 
 namespace AlphacA.Storage

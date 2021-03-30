@@ -1,6 +1,6 @@
 using System;
 using AlphacA.Resources.Clubs.Indexing;
-using AlphacA.Resources.Users.Indexing;
+using AlphacA.Resources.Players.Indexing;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Operations;
 using Raven.Client.Exceptions;
@@ -31,9 +31,9 @@ namespace AlphacA.Storage
 
     public static IDocumentStore InitialiseIndexes(this IDocumentStore store)
     {
-      Console.WriteLine("## User search index initialisation started.");
-      new UserSearch().Execute(store);
-      Console.WriteLine("## User search index initialisation completed.");
+      Console.WriteLine("## Player search index initialisation started.");
+      new PlayerSearch().Execute(store);
+      Console.WriteLine("## Player search index initialisation completed.");
 
       Console.WriteLine("## Club search index initialisation started.");
       new ClubSearch().Execute(store);

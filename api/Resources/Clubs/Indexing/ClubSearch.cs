@@ -13,7 +13,7 @@ namespace AlphacA.Resources.Clubs.Indexing
 
     public ClubSearch()
     {
-      Map = users => users
+      Map = clubs => clubs
       .Where(x => x.Status != ClubStatus.Deleted)
       .Select(x =>
         new

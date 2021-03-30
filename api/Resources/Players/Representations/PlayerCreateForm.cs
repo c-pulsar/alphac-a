@@ -1,10 +1,17 @@
 using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AlphacA.Resources.Users.Representations
+namespace AlphacA.Resources.Players.Representations
 {
-  public class UserEditForm
+  public class PlayerCreateForm
   {
+    [EmailAddress]
+    [Required]
+    [Display(Name = "Player name")]
+    [Description("Must be an email address")]
+    public string PlayerName { get; set; }
+
     [Required]
     [Display(Name = "First Name")]
     public string FirstName { get; set; }

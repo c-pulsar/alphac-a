@@ -1,27 +1,31 @@
-using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System;
+using AlphacA.Representations;
 
-namespace AlphacA.Resources.Users.Representations
+namespace AlphacA.Resources.Players.Representations
 {
-  public class UserCreateForm
+  public class PlayerRepresentation : Representation
   {
     [EmailAddress]
-    [Required]
-    [Display(Name = "Username")]
+    [Display(Name = "Playername")]
     [Description("Must be an email address")]
-    public string UserName { get; set; }
+    public string PlayerName { get; set; }
 
-    [Required]
     [Display(Name = "First Name")]
     public string FirstName { get; set; }
 
     [Display(Name = "Middle Names")]
     public string MiddleNames { get; set; }
 
-    [Required]
     [Display(Name = "Last Name")]
     public string LastName { get; set; }
+
+    [Display(Name = "Player Since")]
+    public DateTime CreatedAt { get; set; }
+
+    [Display(Name = "Last Updated")]
+    public DateTime UpdatedAt { get; set; }
 
     [Display(Name = "Profile Image URL")]
     public Uri ProfileImageUrl { get; set; }

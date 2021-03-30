@@ -9,7 +9,7 @@ namespace AlphacA.Resources.Clubs.Representations
     [Display(Name = "Club Name")]
     public string Name { get; set; }
 
-    [Display(Name = "User Since")]
+    [Display(Name = "Created At")]
     public DateTime CreatedAt { get; set; }
 
     [Display(Name = "Last Updated")]

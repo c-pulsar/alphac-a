@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AlphacA.Resources.Users.Representations
+namespace AlphacA.Resources.Players.Representations
 {
-  public class UserSearchForm
+  public class PlayerSearchForm
   {
     [Display(Name = "Search For")]
     [Required]

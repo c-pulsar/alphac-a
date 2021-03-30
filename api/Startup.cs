@@ -6,13 +6,13 @@ using Microsoft.Extensions.Hosting;
 using AlphacA.Configuration;
 using AlphacA.Representations;
 using AlphacA.Serialisation;
-using AlphacA.Resources.Users;
 using AlphacA.Resources.Root;
 using AlphacA.Storage;
 using AlphacA.Exceptions;
 using AlphacA.Core;
 using AlphacA.Auth;
 using AlphacA.Resources.Clubs;
+using AlphacA.Resources.Players;
 
 namespace AlphacA
 {
@@ -36,7 +36,7 @@ namespace AlphacA
               .AddExceptions()
               .AddDocumentStore()
               .AddRoot()
-              .AddUser()
+              .AddPlayer()
               .AddClub()
               .AddCors(o => o.AddPolicy("DefaultPolicy", builder => builder
                 .AllowAnyOrigin()

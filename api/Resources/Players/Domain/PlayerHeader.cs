@@ -1,9 +1,9 @@
 using System;
 using AlphacA.Core;
 
-namespace AlphacA.Resources.Users.Domain
+namespace AlphacA.Resources.Players.Domain
 {
-  public interface IUserHeader : IResourceHeader
+  public interface IPlayerHeader : IResourceHeader
   {
     string FirstName { get; set; }
 
@@ -12,7 +12,7 @@ namespace AlphacA.Resources.Users.Domain
     string LastName { get; set; }
   }
 
-  public class UserHeader : IUserHeader
+  public class PlayerHeader : IPlayerHeader
   {
     public string Id { get; set; }
 
