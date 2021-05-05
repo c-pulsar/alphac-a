@@ -29,42 +29,49 @@ namespace AlphacA.Resources.Players
     }
 
     [HttpGet("", Name = PlayerRoutes.Collection)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<RepresentationCollection> GetCollection(string search)
     {
       return this.adapter.Collection(resourceHandler.Find(search));
     }
 
     [HttpGet("schema", Name = PlayerRoutes.Schema)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<JsonSchema> GetSchema()
     {
       return this.schemaGenerator.Generate(typeof(PlayerRepresentation));
     }
 
     [HttpGet("create-form/schema", Name = PlayerRoutes.CreateFormSchema)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<JsonSchema> GetCreateFormSchema()
     {
       return this.schemaGenerator.Generate(typeof(PlayerCreateForm));
     }
 
     [HttpGet("edit-form/schema", Name = PlayerRoutes.EditFormSchema)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<JsonSchema> GetEditFormSchema()
     {
       return this.schemaGenerator.Generate(typeof(PlayerEditForm));
     }
 
     [HttpGet("search", Name = PlayerRoutes.SearchForm)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<SearchFormRepresentation> GetSearchForm()
     {
       return this.adapter.SearchForm();
     }
 
     [HttpGet("search/schema", Name = PlayerRoutes.SearchSchema)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<JsonSchema> GetSearchSchema()
     {
       return this.schemaGenerator.Generate(typeof(PlayerSearchForm));
     }
 
     [HttpGet("{id:Guid}", Name = PlayerRoutes.Player)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<PlayerRepresentation> Get(Guid id)
     {
       var player = resourceHandler.Get(id.ToString());
@@ -74,6 +81,7 @@ namespace AlphacA.Resources.Players
     }
 
     [HttpGet("{id:Guid}/edit-form", Name = PlayerRoutes.EditForm)]
+    [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<EditFormRepresentation> GetEditForm(Guid id)
     {
       var player = this.resourceHandler.Get(id.ToString());
