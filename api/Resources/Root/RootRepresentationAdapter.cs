@@ -39,6 +39,7 @@ namespace AlphacA.Resources.Root
 
         Title = "Football World",
         Resource = "Home",
+        About = "This is an application used to demonstrate the capabilities of the Web and of course provide some information about the most prestigious football clubs and players in the world.",
         Version = "0.1.0",
       };
     }

@@ -20,23 +20,23 @@ namespace AlphacA.Resources.Players.Domain
       this.clock = clock;
     }
 
-    public Player Create(Player Player)
+    public Player Create(Player player)
     {
-      Player.CreatedAt = Player.UpdatedAt = clock.UtcNow();
+      player.CreatedAt = player.UpdatedAt = clock.UtcNow();
 
       using var session = documentStore.OpenSession();
-      session.Store(Player, Guid.NewGuid().ToString());
+      session.Store(player, Guid.NewGuid().ToString());
 
       using (var compareExchangeScope = new CompareExchangeScope(documentStore))
       {
         compareExchangeScope
-          .Add($"Playernames/{Player.Email}", Player.Id, "Playername already exist.");
+          .Add($"player/{player.Email}", player.Id, "Player email already exist.");
 
         session.SaveChanges();
         compareExchangeScope.Complete();
       }
 
-      return Player;
+      return player;
     }
 
     public Player Update(Guid id, Player Player)
