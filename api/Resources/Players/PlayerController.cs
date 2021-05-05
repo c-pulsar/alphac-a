@@ -74,7 +74,7 @@ namespace AlphacA.Resources.Players
     [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 300)]
     public ActionResult<PlayerRepresentation> Get(Guid id)
     {
-      var player = resourceHandler.Get(id.ToString());
+      var player = this.resourceHandler.Get(id.ToString());
       return player != null
         ? this.adapter.Representation(player)
         : new SimpleErrorResult(404, "Player not found");
