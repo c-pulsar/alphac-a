@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Interpolation
 {
@@ -18,14 +19,14 @@ namespace Interpolation
         throw new ArgumentException($"Argument <{nameof(tokens)}> cannot be null or empty");
       }
 
-      string result = input;
-
-      foreach (var token in tokens)
-      {
-        result = result.Replace($"[{token.Key}]", token.Value);
-      }
-
-      return result.Replace("[[", "[").Replace("]]", "]");
+      return tokens
+        .Aggregate(
+          input, (current, token) =>
+          string.IsNullOrWhiteSpace(token.Key)
+            ? throw new FormatException("Invalid token format")
+            : current.Replace($"[{token.Key}]", token.Value))
+        .Replace("[[", "[")
+        .Replace("]]", "]");
     }
   }
 }
