@@ -83,11 +83,19 @@ namespace Interpolation
     }
 
     [Fact]
+    public void SingleMatchWithEscapeIsIgnored()
+    {
+      Assert.Equal(
+        "Hello [name]",
+        "Hello [[name]]".Interpolate(new Dictionary<string, string> { { "name", "Jim" } }));
+    }
+
+    [Fact]
     public void SingleMatchWithEscapeIsResolved()
     {
       Assert.Equal(
-        "Hello [Jim]",
-        "Hello [[name]]".Interpolate(new Dictionary<string, string> { { "name", "Jim" } }));
+        "Hello [name] Jim",
+        "Hello [[name]] [name]".Interpolate(new Dictionary<string, string> { { "name", "Jim" } }));
     }
 
     [Fact]
