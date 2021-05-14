@@ -99,6 +99,18 @@ namespace Interpolation
     }
 
     [Fact]
+    public void SingleMatchWithEscapeIsResolvedOnStart()
+    {
+      Assert.Equal(
+        "[name] is Jim",
+        "[[name]] is [name]".Interpolate(new Dictionary<string, string> { { "name", "Jim" } }));
+
+      Assert.Equal(
+        "Jim is [name]",
+        "[name] is [[name]]".Interpolate(new Dictionary<string, string> { { "name", "Jim" } }));
+    }
+
+    [Fact]
     public void EscapedStringIsIgnored()
     {
       Assert.Equal(

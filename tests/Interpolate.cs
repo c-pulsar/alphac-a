@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +25,9 @@ namespace Interpolation
         throw new FormatException("Invalid token format");
       }
 
-      var matches = Regex.Matches(input, @"\[\w+\]");
       var result = new StringBuilder();
       var position = 0;
-
-      foreach (Match match in matches)
+      foreach (Match match in Regex.Matches(input, @"\[\w+\]"))
       {
         if (match.Index > position)
         {
@@ -69,28 +66,6 @@ namespace Interpolation
         input[match.Index] == '[' &&
         nextIndex < input.Length &&
         input[nextIndex] == ']';
-    }
-
-    public static string Interpolate2(this string input, IDictionary<string, string> tokens)
-    {
-      if (string.IsNullOrWhiteSpace(input))
-      {
-        throw new ArgumentException($"Argument <{nameof(input)}> cannot be null or empty");
-      }
-
-      if (tokens == null || tokens.Count == 0)
-      {
-        throw new ArgumentException($"Argument <{nameof(tokens)}> cannot be null or empty");
-      }
-
-      return tokens
-        .Aggregate(
-          input, (current, token) =>
-          string.IsNullOrWhiteSpace(token.Key)
-            ? throw new FormatException("Invalid token format")
-            : current.Replace($"[{token.Key}]", token.Value))
-        .Replace("[[", "[")
-        .Replace("]]", "]");
     }
   }
 }
