@@ -1,12 +1,38 @@
 using System;
-using System.Diagnostics;
-using System.Linq;
 using Xunit;
 
-namespace Anagram
+namespace Anagram.Tests
 {
   public class AnagramTests
   {
+    [Fact]
+    public void NullValueParamThrowsException()
+    {
+      var ex = Assert.Throws<ArgumentException>(() => (null as string).IsAnagramWith("test"));
+      Assert.Equal("Argument <value> cannot be null or empty", ex.Message);
+    }
+
+    [Fact]
+    public void EmptyValueParamThrowsException()
+    {
+      var ex = Assert.Throws<ArgumentException>(() => string.Empty.IsAnagramWith("test"));
+      Assert.Equal("Argument <value> cannot be null or empty", ex.Message);
+    }
+
+    [Fact]
+    public void NullOtherValueParamThrowsException()
+    {
+      var ex = Assert.Throws<ArgumentException>(() => "test".IsAnagramWith(null));
+      Assert.Equal("Argument <otherValue> cannot be null or empty", ex.Message);
+    }
+
+    [Fact]
+    public void EmptyOtherValueParamThrowsException()
+    {
+      var ex = Assert.Throws<ArgumentException>(() => "test".IsAnagramWith(string.Empty));
+      Assert.Equal("Argument <otherValue> cannot be null or empty", ex.Message);
+    }
+
     [Theory]
     [InlineData("abc", "cde", false)]
     [InlineData("abc", "bca", true)]
@@ -22,24 +48,6 @@ namespace Anagram
     public void IsAnagram(string value, string otherValue, bool isAnagram)
     {
       Assert.Equal(value.IsAnagramWith(otherValue), isAnagram);
-    }
-
-    [Fact]
-    public void WriteAnagrams()
-    {
-      var search = "ralsbtosa";
-
-      var sw = new Stopwatch();
-
-      sw.Start();
-      var result = WebFile.ReadLines().Where(x => x.IsAnagramWith(search)).ToArray();
-      sw.Stop();
-      Console.WriteLine(sw.Elapsed);
-      foreach (var w in result)
-      {
-        Console.WriteLine(w);
-      }
-
     }
   }
 }
