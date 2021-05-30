@@ -8,10 +8,15 @@ namespace Anagram.Integration.Tests
 {
   public class FileDictionaryFixture
   {
-    private static IEnumerable<string> LoadDictionary(string fileAddress)
+    private static IEnumerable<string> LoadDictionary(string fileUrl)
     {
+      if (string.IsNullOrWhiteSpace(fileUrl))
+      {
+        throw new ArgumentException($"Argument <{nameof(fileUrl)}> cannot be null or empty");
+      }
+
       using var client = new WebClient();
-      using var stream = client.OpenRead(fileAddress);
+      using var stream = client.OpenRead(fileUrl);
       using var reader = new StreamReader(stream);
 
       return reader.ReadToEnd().Split(
